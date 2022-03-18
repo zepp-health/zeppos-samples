@@ -1,0 +1,42 @@
+
+msgid "unit"
+msgstr "KCAL"
+
+msgid "cake"
+msgstr "Cake"
+
+msgid "coffee"
+msgstr "Coffee"
+
+msgid "calories"
+msgstr "Calories"
+
+msgid "beer"
+msgstr "Beer"
+
+msgid "iceCream"
+msgstr "Ice cream"
+
+msgid "equivalent"
+msgstr "Equivalent to"
+
+msgid "hamburger"
+msgstr "Hamburger"
+
+msgid "pizza"
+msgstr "Pizza"
+
+msgid "chocolate"
+msgstr "Chocolate"
+
+msgid "consumption"
+msgstr "Consumption Today"
+
+msgid "sausage"
+msgstr "Sausage"
+
+msgid "ham"
+msgstr "Ham"
+
+msgid "cookie"
+msgstr "Cookie"

@@ -1,0 +1,5 @@
+msgid "todoList"
+msgstr "todo List"
+
+msgid "noData"
+msgstr "No data, please add it on the phone"
