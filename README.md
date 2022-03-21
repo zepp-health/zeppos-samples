@@ -9,7 +9,6 @@ Application
 * [Calories](./application/calories)
 * [HelloWorld](./application/hello-world)
 * [TodoList](./application/todo-list)
-* [Empty](./application/empty)
 
 Watchface
 
