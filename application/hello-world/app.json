@@ -1,107 +1,139 @@
 {
   "configVersion": "v2",
   "app": {
+    "appId": 20001,
+    "appName": "Hello World",
     "appType": "app",
     "version": {
       "code": 1,
-      "name": "1.0.0"
+      "name": "1.0.1"
     },
-    "appId": 20001,
-    "appName": "Hello World",
     "icon": "icon.png",
     "vender": "zepp",
-    "description": "hello world application"
+    "description": "hello world app"
   },
+  "permissions": [],
   "runtime": {
     "apiVersion": {
       "compatible": "1.0.0",
-      "target": "1.0.0",
+      "target": "1.0.1",
       "minVersion": "1.0.0"
     }
   },
+  "debug": false,
   "targets": {
-    "gtr-3-pro": {
+    "gtr3-pro": {
       "module": {
         "page": {
-          "pages": ["page/gtr-3/home/index.page"],
+          "pages": [
+            "page/gtr3-pro/home/index.page"
+          ],
           "window": {
             "navigationBarBackgroundColor": "#ffffff",
             "navigationBarTextStyle": "black",
-            "navigationBarTitleText": "",
+            "navigationBarTitleText": "Hello World",
             "backgroundColor": "#eeeeee",
             "backgroundTextStyle": "light"
           }
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
         }
       },
-      "designWidth": 480,
       "platforms": [
         {
-          "name": "gtr-3-pro",
+          "name": "gtr3-pro",
           "deviceSource": 229
         },
         {
-          "name": "gtr-3-prow",
+          "name": "gtr3-pro-w",
           "deviceSource": 230
         }
-      ]
+      ],
+      "designWidth": 480
     },
-    "gtr-3": {
+    "gtr3": {
       "module": {
         "page": {
-          "pages": ["page/gtr-3/home/index.page"],
+          "pages": [
+            "page/gtr3/home/index.page"
+          ],
           "window": {
             "navigationBarBackgroundColor": "#ffffff",
             "navigationBarTextStyle": "black",
-            "navigationBarTitleText": "",
+            "navigationBarTitleText": "Hello World",
             "backgroundColor": "#eeeeee",
             "backgroundTextStyle": "light"
           }
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
         }
       },
-      "designWidth": 454,
       "platforms": [
         {
-          "name": "gtr-3",
+          "name": "gtr3",
           "deviceSource": 226
         },
         {
-          "name": "gtr-3w",
+          "name": "gtr3-w",
           "deviceSource": 227
+        },
+        {
+          "name": "t-rex2",
+          "deviceSource": 418
+        },
+        {
+          "name": "t-rex2-w",
+          "deviceSource": 419
         }
-      ]
+      ],
+      "designWidth": 454
     },
-    "gts-3": {
+    "gts3": {
       "module": {
         "page": {
-          "pages": ["page/gtr-3/home/index.page"],
+          "pages": [
+            "page/gts3/home/index.page"
+          ],
           "window": {
             "navigationBarBackgroundColor": "#ffffff",
             "navigationBarTextStyle": "black",
-            "navigationBarTitleText": "",
+            "navigationBarTitleText": "Hello World",
             "backgroundColor": "#eeeeee",
             "backgroundTextStyle": "light"
           }
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
         }
       },
-      "designWidth": 390,
       "platforms": [
         {
-          "name": "gts-3",
+          "name": "gts3",
           "deviceSource": 224
         },
         {
-          "name": "gts-3w",
+          "name": "gts3-w",
           "deviceSource": 225
         }
-      ]
+      ],
+      "designWidth": 390
     }
   },
-  "permissions": [],
   "i18n": {
     "en-US": {
-      "name": "Hello World"
+      "appName": "Hello World"
     }
   },
-  "defaultLanguage": "en-US",
-  "debug": false
+  "defaultLanguage": "en-US"
 }

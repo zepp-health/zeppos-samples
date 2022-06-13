@@ -1,0 +1,2 @@
+msgid "appName"
+msgstr "HelloWorld"

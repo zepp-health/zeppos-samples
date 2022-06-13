@@ -1,12 +1,10 @@
-const logger = DeviceRuntimeCore.HmLogger.getLogger('hello-world-app')
-
 App({
   globalData: {},
-  onCreate() {
-    logger.debug('app onCreate invoked')
+  onCreate(options) {
+    console.log('app on create invoke')
   },
 
-  onDestroy() {
-    logger.debug('app onDestroy invoked')
-  },
+  onDestroy(options) {
+    console.log('app on destroy invoke')
+  }
 })

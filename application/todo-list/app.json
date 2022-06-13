@@ -97,6 +97,14 @@
         {
           "name": "gtr-3w",
           "deviceSource": 227
+        },
+        {
+          "name": "t-rex2",
+          "deviceSource": 418
+        },
+        {
+          "name": "t-rex2-w",
+          "deviceSource": 419
         }
       ]
     },

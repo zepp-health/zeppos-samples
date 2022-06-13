@@ -1,9 +1,6 @@
-import { gettext } from 'i18n'
+import { gettext } from "i18n"
 
-export const {
-  width: DEVICE_WIDTH,
-  height: DEVICE_HEIGHT
-} = hmSetting.getDeviceInfo()
+export const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = hmSetting.getDeviceInfo()
 
 export const TEXT_STYLE = {
   text: gettext('appName'),

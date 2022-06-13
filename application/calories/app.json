@@ -80,6 +80,14 @@
         {
           "name": "gts-3w",
           "deviceSource": 225
+        },
+        {
+          "name": "t-rex2",
+          "deviceSource": 418
+        },
+        {
+          "name": "t-rex2-w",
+          "deviceSource": 419
         }
       ],
       "designWidth": 390
