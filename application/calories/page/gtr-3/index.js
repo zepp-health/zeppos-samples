@@ -78,7 +78,7 @@ Page({
       ...EQUIVALENT_TO_BUTTON,
       click_func: () => {
         hmApp.gotoPage({
-          file: 'page/gtr-3/foodList',
+          file: 'page/gtr-3/food-list',
         })
       },
     })
