@@ -1,0 +1,54 @@
+{
+  "configVersion": "v2",
+  "app": {
+    "appId": 27280,
+    "appName": "Fetch API",
+    "appType": "app",
+    "version": {
+      "code": 1,
+      "name": "1.0.1"
+    },
+    "icon": "icon.png",
+    "vender": "zepp",
+    "description": "A sample application to demonstrate the fetch API"
+  },
+  "permissions": [],
+  "runtime": {
+    "apiVersion": {
+      "compatible": "1.0.0",
+      "target": "1.0.1",
+      "minVersion": "1.0.0"
+    }
+  },
+  "targets": {
+    "480x480-gtr-3-pro": {
+      "module": {
+        "page": {
+          "pages": [
+            "pages/index"
+          ]
+        },
+        "app-side": {
+          "path": "app-side/index"
+        }
+      },
+      "platforms": [
+        {
+          "name": "gtr3-pro",
+          "deviceSource": 229
+        },
+        {
+          "name": "gtr3-pro-w",
+          "deviceSource": 230
+        }
+      ],
+      "designWidth": 480
+    }
+  },
+  "i18n": {
+    "en-US": {
+      "appName": "Fetch API"
+    }
+  },
+  "defaultLanguage": "en-US"
+}
