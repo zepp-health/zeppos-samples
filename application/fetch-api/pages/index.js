@@ -12,9 +12,10 @@ Page({
   build() {
     hmUI.createWidget(hmUI.widget.BUTTON, {
       x: (DEVICE_WIDTH - px(400)) / 2,
-      y: px(240),
+      y: px(260),
       w: px(400),
       h: px(100),
+      text_size: px(36),
       radius: px(12),
       normal_color: DEFAULT_COLOR,
       press_color: DEFAULT_COLOR_TRANSPARENT,
@@ -27,7 +28,6 @@ Page({
   },
   fetchData() {
     messageBuilder.request({
-      jsonrpc: "hmrpcv2",
       method: "GET_DATA",
     })
     .then(data => {
@@ -37,7 +37,7 @@ Page({
 
       hmUI.createWidget(hmUI.widget.TEXT, {
         x: px(96),
-        y: px(40),
+        y: px(100),
         w: px(288),
         h: px(46),
         color: 0xffffff,

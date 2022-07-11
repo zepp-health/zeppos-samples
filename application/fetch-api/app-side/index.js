@@ -27,12 +27,12 @@ const fetchData = async (ctx) => {
     const { body: { data = {} } = {} } = await mockAPI()
 
     ctx.response({
-      data: { jsonrpc: 'hmrpcv1', result: data },
+      data: { result: data },
     })
 
   } catch (error) {
     ctx.response({
-      data: { jsonrpc: 'hmrpcv1', result: 'ERROR' },
+      data: { result: 'ERROR' },
     })
   }
 }

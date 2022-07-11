@@ -21,7 +21,6 @@ Page({
   getTodoList() {
     messageBuilder
       .request({
-        jsonrpc: 'hmrpcv2',
         method: 'GET_TODO_LIST',
         params: {},
       })
