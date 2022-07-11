@@ -21,7 +21,7 @@
     }
   },
   "targets": {
-    "480x480-gtr-3-pro": {
+    "common": {
       "module": {
         "page": {
           "pages": [
@@ -40,6 +40,30 @@
         {
           "name": "gtr3-pro-w",
           "deviceSource": 230
+        },
+        {
+          "name": "gtr3",
+          "deviceSource": 226
+        },
+        {
+          "name": "gtr3-w",
+          "deviceSource": 227
+        },
+        {
+          "name": "t-rex2",
+          "deviceSource": 418
+        },
+        {
+          "name": "t-rex2-w",
+          "deviceSource": 419
+        },
+        {
+          "name": "gts3",
+          "deviceSource": 224
+        },
+        {
+          "name": "gts3-w",
+          "deviceSource": 225
         }
       ],
       "designWidth": 480
