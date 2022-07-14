@@ -15,6 +15,17 @@ export const TITLE_TEXT_STYLE = {
   text_style: hmUI.text_style.WRAP,
 }
 
+export const ADD_BUTTON = {
+  text: gettext('add'),
+  x: px(30),
+  y: px(25),
+  w: px(120),
+  h: px(70),
+  normal_color: 0xfc6950,
+  press_color: 0xfeb4a8,
+  radius: px(12)
+}
+
 export const TIPS_TEXT_STYLE = {
   text: gettext('noData'),
   x: px(15),
