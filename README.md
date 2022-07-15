@@ -1,23 +1,22 @@
 # Watchface and Application code examples for ZeppOS
 
-## The Repository
+# The Repository
 
 An ZeppOS sample code repository containing sample code for watchface / application, you can find some examples here:
 
 Application
 
-- [Calories](./application/calories)
-- [HelloWorld](./application/hello-world)
-- [TodoList](./application/todo-list)
-- [FetchAPI](./application/fetch-api)
+* [Calories](./application/calories)
+* [HelloWorld](./application/hello-world)
+* [TodoList](./application/todo-list)
 
 Watchface
 
-- [Basketball](./watchface/basketball)
-- [ColorWorld](./watchface/color-world)
-- [Timer](./watchface/timer)
+* [Basketball](./watchface/basketball)
+* [ColorWorld](./watchface/color-world)
+* [Timer](./watchface/timer)
 
-_NOTICE：Please replace the `appId` in `app.json` before use._
+*NOTICE：Please replace the `appId` in `app.json` before use.*
 
 ## Documentation
 
@@ -29,8 +28,9 @@ Welcome community pull requests for contributing.
 
 ## Feedback
 
-- Ask a question on [Stack Overflow](https://stackoverflow.com/questions/tagged/ZeppOS)
-- File an issue
+* Ask a question on [Stack Overflow](https://stackoverflow.com/questions/tagged/ZeppOS)
+* File an issue
+
 
 ## License
 

@@ -6,7 +6,7 @@ AppSettingsPage({
     props: {},
   },
   addTodoList(val) {
-    this.state.todoList.push(val)
+    this.state.todoList = [...this.state.todoList, val]
     this.setItem()
   },
   editTodoList(val, index) {
@@ -14,7 +14,9 @@ AppSettingsPage({
     this.setItem()
   },
   deleteTodoList(index) {
-    this.state.todoList.splice(index, 1)
+    this.state.todoList = this.state.todoList.filter((_, ind) => {
+      return ind !== index
+    })
     this.setItem()
   },
   setItem() {
