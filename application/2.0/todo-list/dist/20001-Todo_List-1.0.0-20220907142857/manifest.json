@@ -1,0 +1,1 @@
+{"configVersion":"v2","zpks":[{"name":"gts.zpk","version":{"code":1,"name":"1.0.0"},"appType":"app","platforms":[{"name":"gts4","deviceSource":7995648},{"name":"gts4-w","deviceSource":7995649}],"md5":"19206a0cda6a25d9f944148aa4146cd1"}],"bundleInfo":{"zpm":"2.6.6","timeStamp":1662532137}}
