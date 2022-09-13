@@ -1,0 +1,42 @@
+
+msgid "unit"
+msgstr "KCAL"
+
+msgid "cake"
+msgstr "蛋糕"
+
+msgid "coffee"
+msgstr "咖啡"
+
+msgid "calories"
+msgstr "卡路里"
+
+msgid "beer"
+msgstr "啤酒"
+
+msgid "iceCream"
+msgstr "冰淇淋"
+
+msgid "equivalent"
+msgstr "相当于"
+
+msgid "hamburger"
+msgstr "汉堡包"
+
+msgid "pizza"
+msgstr "披萨"
+
+msgid "chocolate"
+msgstr "巧克力"
+
+msgid "consumption"
+msgstr "今日消耗"
+
+msgid "sausage"
+msgstr "香肠"
+
+msgid "ham"
+msgstr "火腿"
+
+msgid "cookie"
+msgstr "曲奇饼"

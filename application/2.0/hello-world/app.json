@@ -1,0 +1,101 @@
+{
+  "configVersion": "v2",
+  "app": {
+    "appId": 20001,
+    "appName": "Hello World",
+    "appType": "app",
+    "version": {
+      "code": 1,
+      "name": "1.0.1"
+    },
+    "icon": "icon.png",
+    "vender": "zepp",
+    "description": "hello world app"
+  },
+  "permissions": [
+    "data:os.device.info",
+    "device:os.local_storage"
+  ],
+  "runtime": {
+    "apiVersion": {
+      "compatible": "2.0.0",
+      "target": "2.0.0",
+      "minVersion": "2.0"
+    }
+  },
+  "debug": false,
+  "targets": {
+    "gtr": {
+      "module": {
+        "page": {
+          "pages": [
+            "page/gtr/home/index.page"
+          ],
+          "window": {
+            "navigationBarBackgroundColor": "#ffffff",
+            "navigationBarTextStyle": "black",
+            "navigationBarTitleText": "Hello World",
+            "backgroundColor": "#eeeeee",
+            "backgroundTextStyle": "light"
+          }
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
+        }
+      },
+      "platforms": [
+        {
+          "name": "gtr4",
+          "deviceSource": 7930112
+        },
+        {
+          "name": "gtr4-w",
+          "deviceSource": 7930113
+        }
+      ],
+      "designWidth": 466
+    },
+    "gts": {
+      "module": {
+        "page": {
+          "pages": [
+            "page/gts/home/index.page"
+          ],
+          "window": {
+            "navigationBarBackgroundColor": "#ffffff",
+            "navigationBarTextStyle": "black",
+            "navigationBarTitleText": "Hello World",
+            "backgroundColor": "#eeeeee",
+            "backgroundTextStyle": "light"
+          }
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
+        }
+      },
+      "platforms": [
+        {
+          "name": "gts4",
+          "deviceSource": 7995648
+        },
+        {
+          "name": "gts4-w",
+          "deviceSource": 7995649
+        }
+      ],
+      "designWidth": 390
+    }
+  },
+  "i18n": {
+    "en-US": {
+      "appName": "Hello World"
+    }
+  },
+  "defaultLanguage": "en-US"
+}
