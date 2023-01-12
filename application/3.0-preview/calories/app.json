@@ -1,0 +1,62 @@
+{
+  "configVersion": "v3",
+  "app": {
+    "appId": 20001,
+    "appName": "Calories",
+    "appType": "app",
+    "version": {
+      "code": 1,
+      "name": "1.0.0"
+    },
+    "icon": "icon.png",
+    "vender": "zepp",
+    "description": "calories application"
+  },
+  "permissions": [
+    "data:os.device.info",
+    "device:os.local_storage",
+    "data:user.hd.calorie"
+  ],
+  "runtime": {
+    "apiVersion": {
+      "compatible": "2.0.0",
+      "target": "2.0.0",
+      "minVersion": "2.0"
+    }
+  },
+  "targets": {
+    "gt": {
+      "module": {
+        "page": {
+          "pages": [
+            "page/gt/index",
+            "page/gt/food-list"
+          ]
+        },
+        "resource": {
+          "assets": {
+            "path": "gt.r"
+          }
+        }
+      },
+      "platforms": [
+        {
+          "st": "r"
+        },
+        {
+          "st": "s"
+        },
+        {
+          "st": "b"
+        }
+      ],
+      "designWidth": 480
+    }
+  },
+  "i18n": {
+    "en-US": {
+      "appName": "Calories"
+    }
+  },
+  "defaultLanguage": "en-US"
+}
