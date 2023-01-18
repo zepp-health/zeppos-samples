@@ -25,7 +25,17 @@
     "event:os.system.power_saving",
     "event:os.system.theater_mode",
     "event:os.system.no_disturb",
-    "event:customize.keyboard"
+    "event:customize.keyboard",
+    "data:os.device.info",
+    "device:os.alarm",
+    "device:os.accelerometer",
+    "device:os.geolocation",
+    "device:os.gyroscope",
+    "device:os.compass",
+    "data:user.hd.sleep",
+    "data:user.hd.heart_rate",
+    "data:user.hd.spo2",
+    "data:user.hd.stress"
   ],
   "runtime": {
     "apiVersion": {

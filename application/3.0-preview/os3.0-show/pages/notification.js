@@ -119,7 +119,7 @@ Page({
     } // end listNotificationList()
 
     // List notification list items
-    listNotificationList();
+    // listNotificationList();
 
     // Show tips
     hmUI.createWidget(hmUI.widget.TEXT, {

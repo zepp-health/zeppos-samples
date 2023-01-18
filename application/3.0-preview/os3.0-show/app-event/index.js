@@ -3,11 +3,10 @@ import * as router from '@zos/router'
 import * as appServiceMgr from '@zos/app-service'
 import { parseQuery } from '../libs/utils'
 
-var moduleName = "app-event-1";
+const moduleName = "app-event-1";
 
 function handleEvent(e) {
   if (e.event === undefined) {
-    // not event
     return;
   }
 
@@ -23,14 +22,14 @@ function handleEvent(e) {
 AppEvent({
   onEvent(e) {
     log.log(`${moduleName} onEvent(${e})`);
-    let result = parseQuery(e);
+    const result = parseQuery(e);
     handleEvent(result);
   },
   onInit(e) {
-    let result = parseQuery(e);
+    const result = parseQuery(e);
     handleEvent(result);
   },
   onDestroy() {
-    log.log("page on destroy invoke");
+    log.log("app-event on destroy invoke");
   },
 });

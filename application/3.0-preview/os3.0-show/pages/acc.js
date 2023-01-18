@@ -1,9 +1,7 @@
-import { getDeviceInfo } from '@zos/device'
 import hmUI from '@zos/ui'
 import { Accelerometer } from '@zos/sensor';
 import { log } from '@zos/utils'
-
-const { height: DEVICE_HEIGHT, width: DEVICE_WIDTH } = getDeviceInfo();
+import { DEVICE_WIDTH } from '../libs/utils'
 
 const BUTTON_X = 50;
 const BUTTON_Y = 80;

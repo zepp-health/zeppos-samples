@@ -2,6 +2,7 @@ import { getDeviceInfo } from "@zos/device";
 import { log } from "@zos/utils";
 import { replace } from "@zos/router";
 import * as appService from "@zos/app-service";
+import hmUI from "@zos/ui";
 
 const { width: DEVICE_WIDTH } = getDeviceInfo();
 
