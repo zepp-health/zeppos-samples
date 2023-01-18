@@ -288,13 +288,15 @@ function timerCB() {
 
 function animStart() {
   if (animTimer === null) {
-    animTimer = timer.createTimer(0, 100, timerCB, undefined);
+    // animTimer = timer.createTimer(0, 100, timerCB, undefined);
+    animTimer = setInterval(timerCB, 100);
   }
 }
 
 function animStop() {
   if (animTimer != null) {
-    timer.stopTimer(animTimer);
+    // timer.stopTimer(animTimer);
+    clearInterval(animTimer);
     animTimer = null;
   }
 }
