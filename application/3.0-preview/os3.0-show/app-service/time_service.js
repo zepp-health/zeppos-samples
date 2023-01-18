@@ -4,8 +4,8 @@ import * as notificationMgr from '@zos/notification'
 import * as appServiceMgr from '@zos/app-service'
 import { Time } from '@zos/sensor'
 
-var moduleName = "Time Service";
-var timeSensor = new Time();
+const moduleName = "Time Service";
+const timeSensor = new Time();
 
 // Send a notification
 function sendNotification() {
@@ -37,18 +37,18 @@ AppService({
   onInit(e) {
     log.log(`service onInit(${e})`);
 
-    timeSensor.onPerMinute(function () {
+    timeSensor.onPerMinute(() => {
       log.log(
         `${moduleName} time report: ${timeSensor.getHours()}:${timeSensor.getMinutes()}:${timeSensor.getSeconds()}`
       );
       sendNotification();
     });
 
-    timeSensor.onPerDay(function () {
+    timeSensor.onPerDay(() => {
       log.log(moduleName + " === day change ===");
     });
   },
   onDestroy() {
-    log.log("page on destroy invoke");
+    log.log("service on destroy invoke");
   },
 });

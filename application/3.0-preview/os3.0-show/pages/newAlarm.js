@@ -2,6 +2,7 @@ import { getDeviceInfo } from "@zos/device";
 import hmUI from "@zos/ui";
 import { log as logger } from "@zos/utils";
 import * as alarmMgr from '@zos/alarm'
+import { onGesture, offGesture, GESTURE_RIGHT } from "@zos/interaction";
 
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = getDeviceInfo();
 
@@ -41,7 +42,7 @@ let alarmObj = {
   param: "alarm time due!",
   //time: dateTime.UTC()/1000,
   store: true,
-  repeat_type: hmApp.repeat_type.ONCE,
+  repeat_type: alarmMgr.REPEAT_ONCE,
   repeat_period: 1,
   repeat_duration: 1,
   week_days: 0,
@@ -52,9 +53,9 @@ let alarmBtn = null;
 
 Page({
   onInit() {
-    hmApp.registerGestureEvent(function (event) {
+    onGesture(function (event) {
       switch (event) {
-        case hmApp.gesture.RIGHT:
+        case GESTURE_RIGHT:
           if (vc) {
             //! in dialog
             return true;
@@ -504,6 +505,6 @@ Page({
     });
   },
   onDestroy() {
-    hmApp.unregisterGestureEvent();
+    offGesture()
   },
 });

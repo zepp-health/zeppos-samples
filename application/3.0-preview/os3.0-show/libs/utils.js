@@ -1,3 +1,7 @@
+import { getDeviceInfo } from '@zos/device'
+
+export const { height: DEVICE_HEIGHT, width: DEVICE_WIDTH } = getDeviceInfo();
+
 export function parseQuery(queryString) {
   var query = {};
   var pairs = (
