@@ -6,12 +6,14 @@ An ZeppOS sample code repository containing sample code for watchface / applicat
 
 Application
 
-* [Calories](./application/calories)
-* [HelloWorld](./application/hello-world)
-* [TodoList](./application/todo-list)
+* HelloWorld [1.0](./application/1.0/hello-world) | [2.0](./application/2.0/hello-world)
+* Calories [1.0](./application/1.0/calories) | [2.0](./application/2.0/calories/)
+* TodoList [1.0](./application/1.0/todo-list) | [2.0](./application/2.0/todo-list)
+* FetchApi [1.0](./application/1.0/fetch-api) | [2.0](./application/2.0/fetch-api)
 
 Watchface
 
+* [Simple](./watchface/simple)
 * [Basketball](./watchface/basketball)
 * [ColorWorld](./watchface/color-world)
 * [Timer](./watchface/timer)
