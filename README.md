@@ -10,6 +10,7 @@ Application
 * Calories [1.0](./application/1.0/calories) | [2.0](./application/2.0/calories/)
 * TodoList [1.0](./application/1.0/todo-list) | [2.0](./application/2.0/todo-list)
 * FetchApi [1.0](./application/1.0/fetch-api) | [2.0](./application/2.0/fetch-api)
+* ShowCase [2.0](./application/2.0/showcase)
 
 Watchface
 
