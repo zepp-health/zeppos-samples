@@ -1,0 +1,81 @@
+{
+  "configVersion": "v2",
+  "app": {
+    "appId": 25107,
+    "appName": "ZeppOSShowcase",
+    "appType": "app",
+    "version": {
+      "code": 1,
+      "name": "1.0.0"
+    },
+    "icon": "icon.png",
+    "vender": "zepp",
+    "description": "empty application"
+  },
+  "permissions": [
+    "data:os.device.info",
+    "data:user.hd.spo2",
+    "data:user.hd.calorie",
+    "data:user.hd.distance",
+    "data:user.hd.fat_burning",
+    "data:user.hd.heart_rate",
+    "data:user.hd.pai",
+    "data:user.hd.sleep",
+    "data:user.hd.stand",
+    "data:user.hd.step",
+    "data:user.hd.stress"
+  ],
+  "runtime": {
+    "apiVersion": {
+      "compatible": "2.0.0",
+      "target": "2.0.0",
+      "minVersion": "2.0.0"
+    }
+  },
+  "targets": {
+    "gt4": {
+      "module": {
+        "page": {
+          "pages": [
+            "page/index",
+            "page/sensor/blood_oxygen",
+            "page/sensor/calorie",
+            "page/sensor/distance",
+            "page/sensor/fat_burning",
+            "page/sensor/heart_rate",
+            "page/sensor/pai",
+            "page/sensor/sleep",
+            "page/sensor/stand",
+            "page/sensor/step",
+            "page/sensor/stress"
+          ]
+        }
+      },
+      "platforms": [
+        {
+          "name": "gtr4",
+          "deviceSource": 7930112
+        },
+        {
+          "name": "gtr4-w",
+          "deviceSource": 7930113
+        },
+        {
+          "name": "gts",
+          "deviceSource": 7995648
+        },
+        {
+          "name": "gts-w",
+          "deviceSource": 7995649
+        }
+      ],
+      "designWidth": 480
+    }
+  },
+  "i18n": {
+    "en-US": {
+      "appName": "ZeppOSShowcase"
+    }
+  },
+  "defaultLanguage": "en-US"
+}
