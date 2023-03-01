@@ -1,6 +1,6 @@
 import { getDeviceInfo } from "@zos/device";
 import hmUI from "@zos/ui";
-import { log as logger } from "@zos/utils";
+import { log } from "@zos/utils";
 import * as alarmMgr from '@zos/alarm'
 import { onGesture, offGesture, GESTURE_RIGHT } from "@zos/interaction";
 
@@ -51,6 +51,8 @@ let alarmObj = {
 };
 let alarmBtn = null;
 
+const logger = log.getLogger('create-alarm.page')
+
 Page({
   onInit() {
     onGesture(function (event) {
@@ -75,6 +77,7 @@ Page({
       // }
       // check more params
       let id = alarmMgr.set(alarmObj);
+      logger.log('alarm= > %d', id)
       refreshSetup(id == 0 ? "failed" : id);
     }
 
@@ -85,6 +88,7 @@ Page({
     }
 
     function refreshSetup(alarmId) {
+      logger.log('alarmBtn', typeof alarmBtn.setProperty)
       if (alarmId === undefined)
         alarmBtn.setProperty(hmUI.prop.TEXT, `Setup Alarm`);
       else alarmBtn.setProperty(hmUI.prop.TEXT, `Setup Alarm (${alarmId})`);
@@ -484,9 +488,9 @@ Page({
       y: 80 + BUTTON_OY * 5,
       checked: alarmObj.store,
       checked_change_func: (slideSwitch, checked) => {
-        alarmObj.store = checked;
-        refreshSetup();
         logger.log("=== alarm store: " + checked);
+        alarmObj.store = checked;
+        // refreshSetup();
       },
     });
 

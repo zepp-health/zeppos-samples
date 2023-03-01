@@ -1,6 +1,6 @@
 import { getDeviceInfo } from "@zos/device";
 import hmUI from "@zos/ui";
-import { log as logger } from "@zos/utils";
+import { log } from "@zos/utils";
 
 const { height: DEVICE_HEIGHT, width: DEVICE_WIDTH } = getDeviceInfo();
 
@@ -28,7 +28,7 @@ let button = {
 };
 
 let animTimer = null;
-
+const logger = log.getLogger('canvas.page')
 Page({
   onInit() {
     logger.log("page on init invoke");

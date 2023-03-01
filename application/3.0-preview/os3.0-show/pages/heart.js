@@ -1,6 +1,6 @@
 import { getDeviceInfo } from "@zos/device";
 import hmUI from "@zos/ui";
-import { log as logger } from "@zos/utils";
+import { log } from "@zos/utils";
 import { HeartRate } from "@zos/sensor";
 
 const { height: DEVICE_HEIGHT, width: DEVICE_WIDTH } = getDeviceInfo();
@@ -26,6 +26,8 @@ var info = null;
 var scene = 23;
 var text_info = null;
 var show_text = "";
+
+const logger = log.getLogger('heart.page')
 Page({
   onInit() {
     logger.log("page on init invoke");

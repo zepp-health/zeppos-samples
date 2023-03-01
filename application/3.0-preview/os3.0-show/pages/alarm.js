@@ -40,7 +40,7 @@ const INFO_TEXT = {
 };
 
 let thisFile = "pages/alarm";
-
+const logger = log.getLogger('alarm.page')
 Page({
   onInit() {
     log.log("page on init invoke");

@@ -30,14 +30,15 @@ const STOP_BUTTON = {
   radius: 16,
 };
 
-var acc = new Accelerometer();
-var text = null;
+const logger = log.getLogger('acc.page')
+const acc = new Accelerometer();
 
+let textWidget = null;
 Page({
   onInit() {
-    log.log("page on init invoke");
+    logger.log("page on init invoke");
 
-    text = hmUI.createWidget(hmUI.widget.TEXT, {
+    textWidget = hmUI.createWidget(hmUI.widget.TEXT, {
       x: BUTTON_X + 20,
       y: BUTTON_Y + BUTTON_H * 4,
       w: BUTTON_W,
@@ -47,18 +48,17 @@ Page({
       color: 0x34e073,
     });
 
-
     acc.onChange(function (cb_info) {
-      var show_text =
+      const show_text =
         "acc info\nx:" + cb_info.x + "\ny:" + cb_info.y + "\nz:" + cb_info.z;
-      text.setProperty(hmUI.prop.TEXT, show_text);
+      textWidget.setProperty(hmUI.prop.TEXT, show_text);
     });
 
     hmUI.createWidget(hmUI.widget.BUTTON, {
       ...START_BUTTON,
       text: "START ACC",
       click_func: () => {
-        log.log("click to start acc");
+        logger.log("click to start acc");
         acc.start();
       },
     });
@@ -67,16 +67,16 @@ Page({
       ...STOP_BUTTON,
       text: "STOP ACC",
       click_func: () => {
-        log.log("click to stop acc");
+        logger.log("click to stop acc");
         acc.stop();
       },
     });
   },
   build() {
-    log.log("page build invoke");
+    logger.log("page build invoke");
   },
   onDestroy() {
-    log.log("page on destroy invoke");
+    logger.log("page on destroy invoke");
     acc && acc.stop();
   },
 });

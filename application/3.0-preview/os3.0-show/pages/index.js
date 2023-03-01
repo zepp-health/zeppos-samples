@@ -1,6 +1,6 @@
 import { getDeviceInfo } from "@zos/device";
 import hmUI from "@zos/ui";
-import { log as logger } from "@zos/utils";
+import { log } from "@zos/utils";
 import { push } from "@zos/router";
 
 const { height: DEVICE_HEIGHT, width: DEVICE_WIDTH } =
@@ -21,6 +21,8 @@ const BUTTON = {
   normal_color: 0xef5350,
 };
 
+const logger = log.getLogger('index.page')
+
 Page({
   onCreate(e) {
     logger.log("app on create invoke");
@@ -40,7 +42,7 @@ Page({
       text_size: 32,
       align_h: hmUI.align.CENTER_H,
       color: 0xffffff,
-      text: "JS Demo App\nWelcome to Zepp OS 3.0",
+      text: "New Feature\nWelcome to Zepp OS 3.0",
     });
 
     hmUI.createWidget(hmUI.widget.BUTTON, {
@@ -81,7 +83,7 @@ Page({
       text: "Canvas",
       click_func: function (button) {
         push({
-          url: "pages/canvas_os3_preview",
+          url: "pages/canvas",
         });
       },
     });
