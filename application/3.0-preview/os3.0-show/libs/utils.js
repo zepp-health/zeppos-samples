@@ -3,6 +3,9 @@ import { getDeviceInfo } from '@zos/device'
 export const { height: DEVICE_HEIGHT, width: DEVICE_WIDTH } = getDeviceInfo();
 
 export function parseQuery(queryString) {
+  if (!queryString) {
+    return {}
+  }
   var query = {};
   var pairs = (
     queryString[0] === "?" ? queryString.substr(1) : queryString

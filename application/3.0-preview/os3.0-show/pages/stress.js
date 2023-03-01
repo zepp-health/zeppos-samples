@@ -1,6 +1,6 @@
 import { getDeviceInfo } from "@zos/device";
 import hmUI from "@zos/ui";
-import { log as logger } from "@zos/utils";
+import { log } from "@zos/utils";
 import { Stress } from "@zos/sensor";
 
 const { height: DEVICE_HEIGHT, width: DEVICE_WIDTH } = getDeviceInfo();
@@ -26,6 +26,8 @@ var info = null;
 var scene = 23;
 var text_info = null;
 var show_text = "";
+
+const logger = log.getLogger('stress.page')
 Page({
   onInit() {
     logger.log("page on init invoke");
@@ -88,7 +90,7 @@ Page({
       text: "All 24 hours Stress",
       click_func: () => {
         show_text = "";
-        let allHours = stressSr.getDailyAverage();
+        let allHours = stressSr.getTodayByHour();
         if (allHours != undefined) {
           for (let index = 0; index < allHours.length; index++) {
             if (allHours[index] != 0) {
@@ -146,7 +148,7 @@ Page({
       text: "getDailyAverage",
       click_func: () => {
         show_text = "";
-        let allDays = stressSr.getDailyAverage();
+        let allDays = stressSr.getLastWeekByHour();
         if (allDays != undefined) {
           for (let index = 0; index < allDays.length; index++) {
             if (allDays[index] != 0) {

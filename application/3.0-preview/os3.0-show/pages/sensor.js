@@ -1,6 +1,6 @@
 import { getDeviceInfo } from "@zos/device";
 import hmUI from "@zos/ui";
-import { log as logger } from "@zos/utils";
+import { log } from "@zos/utils";
 import { push } from "@zos/router";
 
 const { height: DEVICE_HEIGHT, width: DEVICE_WIDTH } = getDeviceInfo();
@@ -20,6 +20,7 @@ const BUTTON = {
   normal_color: 0xef5350,
 };
 
+const logger = log.getLogger('sensor')
 Page({
   onCreate(e) {
     logger.log("app on create invoke");
@@ -39,7 +40,7 @@ Page({
       text_size: 32,
       align_h: hmUI.align.CENTER_H,
       color: 0xffffff,
-      text: "JS Demo Health & Pos Sensor",
+      text: "OS3.0 Health & Pos Sensor",
     });
 
     hmUI.createWidget(hmUI.widget.BUTTON, {

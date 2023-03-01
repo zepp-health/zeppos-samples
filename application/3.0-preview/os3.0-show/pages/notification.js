@@ -1,6 +1,6 @@
 import { getDeviceInfo } from "@zos/device";
 import hmUI from "@zos/ui";
-import { log as logger } from "@zos/utils";
+import { log } from "@zos/utils";
 import * as notificationMgr from "@zos/notification";
 import { replace } from "@zos/router";
 
@@ -41,6 +41,8 @@ const INFO_TEXT = {
 
 let thisFile = "pages/notification";
 
+const logger = log.getLogger('notification.page')
+
 Page({
   onInit() {
     logger.log("page on init invoke");
@@ -73,11 +75,6 @@ Page({
     function listNotificationList() {
       let notifications = notificationMgr.getAllNotifications();
       if (notifications.length == 0) {
-        // // no notification
-        // hmUI.createWidget(hmUI.widget.TEXT, {
-        //   ...INFO_TEXT,
-        //   text: `No notification!`,
-        // });
       } else {
         // fill bg
         let btn_h = BUTTON_OY * notifications.length;
@@ -86,12 +83,7 @@ Page({
           ...BG_RECT,
           h: bg_h < DEVICE_HEIGHT ? DEVICE_HEIGHT : bg_h,
         });
-        // // show count
-        // hmUI.createWidget(hmUI.widget.TEXT, {
-        //   ...INFO_TEXT,
-        //   y: BUTTON_Y - 80,
-        //   text: `Notification count: ${notifications.length}\n Click to delete`,
-        // });
+
         // list notifications
         notifications.forEach((b, i) => {
           hmUI.createWidget(hmUI.widget.BUTTON, {
@@ -119,7 +111,7 @@ Page({
     } // end listNotificationList()
 
     // List notification list items
-    // listNotificationList();
+    listNotificationList();
 
     // Show tips
     hmUI.createWidget(hmUI.widget.TEXT, {

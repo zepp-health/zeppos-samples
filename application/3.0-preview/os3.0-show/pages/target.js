@@ -1,11 +1,12 @@
 import { getDeviceInfo } from "@zos/device";
 import hmUI from "@zos/ui";
-import { log as logger } from "@zos/utils";
+import { log } from "@zos/utils";
 
 let from;
 
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = getDeviceInfo();
 
+const logger = log.getLogger('target.page')
 Page({
   onInit(param) {
     logger.log("page on init invoke");

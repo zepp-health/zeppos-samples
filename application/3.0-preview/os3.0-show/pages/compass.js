@@ -1,6 +1,6 @@
 import { getDeviceInfo } from "@zos/device";
 import hmUI from "@zos/ui";
-import { log as logger } from "@zos/utils";
+import { log } from "@zos/utils";
 import { Compass } from "@zos/sensor";
 
 const { height: DEVICE_HEIGHT, width: DEVICE_WIDTH } = getDeviceInfo();
@@ -34,7 +34,7 @@ const STOP_BUTTON = {
 
 var compass = new Compass();
 var text = null;
-
+const logger = log.getLogger('compass.page')
 Page({
   onInit() {
     logger.log("page on init invoke");

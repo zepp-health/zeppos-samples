@@ -1,6 +1,6 @@
 import { getDeviceInfo } from "@zos/device";
 import hmUI from "@zos/ui";
-import { log as logger } from "@zos/utils";
+import { log } from "@zos/utils";
 import { Gyroscope } from "@zos/sensor";
 
 const { height: DEVICE_HEIGHT, width: DEVICE_WIDTH } = getDeviceInfo();
@@ -35,7 +35,7 @@ const STOP_BUTTON = {
 
 var gyro = new Gyroscope();
 var text = null;
-
+const logger = log.getLogger('gyro.page')
 Page({
   onInit() {
     logger.log("page on init invoke");
@@ -50,7 +50,7 @@ Page({
       color: 0x34e073,
     });
 
-    gyro.onChange(hmSensor.event.CHANGE, function (cb_info) {
+    gyro.onChange(function (cb_info) {
       var show_text =
         "gryo info\nx:" + cb_info.x + "\ny:" + cb_info.y + "\nz:" + cb_info.z;
       text.setProperty(hmUI.prop.TEXT, show_text);

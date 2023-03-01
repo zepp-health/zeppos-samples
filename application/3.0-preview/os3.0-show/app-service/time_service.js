@@ -7,11 +7,14 @@ import { Time } from '@zos/sensor'
 const moduleName = "Time Service";
 const timeSensor = new Time();
 
+const logger = log.getLogger('time.service')
+
 // Send a notification
 function sendNotification() {
+  logger.log('send notification')
   notificationMgr.notify({
     title: "Time Service",
-    content: `Now the time is ${timeSensor.hour}:${timeSensor.minute}:${timeSensor.second}`,
+    content: `Now the time is ${timeSensor.getHours()}:${timeSensor.getMinutes()}:${timeSensor.getSeconds()}`,
     actions: [
       {
         text: "Home Page",
@@ -28,27 +31,27 @@ function sendNotification() {
 
 AppService({
   onEvent(e) {
-    log.log(`service onEvent(${e})`);
+    logger.log(`service onEvent(${e})`);
     let result = parseQuery(e);
     if (result.action === "exit") {
       appServiceMgr.exit();
     }
   },
   onInit(e) {
-    log.log(`service onInit(${e})`);
+    logger.log(`service onInit(${e})`);
 
     timeSensor.onPerMinute(() => {
-      log.log(
+      logger.log(
         `${moduleName} time report: ${timeSensor.getHours()}:${timeSensor.getMinutes()}:${timeSensor.getSeconds()}`
       );
       sendNotification();
     });
 
     timeSensor.onPerDay(() => {
-      log.log(moduleName + " === day change ===");
+      logger.log(moduleName + " === day change ===");
     });
   },
   onDestroy() {
-    log.log("service on destroy invoke");
+    logger.log("service on destroy invoke");
   },
 });
