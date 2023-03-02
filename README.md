@@ -14,10 +14,10 @@ Application
 
 Watchface
 
-* [Simple](./watchface/simple)
-* [Basketball](./watchface/basketball)
-* [ColorWorld](./watchface/color-world)
-* [Timer](./watchface/timer)
+* Simple [1.0](./watchface/1.0/simple)
+* Basketball [1.0](./watchface/1.0/basketball)
+* ColorWorld [1.0](./watchface/1.0/color-world)
+* Timer [1.0](./watchface/1.0/timer)
 
 *NOTICE：Please replace the `appId` in `app.json` before use.*
 
