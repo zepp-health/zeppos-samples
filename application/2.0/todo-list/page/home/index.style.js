@@ -22,7 +22,7 @@ export const ADD_BUTTON = {
   text: getText('add'),
   x: px(30),
   y: px(65),
-  w: px(120),
+  w: px(80),
   h: px(50),
   normal_color: 0xfc6950,
   press_color: 0xfeb4a8,

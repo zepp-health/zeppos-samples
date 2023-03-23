@@ -1,18 +1,15 @@
 import { log as Logger } from '@zos/utils'
-import LocalStorage from './utils/storage'
+import { localStorage } from '@zos/storage'
 
 const logger = Logger.getLogger('calories-app')
-const fileName = 'calorie_data.txt'
 
 App({
   globalData: {
-    foodType: 'chocolate',
-    localStorage: null
+    foodType: '',
   },
   onCreate() {
     try {
-      this.globalData.localStorage = new LocalStorage(fileName)
-      const { foodType = 'chocolate' } = this.globalData.localStorage.get()
+      const { foodType = 'chocolate' } = localStorage.getItem('calorie', {})
       this.globalData.foodType = foodType
 
     } catch (e) {
@@ -20,9 +17,5 @@ App({
     }
   },
 
-  onDestroy() {
-    this.globalData.localStorage.set({
-      foodType: getApp()._options.globalData.foodType
-    })
-  },
+  onDestroy() {},
 })

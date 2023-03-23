@@ -1,6 +1,7 @@
 import * as hmUI from '@zos/ui'
 import { back } from '@zos/router'
 import { log as Logger, px } from '@zos/utils'
+import { localStorage } from '@zos/storage'
 
 import {
   FOOD_LIST_Y,
@@ -28,6 +29,9 @@ Page({
   setPrograms(index) {
     this.state.activeIndex = index
     globalData.foodType = FOOD_CALORIES[index].type
+    localStorage.setItem('calorie', {
+      foodType: globalData.foodType
+    })
     back()
   },
   buildFoodList() {

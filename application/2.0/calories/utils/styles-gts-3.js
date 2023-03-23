@@ -16,7 +16,6 @@ export const COMMON_TITLE_TEXT = {
   align_v: hmUI.align.LEFT,
   text_style: hmUI.text_style.WRAP,
 }
-
 export const ALIGN_DESC_GROUP = {
   x: 0,
   y: px(80),
