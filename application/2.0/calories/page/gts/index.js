@@ -1,4 +1,4 @@
-import * as hmUI from '@zos/ui'
+import { getTextLayout, createWidget, widget } from '@zos/ui'
 import { push } from '@zos/router'
 import { getText } from '@zos/i18n'
 import { Calorie } from '@zos/sensor'
@@ -30,12 +30,12 @@ const globalData = getApp()._options.globalData
 
 Page({
   buildTopContent(calories) {
-    const { width: w1 } = hmUI.getTextLayout('' + calories, {
+    const { width: w1 } = getTextLayout('' + calories, {
       text_size: CALORIE_TEXT_SIZE,
       text_width: 0,
       wrapped: 0
     })
-    const { width: w2 } = hmUI.getTextLayout(getText('unit'), {
+    const { width: w2 } = getTextLayout(getText('unit'), {
       text_size: UNIT_TEXT_SIZE,
       text_width: 0,
       wrapped: 0
@@ -45,30 +45,30 @@ Page({
       w1 + w2 + CONSUME_ICON_WIDTH + IMGAE_CALORIES_MARIN + CALORIES_UNIT_MARIN
     const x = Math.round((DEVICE_WIDTH - w) / 2)
 
-    const group = hmUI.createWidget(hmUI.widget.GROUP, {
+    const group = createWidget(widget.GROUP, {
       ...ALIGN_DESC_GROUP,
       x,
       w,
     })
 
-    group.createWidget(hmUI.widget.TEXT, {
+    group.createWidget(widget.TEXT, {
       ...CALORIE_TEXT,
       text: `${calories}`,
       x: CONSUME_ICON_WIDTH + IMGAE_CALORIES_MARIN,
       w: w1,
     })
-    group.createWidget(hmUI.widget.TEXT, {
+    group.createWidget(widget.TEXT, {
       ...UNIT_TEXT,
       x: w - w2,
       w: w2,
     })
-    group.createWidget(hmUI.widget.IMG, CONSUME_ICON)
+    group.createWidget(widget.IMG, CONSUME_ICON)
   },
   build() {
     let calories = new Calorie().getCurrent() // Math.floor(Math.random() * 1000)
     let currentFood = globalData.foodType
 
-    hmUI.createWidget(hmUI.widget.TEXT, TOTAL_CONSUME_TEXT)
+    createWidget(widget.TEXT, TOTAL_CONSUME_TEXT)
 
     this.buildTopContent(calories)
 
@@ -76,7 +76,7 @@ Page({
       (item) => item.type === currentFood,
     )
     this.calculate(calories, FOOD_CALORIES[activeIndex])
-    hmUI.createWidget(hmUI.widget.BUTTON, {
+    createWidget(widget.BUTTON, {
       ...EQUIVALENT_TO_BUTTON,
       click_func: () => {
         push({
@@ -102,15 +102,15 @@ Page({
       }
     } else {
       this.drawFood(EQUIVALENT_MORE_X, type) // icon
-      hmUI.createWidget(hmUI.widget.IMG, EQUIVALENT_MORE_FOOD_ICON)
-      hmUI.createWidget(hmUI.widget.TEXT, {
+      createWidget(widget.IMG, EQUIVALENT_MORE_FOOD_ICON)
+      createWidget(widget.TEXT, {
         ...EQUIVALENT_MORE_FOOD_NUM,
         text: `${count}`,
       })
     }
   },
   drawFood(x, type) {
-    hmUI.createWidget(hmUI.widget.IMG, {
+    createWidget(widget.IMG, {
       ...EQUIVALENT_TO_FOOD_ICON,
       x: px(x),
       src: `food/${type}.png`,

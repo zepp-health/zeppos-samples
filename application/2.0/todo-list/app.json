@@ -51,6 +51,14 @@
       "designWidth": 390,
       "platforms": [
         {
+          "name": "gtr4",
+          "deviceSource": 7930112
+        },
+        {
+          "name": "gtr4-2",
+          "deviceSource": 7930113
+        },
+        {
           "name": "gts4",
           "deviceSource": 7995648
         },
