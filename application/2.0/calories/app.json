@@ -28,9 +28,30 @@
     "gts": {
       "module": {
         "page": {
-          "pages": [
-            "page/gts/index",
-            "page/gts/food-list"
+          "pages": ["page/gts/index", "page/gts/food-list"]
+        },
+        "secondary-widget": {
+          "widgets": [
+            {
+              "path": "secondary-widget/index",
+              "icon": "icon.png",
+              "name": "calories",
+              "runtime": {
+                "type": "js"
+              }
+            }
+          ]
+        },
+        "app-widget": {
+          "widgets": [
+            {
+              "path": "app-widget/index",
+              "icon": "icon.png",
+              "name": "calories",
+              "runtime": {
+                "type": "js"
+              }
+            }
           ]
         }
       },

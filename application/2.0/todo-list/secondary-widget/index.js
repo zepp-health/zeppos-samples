@@ -1,21 +1,21 @@
 import * as hmUI from '@zos/ui'
 import { getDeviceInfo, SCREEN_SHAPE_SQUARE } from '@zos/device'
 import { log as Logger } from '@zos/utils'
-import { localStorage } from '@zos/storage'
 
-import { TITLE_TEXT_STYLE, TIPS_TEXT_STYLE, SCROLL_LIST, ADD_BUTTON } from './index.style'
-import { getScrollListDataConfig } from './../../utils/index'
+import { TITLE_TEXT_STYLE, TIPS_TEXT_STYLE, SCROLL_LIST, ADD_BUTTON } from '../page/home/index.style'
+import { readFileSync, writeFileSync } from '../utils/fs'
+import { getScrollListDataConfig } from '../utils/index'
 
 const logger = Logger.getLogger('todo-list-page')
 const { messageBuilder } = getApp()._options.globalData
 
-Page({
+SecondaryWidget({
   state: {
     scrollList: null,
     tipText: null,
     refreshText: null,
     addButton: null,
-    dataList: localStorage.getItem('dataList', [])
+    dataList: readFileSync()
   },
   onInit() {
     logger.debug('page onInit invoked')
@@ -25,24 +25,29 @@ Page({
   build() {
     logger.debug('page build invoked')
 
-    if (getDeviceInfo().screenShape !== SCREEN_SHAPE_SQUARE) {
-      this.state.title = hmUI.createWidget(hmUI.widget.TEXT, {
-        ...TITLE_TEXT_STYLE
+    try {
+      if (getDeviceInfo().screenShape !== SCREEN_SHAPE_SQUARE) {
+        this.state.title = hmUI.createWidget(hmUI.widget.TEXT, {
+          ...TITLE_TEXT_STYLE
+        })
+      } 
+  
+      this.state.addButton = hmUI.createWidget(hmUI.widget.BUTTON, {
+        ...ADD_BUTTON,
+        click_func: () => {
+          this.addRandomTodoItem()
+        }
       })
-    } 
-
-    this.state.addButton = hmUI.createWidget(hmUI.widget.BUTTON, {
-      ...ADD_BUTTON,
-      click_func: () => {
-        this.addRandomTodoItem()
-      }
-    })
-
-    this.createAndUpdateList()
+  
+      this.createAndUpdateList()  
+    } catch (e) {
+      console.log('LifeCycle Error', e)
+      e && e.stack && e.stack.split(/\n/).forEach((i) => console.log('error stack', i))
+    }
   },
   onDestroy() {
     logger.debug('page onDestroy invoked')
-    localStorage.setItem('dataList', this.state.dataList)
+    writeFileSync(this.state.dataList, false)
   },
   onMessage() {
     messageBuilder.on('call', ({ payload: buf }) => {
