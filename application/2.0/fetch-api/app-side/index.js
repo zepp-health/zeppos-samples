@@ -22,12 +22,12 @@ const fetchData = async (ctx) => {
     // Requesting network data using the fetch API
     // The sample program is for simulation only and does not request real network data, so it is commented here
     // Example of a GET method request
-    // const { body: { data = {} } = {} } = await fetch({
+    // const res = await fetch({
     //   url: 'https://xxx.com/api/xxx',
     //   method: 'GET'
     // })
     // Example of a POST method request
-    // const { body: { data = {} } = {} } = await fetch({
+    // const res = await fetch({
     //   url: 'https://xxx.com/api/xxx',
     //   method: 'POST',
     //   headers: {
@@ -39,10 +39,11 @@ const fetchData = async (ctx) => {
     // })
 
     // A network request is simulated here
-    const { body: { data = {} } = {} } = await mockAPI()
+    const res = await mockAPI()
+    const resBody = typeof res.body === 'string' ?  JSON.parse(res.body) : res.body
 
     ctx.response({
-      data: { result: data },
+      data: { result: resBody.data },
     })
 
   } catch (error) {
