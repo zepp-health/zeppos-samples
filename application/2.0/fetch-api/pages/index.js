@@ -1,4 +1,4 @@
-import * as hmUI from '@zos/ui'
+import { createWidget, widget, align, text_style } from '@zos/ui'
 import { log as Logger, px } from '@zos/utils'
 import {
   DEFAULT_COLOR,
@@ -12,7 +12,7 @@ const { messageBuilder } = getApp()._options.globalData
 Page({
   state: {},
   build() {
-    hmUI.createWidget(hmUI.widget.BUTTON, {
+    createWidget(widget.BUTTON, {
       x: (DEVICE_WIDTH - px(400)) / 2,
       y: px(260),
       w: px(400),
@@ -37,16 +37,16 @@ Page({
       const { result = {} } = data
       const { text } = result
 
-      hmUI.createWidget(hmUI.widget.TEXT, {
+      createWidget(widget.TEXT, {
         x: px(50),
         y: px(100),
         w: DEVICE_WIDTH - 2 * px(50),
         h: px(46),
         color: 0xffffff,
         text_size: px(36),
-        align_h: hmUI.align.CENTER_H,
-        align_v: hmUI.align.CENTER_V,
-        text_style: hmUI.text_style.NONE,
+        align_h: align.CENTER_H,
+        align_v: align.CENTER_V,
+        text_style: text_style.NONE,
         text
       })
     }).catch(res => {
