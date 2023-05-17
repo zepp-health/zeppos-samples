@@ -1,4 +1,4 @@
-import * as hmUI from '@zos/ui'
+import { createWidget, widget, prop } from '@zos/ui'
 import { getDeviceInfo, SCREEN_SHAPE_SQUARE } from '@zos/device'
 import { log as Logger } from '@zos/utils'
 
@@ -27,12 +27,12 @@ SecondaryWidget({
 
     try {
       if (getDeviceInfo().screenShape !== SCREEN_SHAPE_SQUARE) {
-        this.state.title = hmUI.createWidget(hmUI.widget.TEXT, {
+        this.state.title = createWidget(widget.TEXT, {
           ...TITLE_TEXT_STYLE
         })
       } 
   
-      this.state.addButton = hmUI.createWidget(hmUI.widget.BUTTON, {
+      this.state.addButton = createWidget(widget.BUTTON, {
         ...ADD_BUTTON,
         click_func: () => {
           this.addRandomTodoItem()
@@ -99,26 +99,26 @@ SecondaryWidget({
     if (showEmpty) {
       if (dataList.length === 0) {
         !this.state.tipText &&
-          (this.state.tipText = hmUI.createWidget(hmUI.widget.TEXT, {
+          (this.state.tipText = createWidget(widget.TEXT, {
             ...TIPS_TEXT_STYLE
           }))
       }
       const isTip = dataList.length === 0
 
-      this.state.refreshText && this.state.refreshText.setProperty(hmUI.prop.VISIBLE, false)
-      this.state.tipText && this.state.tipText.setProperty(hmUI.prop.VISIBLE, isTip)
-      this.state.scrollList && this.state.scrollList.setProperty(hmUI.prop.VISIBLE, !isTip)
+      this.state.refreshText && this.state.refreshText.setProperty(prop.VISIBLE, false)
+      this.state.tipText && this.state.tipText.setProperty(prop.VISIBLE, isTip)
+      this.state.scrollList && this.state.scrollList.setProperty(prop.VISIBLE, !isTip)
     } else {
       // 占位刷新
       !this.state.refreshText &&
-        (this.state.refreshText = hmUI.createWidget(hmUI.widget.TEXT, {
+        (this.state.refreshText = createWidget(widget.TEXT, {
           ...TIPS_TEXT_STYLE,
           text: ' '
         }))
 
-      this.state.tipText && this.state.tipText.setProperty(hmUI.prop.VISIBLE, false)
-      this.state.refreshText.setProperty(hmUI.prop.VISIBLE, true)
-      this.state.scrollList && this.state.scrollList.setProperty(hmUI.prop.VISIBLE, false)
+      this.state.tipText && this.state.tipText.setProperty(prop.VISIBLE, false)
+      this.state.refreshText.setProperty(prop.VISIBLE, true)
+      this.state.scrollList && this.state.scrollList.setProperty(prop.VISIBLE, false)
     }
   },
   createAndUpdateList(showEmpty = true) {
@@ -129,7 +129,7 @@ SecondaryWidget({
     this.changeUI(showEmpty)
     const dataTypeConfig = getScrollListDataConfig(dataList.length === 0 ? -1 : 0, dataList.length)
     if (scrollList) {
-      scrollList.setProperty(hmUI.prop.UPDATE_DATA, {
+      scrollList.setProperty(prop.UPDATE_DATA, {
         data_array: dataList,
         data_count: dataList.length,
         data_type_config: [{ start: 0, end: dataList.length, type_id: 2 }],
@@ -137,7 +137,7 @@ SecondaryWidget({
         on_page: 1
       })
     } else {
-      this.state.scrollList = hmUI.createWidget(hmUI.widget.SCROLL_LIST, {
+      this.state.scrollList = createWidget(widget.SCROLL_LIST, {
         ...(SCROLL_LIST || {}),
         data_array: dataList,
         data_count: dataList.length,

@@ -1,8 +1,7 @@
-import * as hmUI from '@zos/ui'
+import { align, text_style } from '@zos/ui'
 import { getText } from '@zos/i18n'
 import { getDeviceInfo } from '@zos/device'
 import { px } from '@zos/utils'
-
 
 export const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = getDeviceInfo()
 
@@ -14,8 +13,8 @@ export const TITLE_TEXT_STYLE = {
   h: px(50),
   color: 0xffffff,
   text_size: 36,
-  align_h: hmUI.align.CENTER_H,
-  text_style: hmUI.text_style.WRAP,
+  align_h: align.CENTER_H,
+  text_style: text_style.WRAP,
 }
 
 export const ADD_BUTTON = {
@@ -37,9 +36,9 @@ export const TIPS_TEXT_STYLE = {
   h: DEVICE_HEIGHT - px(120),
   color: 0xffffff,
   text_size: 32,
-  align_h: hmUI.align.CENTER_H,
-  align_v: hmUI.align.CENTER_V,
-  text_style: hmUI.text_style.WRAP,
+  align_h: align.CENTER_H,
+  align_v: align.CENTER_V,
+  text_style: text_style.WRAP,
 }
 
 export const SCROLL_LIST = {
@@ -59,7 +58,7 @@ export const SCROLL_LIST = {
           key: 'name',
           color: 0xffff00,
           text_size: px(36),
-          align_h: hmUI.align.LEFT,
+          align_h: align.LEFT,
         },
       ],
       text_view_count: 1,
@@ -78,7 +77,7 @@ export const SCROLL_LIST = {
           key: 'name',
           color: 0xff0000,
           text_size: px(36),
-          align_h: hmUI.align.LEFT,
+          align_h: align.LEFT,
         },
       ],
       text_view_count: 1,
