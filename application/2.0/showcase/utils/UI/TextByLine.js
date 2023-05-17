@@ -2,19 +2,27 @@ import { createWidget, widget, align, text_style } from '@zos/ui'
 import { px } from '@zos/utils'
 
 export default class TextByLine {
-  constructor(params) {
-    const { text = '', y = undefined, line = 0 } = params
+  constructor(params = {}) {
+    const { text = '', line = 0 } = params
 
     this.text = text
-    this.y = y
     this.line = line
-    this.y_computed = Number.isInteger(this.y) ? this.y : px(this.line * 60 + 120)
   }
 
-  render() {
+  render(params = {}) {
+    let { text = this.text, line = 0 } = params
+
+    if (!line) {
+      line = this.line
+    }
+
+    const y = px(line * 60 + 120)
+
+    this.line = line + 1
+
     return createWidget(widget.TEXT, {
       x: px(0),
-      y: this.y_computed,
+      y,
       w: px(480),
       h: px(46),
       color: 0xffffff,
@@ -22,7 +30,7 @@ export default class TextByLine {
       align_h: align.CENTER_H,
       align_v: align.CENTER_V,
       text_style: text_style.NONE,
-      text: this.text
+      text
     })
   }
 }

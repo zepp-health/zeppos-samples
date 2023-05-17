@@ -1,4 +1,4 @@
-import * as hmUI from '@zos/ui'
+import { align, text_style } from '@zos/ui'
 import { getText } from '@zos/i18n'
 import { getDeviceInfo } from '@zos/device'
 
@@ -12,6 +12,6 @@ export const TEXT_STYLE = {
   h: 100,
   color: 0xffffff,
   text_size: 36,
-  align_h: hmUI.align.CENTER_H,
-  text_style: hmUI.text_style.WRAP,
+  align_h: align.CENTER_H,
+  text_style: text_style.WRAP,
 }

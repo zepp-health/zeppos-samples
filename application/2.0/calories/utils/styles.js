@@ -1,4 +1,4 @@
-import * as hmUI from '@zos/ui'
+import { align, text_style } from '@zos/ui'
 import { getText } from '@zos/i18n'
 import { getDeviceInfo } from '@zos/device'
 import { px } from '@zos/utils'
@@ -13,9 +13,9 @@ export const COMMON_TITLE_TEXT = {
   h: px(46),
   color: 0xffffff,
   text_size: px(36),
-  align_h: hmUI.align.CENTER_H,
-  align_v: hmUI.align.CENTER_V,
-  text_style: hmUI.text_style.WRAP,
+  align_h: align.CENTER_H,
+  align_v: align.CENTER_V,
+  text_style: text_style.WRAP,
 }
 
 export const ALIGN_DESC_GROUP = {
@@ -35,8 +35,8 @@ export const CALORIE_TEXT = {
   h: px(100),
   color: 0xffffff,
   text_size: CALORIE_TEXT_SIZE,
-  align_h: hmUI.align.LEFT,
-  align_v: hmUI.align.CENTER_V,
+  align_h: align.LEFT,
+  align_v: align.CENTER_V,
 }
 export const UNIT_TEXT_SIZE = px(28)
 export const UNIT_TEXT = {
@@ -47,8 +47,8 @@ export const UNIT_TEXT = {
   h: px(34),
   color: 0x999999,
   text_size: UNIT_TEXT_SIZE,
-  align_h: hmUI.align.LEFT,
-  align_v: hmUI.align.CENTER_V,
+  align_h: align.LEFT,
+  align_v: align.CENTER_V,
 }
 
 export const TOTAL_CONSUME_TEXT = {
@@ -59,8 +59,8 @@ export const TOTAL_CONSUME_TEXT = {
   h: px(38),
   color: 0x999999,
   text_size: px(28),
-  align_h: hmUI.align.CENTER_H,
-  align_v: hmUI.align.CENTER_V,
+  align_h: align.CENTER_H,
+  align_v: align.CENTER_V,
 }
 
 export const EQUIVALENT_TO_BUTTON = {
@@ -107,8 +107,8 @@ export const EQUIVALENT_MORE_FOOD_NUM = {
   h: px(60),
   color: 0xee801e,
   text_size: px(55),
-  align_h: hmUI.align.LEFT,
-  align_v: hmUI.align.CENTER_V,
+  align_h: align.LEFT,
+  align_v: align.CENTER_V,
 }
 
 export const FOOD_LIST_Y = 178
@@ -137,6 +137,6 @@ export const FOOD_LIST_RADIO_ITEM_TEXT = {
   h: px(64),
   color: 0xffffff,
   text_size: px(32),
-  align_h: hmUI.align.LEFT,
-  align_v: hmUI.align.CENTER_V,
+  align_h: align.LEFT,
+  align_v: align.CENTER_V,
 }

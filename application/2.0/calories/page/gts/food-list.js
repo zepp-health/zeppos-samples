@@ -1,4 +1,4 @@
-import * as hmUI from '@zos/ui'
+import { createWidget, widget, event, prop } from '@zos/ui'
 import { back } from '@zos/router'
 import { log as Logger, px } from '@zos/utils'
 import { localStorage } from '@zos/storage'
@@ -36,7 +36,7 @@ Page({
   },
   buildFoodList() {
     let activeIndex = 0
-    const radioGroup = hmUI.createWidget(hmUI.widget.RADIO_GROUP, {
+    const radioGroup = createWidget(widget.RADIO_GROUP, {
       ...FOOD_LIST_RADIOGROUP,
       check_func: (group, index, checked) => {
         if (checked) {
@@ -57,7 +57,7 @@ Page({
     this.initRadioGroup()
   },
   buildElement() {
-    hmUI.createWidget(hmUI.widget.FILL_RECT, {
+    createWidget(widget.FILL_RECT, {
       x: 0,
       y: 0,
       w: DEVICE_WIDTH,
@@ -70,14 +70,14 @@ Page({
     this.buildFoodList()
   },
   buildRadioButton(index) {
-    const radio = this.state.radioGroup.createWidget(hmUI.widget.STATE_BUTTON, {
+    const radio = this.state.radioGroup.createWidget(widget.STATE_BUTTON, {
       ...FOOD_LIST_RADIO_ITEM.styles,
       y: px(index * (FOOD_LIST_ITEM_HEIGHT + FOOD_LIST_ITEM_MARGIN)),
     })
     this.state.radioButtonsArray.push(radio)
   },
   buildRadioText(index) {
-    const text = hmUI.createWidget(hmUI.widget.TEXT, {
+    const text = createWidget(widget.TEXT, {
       ...FOOD_LIST_RADIO_ITEM_TEXT,
       y: px(
         FOOD_LIST_Y + index * (FOOD_LIST_ITEM_HEIGHT + FOOD_LIST_ITEM_MARGIN),
@@ -86,20 +86,20 @@ Page({
         index
       ].name.slice(1)}`,
     })
-    text.addEventListener(hmUI.event.SELECT, () => {
+    text.addEventListener(event.SELECT, () => {
       this.state.radioGroup.setProperty(
-        hmUI.prop.CHECKED,
+        prop.CHECKED,
         this.state.radioButtonsArray[index],
       )
     })
   },
   initRadioGroup() {
     this.state.radioGroup.setProperty(
-      hmUI.prop.INIT,
+      prop.INIT,
       this.state.radioButtonsArray[0],
     )
     this.state.radioGroup.setProperty(
-      hmUI.prop.CHECKED,
+      prop.CHECKED,
       this.state.radioButtonsArray[this.state.activeIndex],
     )
     this.state.isFinishInit = true
