@@ -1,4 +1,5 @@
 import { createWidget, widget, text_style, align } from '@zos/ui'
+import { px } from '@zos/utils'
 
 export default class Title {
   constructor(params) {

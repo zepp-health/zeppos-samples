@@ -39,7 +39,9 @@ PageAdvanced({
       normal_color: 0xfc6950,
       press_color: 0xfeb4a8,
       text: 'REGISTER_CHANGE',
-      click_func: bloodOxygen.onChange(changeCallback)
+      click_func: () => {
+        bloodOxygen.onChange(changeCallback)
+      }
     })
 
     createWidget(widget.BUTTON, {
