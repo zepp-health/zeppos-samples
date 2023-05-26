@@ -66,7 +66,9 @@ PageAdvanced({
       normal_color: DEFAULT_COLOR,
       press_color: DEFAULT_COLOR_TRANSPARENT,
       text: 'REGISTER_CHANGE',
-      click_func: stress.onChange(changeCallback)
+      click_func: () => {
+        stress.onChange(changeCallback)
+      }
     })
   }
 })

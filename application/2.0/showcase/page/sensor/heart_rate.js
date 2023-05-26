@@ -70,7 +70,9 @@ PageAdvanced({
       normal_color: 0xfc6950,
       press_color: 0xfeb4a8,
       text: 'REGISTER_CURRENT',
-      click_func: heartRate.onCurrentChange(currCallback)
+      click_func: () => {
+        heartRate.onCurrentChange(currCallback)
+      }
     })
 
     const lastCallback = () => {
@@ -88,7 +90,9 @@ PageAdvanced({
       normal_color: 0xfc6950,
       press_color: 0xfeb4a8,
       text: 'REGISTER_LAST',
-      click_func: heartRate.onLastChange(lastCallback)
+      click_func: () => {
+        heartRate.onLastChange(lastCallback)
+      }
     })
   }
 })
