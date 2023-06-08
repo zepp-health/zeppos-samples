@@ -1,4 +1,5 @@
 import logger from './log'
+import { px } from '@zos/utils'
 import { createWidget, widget } from '@zos/ui'
 
 export default class Test {
