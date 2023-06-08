@@ -96,8 +96,8 @@ export const APITree = {
     OnDigitalCrown: {
       page: 'on_digital_crown'
     },
-    OnWristMotion: {
-      page: 'on_wrist_motion'
+    OnKey: {
+      page: 'on_key'
     }
   },
   router: {
