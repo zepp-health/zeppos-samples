@@ -4,6 +4,7 @@ import { replace } from "@zos/router";
 import * as appService from "@zos/app-service";
 import hmUI from "@zos/ui";
 import { DEVICE_WIDTH } from "../libs/utils";
+import app from '@zos/app'
 
 function setProperty(w, p, v) {
   w.setProperty(p, v);
@@ -24,9 +25,27 @@ const txtResource = {
 }
 const logger = log.getLogger('bgService.page')
 // Start time report service
+const permissions = ['device:os.bg_service']
+
+function permissionRequest(vm) {
+  const [result2] = app.queryPermission({
+    permissions
+  })
+
+  if (result2 === 0) {
+    app.requestPermission({
+      permissions,
+      callback([result2]) {
+        if (result2 === 2) {
+          startTimeService(vm)
+        }
+      }
+    })
+  }
+}
 function startTimeService(vm) {
   logger.log(`=== start service: ${serviceFile} ===`);
-  appService.start({
+  const result = appService.start({
     url: serviceFile,
     param: `service=${serviceFile}&action=start`,
     complete_func: (info) => {
@@ -45,6 +64,10 @@ function startTimeService(vm) {
       }
     },
   });
+
+  if (result) {
+    logger.log('startService result: ', result)
+  }
 }
 
 function stopTimeService(vm) {
@@ -120,7 +143,7 @@ Page({
       text: txtResource.btn[vm.state.running],
       click_func: function () {
         if (vm.state.running) stopTimeService(vm);
-        else startTimeService(vm);
+        else permissionRequest(vm);
       },
     });
   },
