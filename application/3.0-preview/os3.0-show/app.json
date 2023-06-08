@@ -16,7 +16,6 @@
     "event:os.bp.high",
     "event:os.bp.low",
     "event:os.bp.expires",
-    "device:os.bg_service",
     "device:os.notification",
     "event:os.health.sleep_status",
     "event:os.health.heart_rate_abnl",
