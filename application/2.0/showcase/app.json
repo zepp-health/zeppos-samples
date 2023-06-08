@@ -50,6 +50,7 @@
             "page/sensor/stress",
             "page/router/set_launch_app_timeout",
             "page/interaction/on_digital_crown",
+            "page/interaction/on_key",
             "page/ui/widget/text",
             "page/ui/widget/img",
             "page/ui/widget/button",
