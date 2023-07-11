@@ -4,7 +4,7 @@ import { replace } from "@zos/router";
 import * as appService from "@zos/app-service";
 import hmUI from "@zos/ui";
 import { DEVICE_WIDTH } from "../libs/utils";
-import app from '@zos/app'
+import { queryPermission, requestPermission } from '@zos/app'
 
 function setProperty(w, p, v) {
   w.setProperty(p, v);
@@ -28,12 +28,12 @@ const logger = log.getLogger('bgService.page')
 const permissions = ['device:os.bg_service']
 
 function permissionRequest(vm) {
-  const [result2] = app.queryPermission({
+  const [result2] = queryPermission({
     permissions
   })
 
   if (result2 === 0) {
-    app.requestPermission({
+    requestPermission({
       permissions,
       callback([result2]) {
         if (result2 === 2) {
@@ -41,6 +41,8 @@ function permissionRequest(vm) {
         }
       }
     })
+  } else if (result2 === 2) {
+    startTimeService(vm)
   }
 }
 function startTimeService(vm) {
