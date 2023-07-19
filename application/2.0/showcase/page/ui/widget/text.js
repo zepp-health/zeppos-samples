@@ -40,7 +40,8 @@ PageAdvanced({
         text_i18n: {
           'zh-CN': '你好 Zepp OS',
           'en-US': 'HELLO ZEPPOS'
-        }
+        },
+        font: 'raw/custom.ttf'
       })
     } catch (e) {
       console.log('Build LifeCycle Error', e)
