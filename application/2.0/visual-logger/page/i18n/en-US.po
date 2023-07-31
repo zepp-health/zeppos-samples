@@ -1,0 +1,53 @@
+msgid "txt.welcome"
+msgstr "Welcome to VisLog!"
+
+msgid "txt.destroy"
+msgstr "Destroying: Index page"
+
+msgid "txt.example1_top"
+msgstr "Example 1: click the switch to change\nthe Visual Logger position on the screen"
+msgid "txt.example1_bot"
+msgstr "it updates its position in real-time and\nalso logs it on the screen"
+
+msgid "txt.example2_top"
+msgstr "Example 2: click the buttons below to\nhave a better feel of how the logger works"
+msgid "txt.example2_bot"
+msgstr "it counts the repeats to avoid spam and\nlimits + recycles received messages"
+
+msgid "txt.example3_top"
+msgstr "Example 3: You can disable Visual\nLogger altogether, having a switch"
+msgid "txt.example3_bot"
+msgstr "somewhere in the settings, so you\ncan enable it only when needed"
+
+msgid "txt.example4_top"
+msgstr "Example 4: customize the logger's\nbackground to better suit your app's theme"
+msgid "txt.example4_bot"
+msgstr "pick a color. The text size and text\ncolor will also change"
+
+msgid "txt.btn_l_pressed"
+msgstr "Left button pressed"
+msgid "txt.btn_r_pressed"
+msgstr "Right button pressed"
+
+msgid "txt.btn_pressed"
+msgstr "Button pressed:"
+
+msgid "txt.red"
+msgstr "RED"
+msgid "txt.green"
+msgstr "GREEN"
+msgid "txt.blue"
+msgstr "BLUE"
+msgid "txt.bg_color_set"
+msgstr "BG color set:"
+
+msgid "txt.top"
+msgstr "top"
+msgid "txt.bot"
+msgstr "bottom"
+
+msgid "txt.logger_pos"
+msgstr "Logger position:"
+
+msgid "txt.sw_logger"
+msgstr "Switching Logger:"
