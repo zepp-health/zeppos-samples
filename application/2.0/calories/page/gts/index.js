@@ -13,8 +13,8 @@ import {
   CONSUME_ICON,
   CONSUME_ICON_WIDTH,
   ALIGN_DESC_GROUP,
-  IMGAE_CALORIES_MARIN,
-  CALORIES_UNIT_MARIN,
+  IMAGE_CALORIES_MARGIN,
+  CALORIES_UNIT_MARGIN,
   EQUIVALENT_TO_BUTTON,
   EQUIVALENT_TO_FOOD_ICON,
   DEVICE_WIDTH,
@@ -42,7 +42,7 @@ Page({
     })
 
     const w =
-      w1 + w2 + CONSUME_ICON_WIDTH + IMGAE_CALORIES_MARIN + CALORIES_UNIT_MARIN
+      w1 + w2 + CONSUME_ICON_WIDTH + IMAGE_CALORIES_MARGIN + CALORIES_UNIT_MARGIN
     const x = Math.round((DEVICE_WIDTH - w) / 2)
 
     const group = createWidget(widget.GROUP, {
@@ -54,7 +54,7 @@ Page({
     group.createWidget(widget.TEXT, {
       ...CALORIE_TEXT,
       text: `${calories}`,
-      x: CONSUME_ICON_WIDTH + IMGAE_CALORIES_MARIN,
+      x: CONSUME_ICON_WIDTH + IMAGE_CALORIES_MARGIN,
       w: w1,
     })
     group.createWidget(widget.TEXT, {

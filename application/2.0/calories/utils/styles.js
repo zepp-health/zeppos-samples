@@ -24,8 +24,8 @@ export const ALIGN_DESC_GROUP = {
   w: 0,
   h: px(100),
 }
-export const IMGAE_CALORIES_MARIN = px(0)
-export const CALORIES_UNIT_MARIN = px(8)
+export const IMAGE_CALORIES_MARGIN = px(0)
+export const CALORIES_UNIT_MARGIN = px(8)
 export const CALORIE_TEXT_SIZE = px(100)
 export const CALORIE_TEXT = {
   text: '',
