@@ -12,8 +12,8 @@ import {
   TOTAL_CONSUME_TEXT,
   CONSUME_ICON,
   CONSUME_ICON_WIDTH,
-  IMGAE_CALORIES_MARIN,
-  CALORIES_UNIT_MARIN,
+  IMAGE_CALORIES_MARGIN,
+  CALORIES_UNIT_MARGIN,
   EQUIVALENT_TO_BUTTON,
   EQUIVALENT_TO_FOOD_ICON,
   DEVICE_WIDTH,
@@ -44,14 +44,14 @@ SecondaryWidget({
     });
 
     const w =
-      w1 + w2 + CONSUME_ICON_WIDTH + IMGAE_CALORIES_MARIN + CALORIES_UNIT_MARIN;
+      w1 + w2 + CONSUME_ICON_WIDTH + IMAGE_CALORIES_MARGIN + CALORIES_UNIT_MARGIN;
     const x = Math.round((DEVICE_WIDTH - w) / 2);
     const baseY = 64;
 
     const textId = createWidget(widget.TEXT, {
       ...CALORIE_TEXT,
       text: `${calories}`,
-      x: x + CONSUME_ICON_WIDTH + IMGAE_CALORIES_MARIN,
+      x: x + CONSUME_ICON_WIDTH + IMAGE_CALORIES_MARGIN,
       w: w1,
       y: CALORIE_TEXT.y + baseY,
     });
