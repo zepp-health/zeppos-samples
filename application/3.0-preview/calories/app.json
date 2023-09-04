@@ -32,25 +32,18 @@
             "page/gt/index",
             "page/gt/food-list"
           ]
-        },
-        "resource": {
-          "assets": {
-            "path": "gt.r"
-          }
         }
       },
       "platforms": [
         {
-          "st": "r"
+          "st": "r",
+          "dw": 480
         },
         {
-          "st": "s"
-        },
-        {
-          "st": "b"
+          "st": "s",
+          "dw": 390
         }
-      ],
-      "designWidth": 480
+      ]
     }
   },
   "i18n": {
