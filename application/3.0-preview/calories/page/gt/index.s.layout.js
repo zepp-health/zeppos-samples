@@ -1,125 +1,98 @@
 import * as hmUI from '@zos/ui'
-import { push } from '@zos/router'
 import { getText } from '@zos/i18n'
-import { Calorie } from '@zos/sensor'
 import { px } from '@zos/utils'
+import { DEVICE_WIDTH } from '../../utils/constants'
 
-import {
-  CALORIE_TEXT,
-  CALORIE_TEXT_SIZE,
-  UNIT_TEXT,
-  UNIT_TEXT_SIZE,
-  TOTAL_CONSUME_TEXT,
-  CONSUME_ICON,
-  CONSUME_ICON_WIDTH,
-  ALIGN_DESC_GROUP,
-  IMGAE_CALORIES_MARIN,
-  CALORIES_UNIT_MARIN,
-  EQUIVALENT_TO_BUTTON,
-  EQUIVALENT_TO_FOOD_ICON,
-  DEVICE_WIDTH,
-  EQUIVALENT_MORE_X,
-  EQUIVALENT_MARGIN,
-  EQUIVALENT_TO_FOOD_ICON_WIDTH,
-  EQUIVALENT_MORE_FOOD_ICON,
-  EQUIVALENT_MORE_FOOD_NUM,
-} from '../../utils/styles'
-import { FOOD_CALORIES } from '../../utils/constants'
+export const COMMON_TITLE_TEXT = null
+export const ALIGN_DESC_GROUP = {
+  x: 0,
+  y: px(80),
+  w: 0,
+  h: px(82),
+}
+export const IMGAE_CALORIES_MARIN = 0
+export const CALORIES_UNIT_MARIN = px(8)
+export const CALORIE_TEXT_SIZE = px(72)
+export const CALORIE_TEXT = {
+  text: '400',
+  x: 0,
+  y: 0,
+  w: 0,
+  h: px(82),
+  color: 0xffffff,
+  text_size: CALORIE_TEXT_SIZE,
+  align_h: hmUI.align.LEFT,
+  align_v: hmUI.align.CENTER_V,
+}
+export const UNIT_TEXT_SIZE = px(24)
+export const UNIT_TEXT = {
+  text: getText('unit'),
+  x: 0,
+  y: px(46),
+  w: 0,
+  h: px(34),
+  color: 0x999999,
+  text_size: UNIT_TEXT_SIZE,
+  align_h: hmUI.align.LEFT,
+  align_v: hmUI.align.CENTER_V,
+}
 
-const globalData = getApp()._options.globalData
+export const TOTAL_CONSUME_TEXT = {
+  text: getText('consumption'),
+  x: px(4),
+  y: px(162),
+  w: DEVICE_WIDTH - 2 * px(4),
+  h: px(38),
+  color: 0x999999,
+  text_size: px(28),
+  align_h: hmUI.align.CENTER_H,
+  align_v: hmUI.align.CENTER_V,
+}
 
-export const layout = {
-  refs: {},
-  render(vm) {
-    this.state = vm.state
-    this.build()
-  },
+export const EQUIVALENT_TO_BUTTON = {
+  text: getText('equivalent'),
+  press_color: 0x333333,
+  normal_color: 0x1a1a1a,
+  x: px(71),
+  y: px(330),
+  w: DEVICE_WIDTH - 2 * px(71),
+  h: px(56),
+  color: 0xffffff,
+  text_size: px(28),
+  radius: px(28),
+}
 
-  buildTopContent(calories) {
-    const { width: w1 } = hmUI.getTextLayout('' + calories, {
-      text_size: CALORIE_TEXT_SIZE,
-      text_width: 0,
-      wrapped: 0
-    })
-    const { width: w2 } = hmUI.getTextLayout(getText('unit'), {
-      text_size: UNIT_TEXT_SIZE,
-      text_width: 0,
-      wrapped: 0
-    })
+export const CONSUME_ICON_WIDTH = px(32)
+export const CONSUME_ICON = {
+  src: 'consume.png',
+  x: 0,
+  y: px(47),
+}
 
-    const w =
-      w1 + w2 + CONSUME_ICON_WIDTH + IMGAE_CALORIES_MARIN + CALORIES_UNIT_MARIN
-    const x = Math.round((DEVICE_WIDTH - w) / 2)
+export const EQUIVALENT_MARGIN = px(8)
+export const EQUIVALENT_MORE_X = px(113)
+export const EQUIVALENT_TO_FOOD_ICON_WIDTH = px(72)
 
-    const group = hmUI.createWidget(hmUI.widget.GROUP, {
-      ...ALIGN_DESC_GROUP,
-      x,
-      w,
-    })
+export const EQUIVALENT_TO_FOOD_ICON = {
+  src: 'food/hamburger.png',
+  x: px(103), //0
+  y: px(224),
+}
 
-    group.createWidget(hmUI.widget.TEXT, {
-      ...CALORIE_TEXT,
-      text: `${calories}`,
-      x: CONSUME_ICON_WIDTH + IMGAE_CALORIES_MARIN,
-      w: w1,
-    })
-    group.createWidget(hmUI.widget.TEXT, {
-      ...UNIT_TEXT,
-      x: w - w2,
-      w: w2,
-    })
-    group.createWidget(hmUI.widget.IMG, CONSUME_ICON)
-  },
-  build() {
-    let calories = new Calorie().getCurrent() // Math.floor(Math.random() * 1000)
-    let currentFood = globalData.foodType
+export const EQUIVALENT_MORE_FOOD_ICON = {
+  src: 'multiply.png',
+  x: px(183),
+  y: px(235),
+}
 
-    hmUI.createWidget(hmUI.widget.TEXT, TOTAL_CONSUME_TEXT)
-
-    this.buildTopContent(calories)
-
-    let activeIndex = FOOD_CALORIES.findIndex(
-      (item) => item.type === currentFood,
-    )
-    this.calculate(calories, FOOD_CALORIES[activeIndex])
-    hmUI.createWidget(hmUI.widget.BUTTON, {
-      ...EQUIVALENT_TO_BUTTON,
-      click_func: () => {
-        push({
-          url: 'page/gt/food-list',
-        })
-      },
-    })
-  },
-  calculate(currentCalories, foodData) {
-    let { value, type } = foodData
-    let count = Math.floor(currentCalories / value)
-    if (count === 1 || count === 2 || count === 3) {
-      let x =
-        (DEVICE_WIDTH -
-          EQUIVALENT_TO_FOOD_ICON_WIDTH * count -
-          EQUIVALENT_MARGIN * (count - 1)) /
-        2
-      for (let index = 0; index < count; index++) {
-        this.drawFood(
-          x + (EQUIVALENT_MARGIN + EQUIVALENT_TO_FOOD_ICON_WIDTH) * index,
-          type,
-        ) // icon
-      }
-    } else {
-      this.drawFood(EQUIVALENT_MORE_X, type) // icon
-      hmUI.createWidget(hmUI.widget.IMG, EQUIVALENT_MORE_FOOD_ICON)
-      hmUI.createWidget(hmUI.widget.TEXT, {
-        ...EQUIVALENT_MORE_FOOD_NUM,
-        text: `${count}`,
-      })
-    }
-  },
-  drawFood(x, type) {
-    hmUI.createWidget(hmUI.widget.IMG, {
-      ...EQUIVALENT_TO_FOOD_ICON,
-      x: px(x),
-      src: `food/${type}.png`,
-    })
-  }
+export const EQUIVALENT_MORE_FOOD_NUM = {
+  text: '',
+  x: px(237),
+  y: px(225),
+  w: px(60),
+  h: px(60),
+  color: 0xee801e,
+  text_size: px(50),
+  align_h: hmUI.align.LEFT,
+  align_v: hmUI.align.CENTER_V,
 }
