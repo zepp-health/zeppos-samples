@@ -1,0 +1,21 @@
+msgid "downloadTip"
+msgstr "Please click the download button to start downloading the image"
+
+msgid "downloadingTip"
+msgstr "downloading image"
+
+msgid "downloadFailTip"
+msgstr "Failed to download image"
+
+msgid "transingTip"
+msgstr "transferring pictures"
+
+msgid "transTip"
+msgstr "The image download is completed, please click the transfer button to start image transfer"
+
+msgid "transFailTip"
+msgstr "Failed to transfer image"
+
+msgid "imagePath"
+msgstr "Image path: %s"
+
