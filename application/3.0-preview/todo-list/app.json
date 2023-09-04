@@ -23,14 +23,7 @@
     "gt": {
       "module": {
         "page": {
-          "pages": ["page/home/index.page"],
-          "window": {
-            "navigationBarBackgroundColor": "#ffffff",
-            "navigationBarTextStyle": "black",
-            "navigationBarTitleText": "",
-            "backgroundColor": "#eeeeee",
-            "backgroundTextStyle": "light"
-          }
+          "pages": ["page/home/index.page"]
         },
         "app-widget": {
           "widgets": []

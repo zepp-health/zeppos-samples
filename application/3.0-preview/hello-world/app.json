@@ -30,14 +30,7 @@
         "page": {
           "pages": [
             "page/gt/home/index.page"
-          ],
-          "window": {
-            "navigationBarBackgroundColor": "#ffffff",
-            "navigationBarTextStyle": "black",
-            "navigationBarTitleText": "Hello World",
-            "backgroundColor": "#eeeeee",
-            "backgroundTextStyle": "light"
-          }
+          ]
         }
       },
       "platforms": [
