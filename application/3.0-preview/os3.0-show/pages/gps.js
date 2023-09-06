@@ -32,8 +32,8 @@ const STOP_BUTTON = {
   radius: 16,
 };
 
-var gps = new Geolocation();
-var text = null;
+const gps = new Geolocation();
+let text = null;
 
 const logger = log.getLogger('gps.page')
 Page({
@@ -51,9 +51,9 @@ Page({
     });
 
     gps.onChange(function (cb_info) {
-      var latitude = `${cb_info.latitude.degrees}°${cb_info.latitude.minutes}.${cb_info.latitude.seconds}`;
-      var longitude = `${cb_info.longitude.degrees}°${cb_info.longitude.minutes}.${cb_info.longitude.seconds}`;
-      var show_text = "latitude: " + latitude + "\nlongitude: " + longitude;
+      const latitude = `${cb_info.latitude.degrees}°${cb_info.latitude.minutes}.${cb_info.latitude.seconds}`;
+      const longitude = `${cb_info.longitude.degrees}°${cb_info.longitude.minutes}.${cb_info.longitude.seconds}`;
+      const show_text = "latitude: " + latitude + "\nlongitude: " + longitude;
 
       text.setProperty(hmUI.prop.TEXT, show_text);
     });

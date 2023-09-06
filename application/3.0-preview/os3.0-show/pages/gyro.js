@@ -33,8 +33,8 @@ const STOP_BUTTON = {
 };
 
 
-var gyro = new Gyroscope();
-var text = null;
+const gyro = new Gyroscope();
+let text = null;
 const logger = log.getLogger('gyro.page')
 Page({
   onInit() {
@@ -51,7 +51,7 @@ Page({
     });
 
     gyro.onChange(function (cb_info) {
-      var show_text =
+      const show_text =
         "gryo info\nx:" + cb_info.x + "\ny:" + cb_info.y + "\nz:" + cb_info.z;
       text.setProperty(hmUI.prop.TEXT, show_text);
     });

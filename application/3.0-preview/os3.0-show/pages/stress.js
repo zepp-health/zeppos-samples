@@ -22,10 +22,8 @@ const BUTTON = {
   radius: 16,
 };
 
-var info = null;
-var scene = 23;
-var text_info = null;
-var show_text = "";
+let text_info = null;
+let show_text = "";
 
 const logger = log.getLogger('stress.page')
 Page({
@@ -56,27 +54,21 @@ Page({
       click_func: () => {
         show_text = "";
         let allday = stressSr.getToday();
-        if (allday != undefined) {
+        if (allday.length !== 0) {
           logger.log("All Day Stress: ");
-          for (let item of allday) {
-            if (item != undefined) {
-              start_hour = parseInt(item.minute / 60);
-              start_minute = parseInt(item.minute % 60);
-
+          allday.forEach((item, index) => {
+            if (item !== 0) {
               show_text +=
-                "time: " +
-                start_hour +
-                ":" +
-                start_minute +
-                " stress val:" +
-                item.stress +
-                "\n";
+              "min" +
+              index +
+              " stress val:" +
+              item +
+              "\n";
             }
-
-            text_info.setProperty(hmUI.prop.TEXT, show_text);
-          }
+          })
+          text_info.setProperty(hmUI.prop.TEXT, show_text);
         }
-      },
+      }
     });
 
     hmUI.createWidget(hmUI.widget.BUTTON, {
@@ -119,20 +111,17 @@ Page({
       click_func: () => {
         show_text = "";
         let all7DaysHours = stressSr.getLastWeek();
-        if (all7DaysHours != undefined) {
+        if (all7DaysHours.length != 0) {
           for (let index = 0; index < all7DaysHours.length; index++) {
-            if (all7DaysHours[index].stress != 0) {
-              let d = new Date(all7DaysHours[index].second * 1000);
+            if (all7DaysHours[index] != 0) {
               show_text +=
-                "date: " +
-                d.toLocaleString() +
+                "day" + index +
                 " stress val:" +
-                all7DaysHours[index].stress +
+                all7DaysHours[index] +
                 "\n";
             }
-
-            text_info.setProperty(hmUI.prop.TEXT, show_text);
           }
+          text_info.setProperty(hmUI.prop.TEXT, show_text);
         }
       },
     });
