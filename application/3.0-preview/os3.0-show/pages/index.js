@@ -3,6 +3,8 @@ import hmUI from "@zos/ui";
 import { log } from "@zos/utils";
 import { push } from "@zos/router";
 
+import { createEmptySpace } from './../components/empty-space'
+
 const { height: DEVICE_HEIGHT, width: DEVICE_WIDTH } =
   getDeviceInfo();
 
@@ -45,59 +47,28 @@ Page({
       text: "New Feature\nWelcome to Zepp OS 3.0",
     });
 
-    hmUI.createWidget(hmUI.widget.BUTTON, {
-      ...BUTTON,
-      text: "BG Service",
-      click_func: function (button) {
-        push({
-          url: "pages/bgService",
-        });
-      },
-    });
+    const featureArray = [
+      { name: "BG Service", url: "pages/bgService"},
+      { name: "Notification", url: "pages/notification"},
+      { name: "Alarm", url: "pages/alarm"},
+      { name: "Screen", url: "pages/screen"},
+      { name: "Canvas", url: "pages/canvas"},
+      { name: "Health", url: "pages/sensor"}
+    ]
+    featureArray.forEach((feature, index) => {
+      hmUI.createWidget(hmUI.widget.BUTTON, {
+        ...BUTTON,
+        y: BUTTON_Y + BUTTON_OY * index,
+        text: feature.name,
+        click_func: function (button) {
+          push({
+            url: feature.url,
+          });
+        },
+      });
+    })
 
-    hmUI.createWidget(hmUI.widget.BUTTON, {
-      ...BUTTON,
-      y: BUTTON_Y + BUTTON_OY * 1,
-      text: "Notification",
-      click_func: function (button) {
-        push({
-          url: "pages/notification",
-        });
-      },
-    });
-
-    hmUI.createWidget(hmUI.widget.BUTTON, {
-      ...BUTTON,
-      y: BUTTON_Y + BUTTON_OY * 2,
-      text: "Alarm",
-      click_func: function (button) {
-        push({
-          url: "pages/alarm",
-        });
-      },
-    });
-
-    hmUI.createWidget(hmUI.widget.BUTTON, {
-      ...BUTTON,
-      y: BUTTON_Y + BUTTON_OY * 3,
-      text: "Canvas",
-      click_func: function (button) {
-        push({
-          url: "pages/canvas",
-        });
-      },
-    });
-
-    hmUI.createWidget(hmUI.widget.BUTTON, {
-      ...BUTTON,
-      y: BUTTON_Y + BUTTON_OY * 4,
-      text: "Health",
-      click_func: function (button) {
-        push({
-          url: "pages/sensor",
-        });
-      },
-    });
+    createEmptySpace(BUTTON_Y + BUTTON_OY * featureArray.length)
   },
   onHide() {
     logger.log("page on hide invoke");

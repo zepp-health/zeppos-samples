@@ -32,8 +32,8 @@ const STOP_BUTTON = {
   radius: 16,
 };
 
-var compass = new Compass();
-var text = null;
+const compass = new Compass();
+let text = null;
 const logger = log.getLogger('compass.page')
 Page({
   onInit() {
@@ -50,7 +50,7 @@ Page({
     });
 
     compass.onChange(function () {
-      var show_text = "compass info:";
+      let show_text = "compass info:";
       show_text += "\ndirection_angle:" + compass.getDirectionAngle();
       show_text += "\ndirection:" + compass.getDirection();
       text.setProperty(hmUI.prop.TEXT, show_text);

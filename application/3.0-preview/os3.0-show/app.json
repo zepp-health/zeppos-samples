@@ -34,7 +34,9 @@
     "data:user.hd.sleep",
     "data:user.hd.heart_rate",
     "data:user.hd.spo2",
-    "data:user.hd.stress"
+    "data:user.hd.stress",
+    "device:os.bg_service",
+    "data:user.hd.workout"
   ],
   "runtime": {
     "apiVersion": {
@@ -55,6 +57,8 @@
             "pages/canvas",
             "pages/compass",
             "pages/gps",
+            "pages/screen",
+            "pages/workout",
             "pages/gyro",
             "pages/heart",
             "pages/newAlarm",

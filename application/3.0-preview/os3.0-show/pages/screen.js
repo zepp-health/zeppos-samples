@@ -1,10 +1,7 @@
-import { getDeviceInfo } from "@zos/device";
-import hmUI from "@zos/ui";
-import { log } from "@zos/utils";
-import { BloodOxygen } from "@zos/sensor";
-
-const { height: DEVICE_HEIGHT, width: DEVICE_WIDTH } =
-  getDeviceInfo();
+import hmUI from '@zos/ui'
+import { Screen } from '@zos/sensor'
+import { log } from '@zos/utils'
+import { DEVICE_WIDTH } from '../libs/utils'
 
 const BUTTON_X = 50;
 const BUTTON_Y = 80;
@@ -33,53 +30,45 @@ const STOP_BUTTON = {
   radius: 16,
 };
 
-let text_info = null;
-let show_text = "";
+const logger = log.getLogger('screen.page')
+const screen = new Screen();
 
-const logger = log.getLogger('spo2.page')
+let textWidget = null;
 Page({
   onInit() {
     logger.log("page on init invoke");
 
-    text_info = hmUI.createWidget(hmUI.widget.TEXT, {
+    textWidget = hmUI.createWidget(hmUI.widget.TEXT, {
       x: BUTTON_X + 20,
       y: BUTTON_Y + BUTTON_H * 4,
       w: BUTTON_W,
-      h: BUTTON_H * 3,
+      h: BUTTON_H * 2,
       text_size: 18,
-      text: "Wear your watch and prepare to measure",
+      text: "screen Info: status: " + screen.getStatus(),
       color: 0x34e073,
     });
 
-    let spo2Sr = new BloodOxygen();
     const callback = () => {
-      const result = spo2Sr.getCurrent()
-      if (result.retCode === 2) {
-        let d = new Date(result.time * 1000);
-        show_text =
-          "time: " + d.toLocaleString() + ", value:" + result.value + "\n";
-        text_info.setProperty(hmUI.prop.TEXT, show_text);
+        const show_text =
+        "screen Info: status: " + screen.getStatus()
+      textWidget.setProperty(hmUI.prop.TEXT, show_text);
       }
-    }
 
     hmUI.createWidget(hmUI.widget.BUTTON, {
       ...START_BUTTON,
-      text: "START SPO2",
+      text: "START screen",
       click_func: () => {
-        spo2Sr.onChange(callback)
-        spo2Sr.stop()
-        spo2Sr.start()
-        text_info.setProperty(hmUI.prop.TEXT, 'measuring...');
+        logger.log("click to start screen");
+        screen.onChange(callback);
       },
     });
 
     hmUI.createWidget(hmUI.widget.BUTTON, {
       ...STOP_BUTTON,
-      text: "STOP SPO2",
+      text: "STOP screen",
       click_func: () => {
-        logger.log("click to stop spo2");
-        spo2Sr.stop();
-        spo2Sr.offChange(callback)
+        logger.log("click to stop screen");
+        screen.offChange(callback);
       },
     });
   },

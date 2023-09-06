@@ -106,7 +106,7 @@ function createCanvas1() {
     w: 64,
     h: 64,
     alpha: 255,
-    image: "/anim2/WDF_Animation_1.png",
+    image: "images/canvas/anim2/WDF_Animation_1.png",
   });
 }
 

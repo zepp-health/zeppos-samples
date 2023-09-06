@@ -22,10 +22,8 @@ const BUTTON = {
   radius: 16,
 };
 
-var info = null;
-var scene = 23;
-var text_info = null;
-var show_text = "";
+let text_info = null;
+let show_text = "";
 
 const logger = log.getLogger('sleep.page')
 Page({

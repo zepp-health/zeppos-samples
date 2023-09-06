@@ -2,7 +2,7 @@ import { getDeviceInfo } from "@zos/device";
 import hmUI from "@zos/ui";
 import { log } from "@zos/utils";
 import { push } from "@zos/router";
-
+import { createEmptySpace } from './../components/empty-space'
 const { height: DEVICE_HEIGHT, width: DEVICE_WIDTH } = getDeviceInfo();
 
 const BUTTON_W = 200;
@@ -43,92 +43,30 @@ Page({
       text: "OS3.0 Health & Pos Sensor",
     });
 
-    hmUI.createWidget(hmUI.widget.BUTTON, {
-      ...BUTTON,
-      text: "ACC Sensor",
-      click_func: function (button) {
-        push({
-          url: "pages/acc",
-        });
-      },
-    });
-
-    hmUI.createWidget(hmUI.widget.BUTTON, {
-      ...BUTTON,
-      y: BUTTON_Y + BUTTON_OY * 1,
-      text: "GPS Sensor",
-      click_func: function (button) {
-        push({
-          url: "pages/gps",
-        });
-      },
-    });
-
-    hmUI.createWidget(hmUI.widget.BUTTON, {
-      ...BUTTON,
-      y: BUTTON_Y + BUTTON_OY * 2,
-      text: "GYRO Sensor",
-      click_func: function (button) {
-        push({
-          url: "pages/gyro",
-        });
-      },
-    });
-
-    hmUI.createWidget(hmUI.widget.BUTTON, {
-      ...BUTTON,
-      y: BUTTON_Y + BUTTON_OY * 3,
-      text: "Compass Sensor",
-      click_func: function (button) {
-        push({
-          url: "pages/compass",
-        });
-      },
-    });
-
-    hmUI.createWidget(hmUI.widget.BUTTON, {
-      ...BUTTON,
-      y: BUTTON_Y + BUTTON_OY * 4,
-      text: "Sleep Sensor",
-      click_func: function (button) {
-        push({
-          url: "pages/sleep",
-        });
-      },
-    });
-
-    hmUI.createWidget(hmUI.widget.BUTTON, {
-      ...BUTTON,
-      y: BUTTON_Y + BUTTON_OY * 5,
-      text: "Heart Sensor",
-      click_func: function (button) {
-        push({
-          url: "pages/heart",
-        });
-      },
-    });
-
-    hmUI.createWidget(hmUI.widget.BUTTON, {
-      ...BUTTON,
-      y: BUTTON_Y + BUTTON_OY * 6,
-      text: "Spo2 Sensor",
-      click_func: function (button) {
-        push({
-          url: "pages/spo2",
-        });
-      },
-    });
-
-    hmUI.createWidget(hmUI.widget.BUTTON, {
-      ...BUTTON,
-      y: BUTTON_Y + BUTTON_OY * 7,
-      text: "Stress Sensor",
-      click_func: function (button) {
-        push({
-          url: "pages/stress",
-        });
-      },
-    });
+    const sensorsArray = [
+      { name: "ACC Sensor", url: "pages/acc"},
+      { name: "Workout Sensor", url: "pages/workout"},
+      { name: "GPS Sensor", url: "pages/gps"},
+      { name: "GYRO Sensor", url: "pages/gyro"},
+      { name: "Compass Sensor", url: "pages/compass"},
+      { name: "Sleep Sensor", url: "pages/sleep"},
+      { name: "Heart Sensor", url: "pages/heart"},
+      { name: "Spo2 Sensor", url: "pages/spo2"},
+      { name: "Stress Sensor", url: "pages/stress"}
+    ]
+    sensorsArray.forEach((sensor, index) => {
+      hmUI.createWidget(hmUI.widget.BUTTON, {
+        ...BUTTON,
+        y: BUTTON_Y + BUTTON_OY * index,
+        text: sensor.name,
+        click_func: function (button) {
+          push({
+            url: sensor.url,
+          });
+        },
+      });
+    })
+    createEmptySpace(BUTTON_Y + BUTTON_OY * sensorsArray.length)
   },
   onHide() {
     logger.log("page on hide invoke");
