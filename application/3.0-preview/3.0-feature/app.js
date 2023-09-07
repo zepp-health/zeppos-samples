@@ -1,9 +1,12 @@
 import { log } from "@zos/utils";
+import { EventBus } from "@zos/utils";
 
 const logger = log.getLogger("app");
 
 App({
-  globalData: {},
+  globalData: {
+    devEvent: new EventBus(),
+  },
   onCreate(options) {
     logger.log("app onCreate");
   },

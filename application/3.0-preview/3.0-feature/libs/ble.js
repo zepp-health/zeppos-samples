@@ -205,5 +205,6 @@ export function disConnect(connectId) {
 }
 
 export function offAll() {
+  console.log("----------offAll-------");
   hmBle.mstOffAllCb();
 }

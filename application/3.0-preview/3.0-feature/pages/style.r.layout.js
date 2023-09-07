@@ -218,3 +218,16 @@ export const SERVICE_BTN = {
   press_color: 0x1976d2,
   normal_color: 0xef5350,
 };
+
+export const BLE_TEXT_STYLE = {
+  x: px(40),
+  y: px(140),
+  w: DEVICE_WIDTH - px(40) * 2,
+  h: px(280),
+  color: 0xffffff,
+  text_size: px(32),
+  align_h: hmUI.align.CENTER_H,
+  align_v: hmUI.align.CENTER_V,
+  text_style: hmUI.text_style.WRAP,
+  text: "",
+};
