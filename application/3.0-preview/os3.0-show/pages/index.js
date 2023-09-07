@@ -1,27 +1,8 @@
-import { getDeviceInfo } from "@zos/device";
 import hmUI from "@zos/ui";
 import { log } from "@zos/utils";
 import { push } from "@zos/router";
-
+import * as Styles from 'zosLoader:./style.[pf].layout.js'
 import { createEmptySpace } from './../components/empty-space'
-
-const { height: DEVICE_HEIGHT, width: DEVICE_WIDTH } =
-  getDeviceInfo();
-
-const BUTTON_W = 200;
-const BUTTON_H = 45;
-const BUTTON_X = (DEVICE_WIDTH - BUTTON_W) / 2;
-const BUTTON_Y = 170;
-const BUTTON_OY = 50;
-const BUTTON = {
-  x: BUTTON_X,
-  y: BUTTON_Y,
-  w: BUTTON_W,
-  h: BUTTON_H,
-  radius: 8,
-  press_color: 0x1976d2,
-  normal_color: 0xef5350,
-};
 
 const logger = log.getLogger('index.page')
 
@@ -37,13 +18,7 @@ Page({
   },
   build() {
     hmUI.createWidget(hmUI.widget.TEXT, {
-      x: 40,
-      y: 60,
-      w: DEVICE_WIDTH - 40 * 2,
-      h: 100,
-      text_size: 32,
-      align_h: hmUI.align.CENTER_H,
-      color: 0xffffff,
+      ...Styles.MAIN_TITLE_STYLE,
       text: "New Feature\nWelcome to Zepp OS 3.0",
     });
 
@@ -57,8 +32,8 @@ Page({
     ]
     featureArray.forEach((feature, index) => {
       hmUI.createWidget(hmUI.widget.BUTTON, {
-        ...BUTTON,
-        y: BUTTON_Y + BUTTON_OY * index,
+        ...Styles.MAIN_BUTTON,
+        y: Styles.MAIN_BUTTON_Y + Styles.MAIN_BUTTON_OY * index,
         text: feature.name,
         click_func: function (button) {
           push({
@@ -68,7 +43,7 @@ Page({
       });
     })
 
-    createEmptySpace(BUTTON_Y + BUTTON_OY * featureArray.length)
+    createEmptySpace(Styles.MAIN_BUTTON_Y + Styles.MAIN_BUTTON_OY * featureArray.length)
   },
   onHide() {
     logger.log("page on hide invoke");

@@ -1,10 +1,9 @@
-import { getDeviceInfo } from "@zos/device";
 import hmUI from "@zos/ui";
+import { px } from '@zos/utils'
 import { log } from "@zos/utils";
 import * as alarmMgr from '@zos/alarm'
 import { onGesture, offGesture, GESTURE_RIGHT } from "@zos/interaction";
-
-const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = getDeviceInfo();
+import { DEVICE_WIDTH, DEVICE_HEIGHT } from './../libs/utils'
 
 const FULL_SCREEN = {
   x: 0,
@@ -13,15 +12,13 @@ const FULL_SCREEN = {
   h: DEVICE_HEIGHT,
 };
 
-const BUTTON_X = 50;
-const BUTTON_Y = 250;
-const BUTTON_W = DEVICE_WIDTH - 2 * BUTTON_X;
-const BUTTON_H = 40;
+const BUTTON_H = px(40);
 const BUTTON_MARGIN_TOP = 5;
 const BUTTON_OY = BUTTON_H + BUTTON_MARGIN_TOP;
 
 let thisFile = "pages/newAlarm";
 let dateTime = new Date();
+dateTime.setMinutes(dateTime.getMinutes() + 5);
 let date_text = null;
 let time_text = null;
 let repeat_text = null;
@@ -70,12 +67,13 @@ Page({
   },
   build() {
     function setupAlarm() {
-      alarmObj.time = dateTime.getTime() / 1000;
+      alarmObj.time = Math.floor(dateTime.getTime() / 1000);
       // if (alarmObj.repeat_type == hmApp.repeat_type.ONCE) {
       //     alarmObj.start_time = 0;
       //     alarmObj.end_time = 0;
       // }
       // check more params
+      console.log('********', JSON.stringify(alarmObj))
       let id = alarmMgr.set(alarmObj);
       logger.log('alarm= > %d', id)
       refreshSetup(id == 0 ? "failed" : id);
@@ -97,8 +95,7 @@ Page({
     function refreshDate() {
       date_text.setProperty(
         hmUI.prop.TEXT,
-        `${dateTime.getFullYear()}-${
-          dateTime.getMonth() + 1
+        `${dateTime.getFullYear()}-${dateTime.getMonth() + 1
         }-${dateTime.getDate()}`
       );
     }
@@ -270,9 +267,9 @@ Page({
             data_array: repeatTypeArray,
             init_val_index: alarmObj.repeat_type,
             support_loop: true,
-            font_size: 32,
-            select_font_size: 32,
-            col_width: 120,
+            font_size: px(32),
+            select_font_size: px(32),
+            col_width: px(120),
           },
         ],
         picker_cb: repeatTypePickerCb,
@@ -339,21 +336,21 @@ Page({
 
     // Time ...
     hmUI.createWidget(hmUI.widget.TEXT, {
-      x: 60,
-      y: 80,
-      w: 100,
-      h: 40,
-      text_size: 24,
+      x: px(60),
+      y: px(80),
+      w: px(100),
+      h: px(40),
+      text_size: px(24),
       align_h: hmUI.align.LEFT,
       color: 0xffffff,
       text: "Time:",
       enable: false,
     });
     date_text = hmUI.createWidget(hmUI.widget.BUTTON, {
-      x: 150,
-      y: 80,
-      w: 100,
-      h: 40,
+      x: px(150),
+      y: px(80),
+      w: px(100),
+      h: px(40),
       radius: 4,
       press_color: 0x1976d2,
       normal_color: 0xef5350,
@@ -366,10 +363,10 @@ Page({
     refreshDate();
 
     time_text = hmUI.createWidget(hmUI.widget.BUTTON, {
-      x: 280,
-      y: 80,
-      w: 100,
-      h: 40,
+      x: px(280),
+      y: px(80),
+      w: px(100),
+      h: px(40),
       radius: 4,
       press_color: 0x1976d2,
       normal_color: 0xef5350,
@@ -382,11 +379,11 @@ Page({
 
     // File ...
     hmUI.createWidget(hmUI.widget.TEXT, {
-      x: 60,
-      y: 80 + BUTTON_OY,
-      w: 300,
-      h: 40,
-      text_size: 24,
+      x: px(60),
+      y: px(80) + BUTTON_OY,
+      w: px(300),
+      h: px(40),
+      text_size: px(24),
       align_h: hmUI.align.LEFT,
       color: 0xffffff,
       text: "URL:  pages/target",
@@ -394,21 +391,21 @@ Page({
     });
 
     hmUI.createWidget(hmUI.widget.TEXT, {
-      x: 60,
-      y: 80 + BUTTON_OY * 2,
-      w: 300,
-      h: 40,
-      text_size: 24,
+      x: px(60),
+      y: px(80) + BUTTON_OY * 2,
+      w: px(300),
+      h: px(40),
+      text_size: px(24),
       align_h: hmUI.align.LEFT,
       color: 0xffffff,
       text: "repeat_type:",
       enable: false,
     });
     repeat_text = hmUI.createWidget(hmUI.widget.BUTTON, {
-      x: 250,
-      y: 80 + BUTTON_OY * 2,
-      w: 100,
-      h: 40,
+      x: px(250),
+      y: px(80) + BUTTON_OY * 2,
+      w: px(100),
+      h: px(40),
       radius: 4,
       press_color: 0x1976d2,
       normal_color: 0xef5350,
@@ -420,21 +417,21 @@ Page({
     refreshRepeatType();
 
     hmUI.createWidget(hmUI.widget.TEXT, {
-      x: 60,
-      y: 80 + BUTTON_OY * 3,
-      w: 300,
-      h: 40,
-      text_size: 24,
+      x: px(60),
+      y: px(80) + BUTTON_OY * 3,
+      w: px(300),
+      h: px(40),
+      text_size: px(24),
       align_h: hmUI.align.LEFT,
       color: 0xffffff,
       text: "repeat_duration:",
       enable: false,
     });
     duration_text = hmUI.createWidget(hmUI.widget.BUTTON, {
-      x: 250,
-      y: 80 + BUTTON_OY * 3,
-      w: 100,
-      h: 40,
+      x: px(250),
+      y: px(80) + BUTTON_OY * 3,
+      w: px(100),
+      h: px(40),
       radius: 4,
       press_color: 0x1976d2,
       normal_color: 0xef5350,
@@ -446,21 +443,21 @@ Page({
     refreshRepeatDuration();
 
     hmUI.createWidget(hmUI.widget.TEXT, {
-      x: 60,
-      y: 80 + BUTTON_OY * 4,
-      w: 300,
-      h: 40,
-      text_size: 24,
+      x: px(60),
+      y: px(80) + BUTTON_OY * 4,
+      w: px(300),
+      h: px(40),
+      text_size: px(24),
       align_h: hmUI.align.LEFT,
       color: 0xffffff,
       text: "repeat_period:",
       enable: false,
     });
     period_text = hmUI.createWidget(hmUI.widget.BUTTON, {
-      x: 250,
-      y: 80 + BUTTON_OY * 4,
-      w: 100,
-      h: 40,
+      x: px(250),
+      y: px(80) + BUTTON_OY * 4,
+      w: px(100),
+      h: px(40),
       radius: 4,
       press_color: 0x1976d2,
       normal_color: 0xef5350,
@@ -472,11 +469,11 @@ Page({
     refreshRepeatPeriod();
 
     hmUI.createWidget(hmUI.widget.TEXT, {
-      x: 60,
-      y: 80 + BUTTON_OY * 5,
-      w: 300,
-      h: 40,
-      text_size: 24,
+      x: px(60),
+      y: px(80) + BUTTON_OY * 5,
+      w: px(300),
+      h: px(40),
+      text_size: px(24),
       align_h: hmUI.align.LEFT,
       color: 0xffffff,
       text: "store:",
@@ -484,8 +481,8 @@ Page({
     });
 
     hmUI.createWidget(hmUI.widget.SLIDE_SWITCH, {
-      x: 250,
-      y: 80 + BUTTON_OY * 5,
+      x: px(250),
+      y: px(80) + BUTTON_OY * 5,
       checked: alarmObj.store,
       checked_change_func: (slideSwitch, checked) => {
         logger.log("=== alarm store: " + checked);
@@ -495,10 +492,10 @@ Page({
     });
 
     alarmBtn = hmUI.createWidget(hmUI.widget.BUTTON, {
-      x: 100,
-      y: 100 + BUTTON_OY * 6,
-      w: DEVICE_WIDTH - 100 * 2,
-      h: 40,
+      x: px(100),
+      y: px(100) + BUTTON_OY * 6,
+      w: DEVICE_WIDTH - px(100) * 2,
+      h: px(40),
       radius: 4,
       press_color: 0x1976d2,
       normal_color: 0xef5350,

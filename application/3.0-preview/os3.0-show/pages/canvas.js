@@ -1,31 +1,12 @@
 import { getDeviceInfo } from "@zos/device";
 import hmUI from "@zos/ui";
 import { log } from "@zos/utils";
-
+import { CANVAS_1, CANVAS_2, CANVAS_BUTTON, CANVAS_TEXT, CANVAS_STYLE_1, CANVAS_STYLE_1_IMG, CANVAS_STYLE_2, CANVAS_STYLE_2_REC_1, CANVAS_STYLE_2_REC_2, CANVAS_STYLE_2_REC_3, CANVAS_STYLE_2_CLEAR_1, CANVAS_STYLE_2_REC_4, CANVAS_STYLE_2_REC_5, CANVAS_STYLE_2_REC_6, CANVAS_STYLE_1_CLEAR_1 } from 'zosLoader:./style.[pf].layout.js'
 const { height: DEVICE_HEIGHT, width: DEVICE_WIDTH } = getDeviceInfo();
 
 let canvasIndex0 = null;
 let canvasIndex1 = null;
 let canvasIndex2 = null;
-
-let circleA = {
-  center_x: 24,
-  center_y: 104,
-  radius: 24,
-};
-
-let circleB = {
-  center_x: 51,
-  center_y: 131,
-  radius: 12,
-};
-
-let button = {
-  x: (DEVICE_WIDTH - 300) / 2,
-  y: 330,
-  width: 300,
-  height: 105,
-};
 
 let animTimer = null;
 const logger = log.getLogger('canvas.page')
@@ -72,9 +53,7 @@ function createCanvas0() {
   });
 
   canvasIndex0.drawText({
-    x: 120,
-    y: 30,
-    text_size: 40,
+    ...CANVAS_TEXT,
     text: "all in canvas",
   });
 
@@ -87,12 +66,7 @@ function createCanvas0() {
 
 function createCanvas1() {
   if (canvasIndex1 === null) {
-    canvasIndex1 = hmUI.createWidget(hmUI.widget.CANVAS, {
-      x: 0,
-      y: 180,
-      w: DEVICE_WIDTH,
-      h: 64,
-    });
+    canvasIndex1 = hmUI.createWidget(hmUI.widget.CANVAS, CANVAS_STYLE_1);
 
     if (canvasIndex1 === null) {
       logger.log("canvasIndex1 create failed");
@@ -101,23 +75,14 @@ function createCanvas1() {
   }
 
   canvasIndex1.drawImage({
-    x: 0,
-    y: 0,
-    w: 64,
-    h: 64,
-    alpha: 255,
+    ...CANVAS_STYLE_1_IMG,
     image: "images/canvas/anim2/WDF_Animation_1.png",
   });
 }
 
 function createCanvas2() {
   if (canvasIndex2 === null) {
-    canvasIndex2 = hmUI.createWidget(hmUI.widget.CANVAS, {
-      x: 100,
-      y: 100,
-      w: DEVICE_WIDTH - 200,
-      h: 200,
-    });
+    canvasIndex2 = hmUI.createWidget(hmUI.widget.CANVAS, CANVAS_STYLE_2);
 
     if (canvasIndex2 === null) {
       logger.log("canvasIndex2 create failed");
@@ -127,41 +92,23 @@ function createCanvas2() {
 
   //双圆环绕
   canvasIndex2.drawCircle({
-    center_x: circleA.center_x,
-    center_y: circleA.center_y,
-    radius: circleA.radius,
+    center_x: CANVAS_1.center_x,
+    center_y: CANVAS_1.center_y,
+    radius: CANVAS_1.radius,
     color: 0xfff400,
   });
 
   canvasIndex2.drawCircle({
-    center_x: circleB.center_x,
-    center_y: circleB.center_y,
-    radius: circleB.radius,
+    center_x: CANVAS_2.center_x,
+    center_y: CANVAS_2.center_y,
+    radius: CANVAS_2.radius,
     color: 0x1ff4ff,
   });
 
   //矩形推推
-  canvasIndex2.drawFill({
-    x1: 150,
-    y1: 80,
-    x2: 170,
-    y2: 143,
-    color: 0xe3a869,
-  });
-  canvasIndex2.drawFill({
-    x1: 180,
-    y1: 80,
-    x2: 220,
-    y2: 143,
-    color: 0xe3a869,
-  });
-  canvasIndex2.drawFill({
-    x1: 230,
-    y1: 80,
-    x2: 250,
-    y2: 143,
-    color: 0xe3a869,
-  });
+  canvasIndex2.drawFill(CANVAS_STYLE_2_REC_1);
+  canvasIndex2.drawFill(CANVAS_STYLE_2_REC_2);
+  canvasIndex2.drawFill(CANVAS_STYLE_2_REC_3);
 }
 
 let anim = {
@@ -200,24 +147,19 @@ function timerCB() {
   }
 
   //TODO 优化
-  canvasIndex2.clear({
-    x: 0,
-    y: 0,
-    w: DEVICE_WIDTH - 200,
-    h: DEVICE_HEIGHT - 100,
-  });
+  canvasIndex2.clear(CANVAS_STYLE_2_CLEAR_1);
 
   canvasIndex2.drawCircle({
-    center_x: circleA.center_x + anim.radiusDelta,
-    center_y: circleA.center_y + anim.radiusDelta,
-    radius: circleA.radius + anim.radiusDelta,
+    center_x: CANVAS_1.center_x + anim.radiusDelta,
+    center_y: CANVAS_1.center_y + anim.radiusDelta,
+    radius: CANVAS_1.radius + anim.radiusDelta,
     color: 0xfff400,
   });
 
   canvasIndex2.drawCircle({
-    center_x: circleB.center_x + anim.radiusDelta,
-    center_y: circleB.center_y + anim.radiusDelta,
-    radius: circleB.radius - anim.radiusDelta,
+    center_x: CANVAS_2.center_x + anim.radiusDelta,
+    center_y: CANVAS_2.center_y + anim.radiusDelta,
+    radius: CANVAS_2.radius - anim.radiusDelta,
     color: 0x1ff4ff,
   });
 
@@ -235,34 +177,25 @@ function timerCB() {
     anim.dir2 = 0;
   }
   canvasIndex2.drawFill({
-    x1: 150,
-    y1: 80,
-    x2: 150 + anim.rw,
-    y2: 143,
+    ...CANVAS_STYLE_2_REC_4,
+    x2: CANVAS_STYLE_2_REC_4.x2 + anim.rw,
+  });
+  canvasIndex2.drawFill({
+    ...CANVAS_STYLE_2_REC_5,
+    x1: CANVAS_STYLE_2_REC_5.x1 + anim.rw,
+    x2: CANVAS_STYLE_2_REC_5.x2 + anim.rw,
     color: 0xe3a869,
   });
   canvasIndex2.drawFill({
-    x1: 160 + anim.rw,
-    y1: 80,
-    x2: 240 - (40 - anim.rw),
-    y2: 143,
-    color: 0xe3a869,
-  });
-  canvasIndex2.drawFill({
-    x1: 250 - (40 - anim.rw),
-    y1: 80,
-    x2: 250,
-    y2: 143,
-    color: 0xe3a869,
+    ...CANVAS_STYLE_2_REC_6,
+    x1: CANVAS_STYLE_2_REC_6.x1 +  anim.rw,
   });
 
   //=================
 
   canvasIndex1.clear({
+    ...CANVAS_STYLE_1_CLEAR_1,
     x: anim.posx,
-    y: 0,
-    w: 64,
-    h: 64,
   });
 
   anim.imgNum = anim.imgNum + 1;
@@ -277,11 +210,8 @@ function timerCB() {
   path2 = `images/canvas/anim2/WDF_Animation_${anim.imgNum}.png`;
   logger.log(path2);
   canvasIndex1.drawImage({
+    ...CANVAS_STYLE_1_CLEAR_1,
     x: anim.posx,
-    y: 0,
-    w: 64,
-    h: 64,
-    alpha: 255,
     image: path2,
   });
 }
@@ -316,17 +246,17 @@ function isInfoInArea(info, rect) {
 
 function updateButton(img) {
   canvasIndex0.drawImage({
-    x: button.x,
-    y: button.y,
-    w: button.width,
-    h: button.height,
+    x: CANVAS_BUTTON.x,
+    y: CANVAS_BUTTON.y,
+    w: CANVAS_BUTTON.width,
+    h: CANVAS_BUTTON.height,
     alpha: 255,
     image: img,
   });
 }
 
 function btnUpCb(info) {
-  if (isInfoInArea(info, button) === true) {
+  if (isInfoInArea(info, CANVAS_BUTTON) === true) {
     anim.animSt = !anim.animSt;
 
     if (anim.animSt === false) {
@@ -342,7 +272,7 @@ function btnUpCb(info) {
 }
 
 function btnDnCb(info) {
-  if (isInfoInArea(info, button) === true) {
+  if (isInfoInArea(info, CANVAS_BUTTON) === true) {
     if (anim.animSt === false) {
       updateButton("images/canvas/startMask.png");
     } else {
@@ -354,7 +284,7 @@ function btnDnCb(info) {
 }
 
 function btnOutCb(info) {
-  if (isInfoInArea(info, button) === false && anim.btnMask === true) {
+  if (isInfoInArea(info, CANVAS_BUTTON) === false && anim.btnMask === true) {
     if (anim.animSt === false) {
       updateButton("images/canvas/start.png");
     } else {

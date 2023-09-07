@@ -1,10 +1,7 @@
-import { getDeviceInfo } from "@zos/device";
 import hmUI from "@zos/ui";
 import { log } from "@zos/utils";
-
+import { SERVICE_TEXT, SERVICE_LABEL } from 'zosLoader:./style.[pf].layout.js'
 let from;
-
-const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = getDeviceInfo();
 
 const logger = log.getLogger('target.page')
 Page({
@@ -15,23 +12,12 @@ Page({
   build() {
     // Show tips
     hmUI.createWidget(hmUI.widget.TEXT, {
-      x: 40,
-      y: 80,
-      w: DEVICE_WIDTH - 40 * 2,
-      h: 80,
-      text_size: 32,
-      align_h: hmUI.align.CENTER_H,
-      color: 0xffffff,
+      ...SERVICE_TEXT,
       text: "What happens?",
     });
 
     hmUI.createWidget(hmUI.widget.TEXT, {
-      x: 40,
-      y: 150,
-      w: DEVICE_WIDTH - 40 * 2,
-      h: 120,
-      text_size: 24,
-      color: 0xffffff,
+      ...SERVICE_LABEL,
       text: `From: ${from}`,
     });
   },
