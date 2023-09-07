@@ -1,15 +1,15 @@
 import * as hmUI from "@zos/ui";
 import { setPageBrightTime } from "@zos/display";
 
-import { BTN_STYLE, TEXT_STYLE } from "zosLoader:./index.[pf].layout.js";
-import { ab2Arr } from "./../../utils/index";
+import { START_BUTTON, BLE_TEXT_STYLE } from "zosLoader:./style.[pf].layout.js";
+import { ab2Arr } from "./../libs/index";
 import {
   startConnect,
   disConnect,
   scanDevice,
   stopScanDevice,
   offAll,
-} from "../../utils/ble";
+} from "./../libs/ble";
 
 const { devEvent } = getApp()._options.globalData;
 
@@ -23,7 +23,7 @@ Page({
   build() {
     console.log("page build invoked");
     const btnWidget = hmUI.createWidget(hmUI.widget.BUTTON, {
-      ...BTN_STYLE,
+      ...START_BUTTON,
       text: "start",
       click_func: () => {
         const { name, isScan, connected, connectId } = this.state;
@@ -52,7 +52,7 @@ Page({
       },
     });
     const textWidget = hmUI.createWidget(hmUI.widget.TEXT, {
-      ...TEXT_STYLE,
+      ...BLE_TEXT_STYLE,
       text: "",
     });
 

@@ -28,6 +28,7 @@ Page({
       { name: "Alarm", url: "pages/alarm" },
       { name: "Screen", url: "pages/screen" },
       { name: "Canvas", url: "pages/canvas" },
+      { name: "BlueTooth", url: "pages/ble" },
       { name: "Health", url: "pages/sensor" },
     ];
     featureArray.forEach((feature, index) => {

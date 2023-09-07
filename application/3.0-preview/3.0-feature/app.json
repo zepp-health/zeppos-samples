@@ -2,7 +2,7 @@
   "configVersion": "v3",
   "app": {
     "appId": 1000004,
-    "appName": "3.0-feature",
+    "appName": "3.0 Feature",
     "appType": "app",
     "version": {
       "code": 3,
@@ -10,7 +10,7 @@
     },
     "icon": "icon.png",
     "vender": "Zepp Health",
-    "description": "os3.0-showcase"
+    "description": "os3.0 Feature"
   },
   "permissions": [
     "event:os.bp.high",
@@ -36,7 +36,8 @@
     "data:user.hd.spo2",
     "data:user.hd.stress",
     "device:os.bg_service",
-    "data:user.hd.workout"
+    "data:user.hd.workout",
+    "device:os.ble"
   ],
   "runtime": {
     "apiVersion": {
@@ -55,6 +56,7 @@
             "pages/alarm",
             "pages/bgService",
             "pages/canvas",
+            "pages/ble",
             "pages/compass",
             "pages/gps",
             "pages/screen",
