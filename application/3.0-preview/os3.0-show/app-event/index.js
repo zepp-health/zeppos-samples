@@ -1,7 +1,7 @@
-import { log } from '@zos/utils'
-import * as router from '@zos/router'
-import * as appServiceMgr from '@zos/app-service'
-import { parseQuery } from '../libs/utils'
+import { log } from "@zos/utils";
+import * as router from "@zos/router";
+import * as appServiceMgr from "@zos/app-service";
+import { parseQuery } from "../libs/utils";
 
 const moduleName = "app-event-1";
 
@@ -16,7 +16,7 @@ function handleEvent(e) {
     params: `app-event/index.js\n${e.event}`,
   });
 
-  appServiceMgr.exit()
+  appServiceMgr.exit();
 }
 
 AppEvent({

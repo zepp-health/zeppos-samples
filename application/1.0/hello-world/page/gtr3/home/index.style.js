@@ -1,9 +1,10 @@
-import { gettext } from "i18n"
+import { gettext } from "i18n";
 
-export const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = hmSetting.getDeviceInfo()
+export const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } =
+  hmSetting.getDeviceInfo();
 
 export const TEXT_STYLE = {
-  text: gettext('appName'),
+  text: gettext("appName"),
   x: px(42),
   y: px(200),
   w: DEVICE_WIDTH - px(42) * 2,
@@ -12,4 +13,4 @@ export const TEXT_STYLE = {
   text_size: px(36),
   align_h: hmUI.align.CENTER_H,
   text_style: hmUI.text_style.WRAP,
-}
+};

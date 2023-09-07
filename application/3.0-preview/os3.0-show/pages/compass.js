@@ -1,11 +1,11 @@
 import hmUI from "@zos/ui";
 import { log } from "@zos/utils";
 import { Compass } from "@zos/sensor";
-import * as Styles from 'zosLoader:./style.[pf].layout.js'
+import * as Styles from "zosLoader:./style.[pf].layout.js";
 
 const compass = new Compass();
 let text = null;
-const logger = log.getLogger('compass.page')
+const logger = log.getLogger("compass.page");
 Page({
   onInit() {
     logger.log("page on init invoke");

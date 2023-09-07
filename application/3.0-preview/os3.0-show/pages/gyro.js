@@ -1,18 +1,18 @@
 import hmUI from "@zos/ui";
 import { log } from "@zos/utils";
 import { Gyroscope } from "@zos/sensor";
-import * as Styles from 'zosLoader:./style.[pf].layout.js'
+import * as Styles from "zosLoader:./style.[pf].layout.js";
 
 const gyro = new Gyroscope();
 let text = null;
-const logger = log.getLogger('gyro.page')
+const logger = log.getLogger("gyro.page");
 Page({
   onInit() {
     logger.log("page on init invoke");
 
     text = hmUI.createWidget(hmUI.widget.TEXT, {
       ...Styles.TEXT_STYLE,
-      text: "GYRO Info simulator sample value is from horizontal to vertical"
+      text: "GYRO Info simulator sample value is from horizontal to vertical",
     });
 
     gyro.onChange(function (cb_info) {

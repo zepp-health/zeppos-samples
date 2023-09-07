@@ -1,35 +1,35 @@
-import { createWidget, widget, prop } from '@zos/ui'
-import { BloodOxygen } from '@zos/sensor'
-import { px } from '@zos/utils'
-import PageAdvanced from '../../utils/template/PageAdvanced'
-import TextByLine from '../../utils/UI/TextByLine'
-import EmptySpace from '../../utils/UI/EmptySpace'
+import { createWidget, widget, prop } from "@zos/ui";
+import { BloodOxygen } from "@zos/sensor";
+import { px } from "@zos/utils";
+import PageAdvanced from "../../utils/template/PageAdvanced";
+import TextByLine from "../../utils/UI/TextByLine";
+import EmptySpace from "../../utils/UI/EmptySpace";
 
 PageAdvanced({
   state: {
-    pageName: 'BloodOxygen'
+    pageName: "BloodOxygen",
   },
   build() {
-    const bloodOxygen = new BloodOxygen()
-    const currentObj = bloodOxygen.getCurrent()
+    const bloodOxygen = new BloodOxygen();
+    const currentObj = bloodOxygen.getCurrent();
 
     new TextByLine({
       text: `value:${currentObj.value};time:${currentObj.time};retCode:${currentObj.retCode}`,
-      line: 0
-    }).render()
+      line: 0,
+    }).render();
 
     const changeEventText = new TextByLine({
       text: `EVENT-CHANGE:${bloodOxygen.getCurrent().value}`,
-      line: 1
-    }).render()
+      line: 1,
+    }).render();
 
     const changeCallback = () => {
-      const { value, time, retCode } = bloodOxygen.getCurrent()
+      const { value, time, retCode } = bloodOxygen.getCurrent();
 
       changeEventText.setProperty(prop.MORE, {
-        text: `EVENT-CHANGE: ${value};${time};${retCode}`
-      })
-    }
+        text: `EVENT-CHANGE: ${value};${time};${retCode}`,
+      });
+    };
 
     createWidget(widget.BUTTON, {
       x: px(80),
@@ -39,11 +39,9 @@ PageAdvanced({
       radius: px(12),
       normal_color: 0xfc6950,
       press_color: 0xfeb4a8,
-      text: 'REGISTER_CHANGE',
-      click_func: () => {
-        bloodOxygen.onChange(changeCallback)
-      }
-    })
+      text: "REGISTER_CHANGE",
+      click_func: bloodOxygen.onChange(changeCallback),
+    });
 
     createWidget(widget.BUTTON, {
       x: px(80),
@@ -53,12 +51,12 @@ PageAdvanced({
       radius: px(12),
       normal_color: 0xfc6950,
       press_color: 0xfeb4a8,
-      text: 'START',
+      text: "START",
       click_func: () => {
-        bloodOxygen.stop()
-        bloodOxygen.start()
-      }
-    })
-    new EmptySpace({ y: px(440) }).render()
-  }
-})
+        bloodOxygen.stop();
+        bloodOxygen.start();
+      },
+    });
+    new EmptySpace({ y: px(440) }).render();
+  },
+});

@@ -3,7 +3,6 @@ import { getText } from '@zos/i18n'
 import { getDeviceInfo } from '@zos/device'
 import { px } from '@zos/utils'
 
-
 export const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = getDeviceInfo()
 
 export const TITLE_TEXT_STYLE = {
@@ -15,16 +14,16 @@ export const TITLE_TEXT_STYLE = {
   color: 0xffffff,
   text_size: 36,
   align_h: hmUI.align.CENTER_H,
-  text_style: hmUI.text_style.WRAP,
+  text_style: hmUI.text_style.WRAP
 }
 
 export const ADD_BUTTON = {
-  x: Math.floor((DEVICE_WIDTH - px(88)) / 2 ),
+  x: Math.floor((DEVICE_WIDTH - px(88)) / 2),
   y: DEVICE_HEIGHT - px(100),
   w: px(88),
   h: px(88),
   normal_src: 'add.png',
-  press_src:  'add.png'
+  press_src: 'add.png'
 }
 
 export const TIPS_TEXT_STYLE = {
@@ -37,7 +36,7 @@ export const TIPS_TEXT_STYLE = {
   text_size: px(32),
   align_h: hmUI.align.CENTER_H,
   align_v: hmUI.align.CENTER_V,
-  text_style: hmUI.text_style.WRAP,
+  text_style: hmUI.text_style.WRAP
 }
 
 export const SCROLL_LIST = {
@@ -58,14 +57,21 @@ export const SCROLL_LIST = {
           color: 0xffff00,
           text_size: px(36),
           align_h: hmUI.align.LEFT
-        },
+        }
       ],
       text_view_count: 1,
-      image_view: [{
-        x: DEVICE_WIDTH - px(10), y: px(16), w: px(88), h: px(88), key: 'img_src', action: true
-      }],
+      image_view: [
+        {
+          x: DEVICE_WIDTH - px(10),
+          y: px(16),
+          w: px(88),
+          h: px(88),
+          key: 'img_src',
+          action: true
+        }
+      ],
       image_view_count: 1,
-      item_height: px(120),
+      item_height: px(120)
     },
     {
       type_id: 2,
@@ -80,20 +86,27 @@ export const SCROLL_LIST = {
           key: 'name',
           color: 0xff0000,
           text_size: px(36),
-          align_h: hmUI.align.LEFT,
-        },
+          align_h: hmUI.align.LEFT
+        }
       ],
       text_view_count: 1,
-      image_view: [{
-        x: DEVICE_WIDTH - px(10), y: px(16), w: px(88), h: px(88), key: 'img_src', action: true
-      }],
+      image_view: [
+        {
+          x: DEVICE_WIDTH - px(10),
+          y: px(16),
+          w: px(88),
+          h: px(88),
+          key: 'img_src',
+          action: true
+        }
+      ],
       image_view_count: 1,
-      item_height: px(120),
-    },
+      item_height: px(120)
+    }
   ],
   item_config_count: 2,
   x: px(10),
   y: px(80),
   h: px(250),
-  w: DEVICE_WIDTH - px(10) * 2,
+  w: DEVICE_WIDTH - px(10) * 2
 }

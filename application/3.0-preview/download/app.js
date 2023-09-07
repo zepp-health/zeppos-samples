@@ -1,19 +1,19 @@
-import { BaseApp } from './lib/base-app'
-import { EventBus } from '@zos/utils'
+import { BaseApp } from "./lib/base-app";
+import { EventBus } from "@zos/utils";
 
-const bus = new EventBus()
+const bus = new EventBus();
 
 App(
   BaseApp({
     globalData: {
-      bus
+      bus,
     },
     onCreate() {
-      console.log('app on create invoke')
+      console.log("app on create invoke");
     },
 
     onDestroy() {
-      console.log('app on destroy invoke')
-    }
+      console.log("app on destroy invoke");
+    },
   })
-)
+);

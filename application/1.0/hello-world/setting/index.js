@@ -1,5 +1,5 @@
 AppSettingsPage({
   build(props) {
-    return Section({})
+    return Section({});
   },
-})
+});

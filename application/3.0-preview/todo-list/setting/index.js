@@ -3,7 +3,7 @@ import { DEFAULT_TODO_LIST } from './../utils/constants'
 AppSettingsPage({
   state: {
     todoList: [],
-    props: {},
+    props: {}
   },
   addTodoList(val) {
     this.state.todoList = [...this.state.todoList, val]
@@ -26,9 +26,7 @@ AppSettingsPage({
   setState(props) {
     this.state.props = props
     if (props.settingsStorage.getItem('todoList')) {
-      this.state.todoList = JSON.parse(
-        props.settingsStorage.getItem('todoList'),
-      )
+      this.state.todoList = JSON.parse(props.settingsStorage.getItem('todoList'))
     } else {
       this.state.todoList = [...DEFAULT_TODO_LIST]
     }
@@ -47,17 +45,17 @@ AppSettingsPage({
           color: 'white',
           textAlign: 'center',
           padding: '0 15px',
-          width: '30%',
-        },
+          width: '30%'
+        }
       },
       [
         TextInput({
           label: gettext('addTodo'),
           onChange: (val) => {
             this.addTodoList(val)
-          },
-        }),
-      ],
+          }
+        })
+      ]
     )
     this.state.todoList.forEach((item, index) => {
       contentItems.push(
@@ -68,8 +66,8 @@ AppSettingsPage({
               padding: '6px 0',
               marginBottom: '6px',
               display: 'flex',
-              flexDirection: 'row',
-            },
+              flexDirection: 'row'
+            }
           },
           [
             View(
@@ -79,8 +77,8 @@ AppSettingsPage({
                   display: 'flex',
                   flexDirection: 'row',
                   justfyContent: 'center',
-                  alignItems: 'center',
-                },
+                  alignItems: 'center'
+                }
               },
               [
                 TextInput({
@@ -89,7 +87,7 @@ AppSettingsPage({
                   value: item,
                   subStyle: {
                     color: '#333',
-                    fontSize: '14px',
+                    fontSize: '14px'
                   },
                   maxLength: 200,
                   onChange: (val) => {
@@ -98,9 +96,9 @@ AppSettingsPage({
                     } else {
                       console.log("todoList can't be empty or too long!")
                     }
-                  },
-                }),
-              ],
+                  }
+                })
+              ]
             ),
             Button({
               label: gettext('delete'),
@@ -108,21 +106,21 @@ AppSettingsPage({
                 fontSize: '12px',
                 borderRadius: '30px',
                 background: '#D85E33',
-                color: 'white',
+                color: 'white'
               },
               onClick: () => {
                 this.deleteTodoList(index)
-              },
-            }),
-          ],
-        ),
+              }
+            })
+          ]
+        )
       )
     })
     return View(
       {
         style: {
-          padding: '12px 20px',
-        },
+          padding: '12px 20px'
+        }
       },
       [
         addBTN,
@@ -134,12 +132,12 @@ AppSettingsPage({
                 padding: '10px',
                 border: '1px solid #eaeaea',
                 borderRadius: '6px',
-                backgroundColor: 'white',
-              },
+                backgroundColor: 'white'
+              }
             },
-            [...contentItems],
-          ),
-      ],
+            [...contentItems]
+          )
+      ]
     )
-  },
+  }
 })

@@ -29,7 +29,7 @@ Page({
       this.state.title = createWidget(widget.TEXT, {
         ...TITLE_TEXT_STYLE
       })
-    } 
+    }
 
     this.state.addButton = createWidget(widget.BUTTON, {
       ...ADD_BUTTON,

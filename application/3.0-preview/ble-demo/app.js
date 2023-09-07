@@ -1,14 +1,14 @@
-import { EventBus } from '@zos/utils'
+import { EventBus } from "@zos/utils";
 
 App({
   globalData: {
-    devEvent: new EventBus()
+    devEvent: new EventBus(),
   },
   onCreate(options) {
-    console.log('app on create invoke')
+    console.log("app on create invoke");
   },
 
   onDestroy(options) {
-    console.log('app on destroy invoke')
-  }
-})
+    console.log("app on destroy invoke");
+  },
+});

@@ -1,9 +1,9 @@
-import hmUI from '@zos/ui'
-import { Screen } from '@zos/sensor'
-import { log } from '@zos/utils'
-import * as Styles from 'zosLoader:./style.[pf].layout.js'
+import hmUI from "@zos/ui";
+import { Screen } from "@zos/sensor";
+import { log } from "@zos/utils";
+import * as Styles from "zosLoader:./style.[pf].layout.js";
 
-const logger = log.getLogger('screen.page')
+const logger = log.getLogger("screen.page");
 const screen = new Screen();
 
 let textWidget = null;
@@ -18,10 +18,9 @@ Page({
     });
 
     const callback = () => {
-        const show_text =
-        "screen Info: status: " + screen.getStatus()
+      const show_text = "screen Info: status: " + screen.getStatus();
       textWidget.setProperty(hmUI.prop.TEXT, show_text);
-      }
+    };
 
     hmUI.createWidget(hmUI.widget.BUTTON, {
       ...Styles.START_BUTTON,

@@ -1,6 +1,6 @@
-import { MessageBuilder } from '../shared/message-side'
+import { MessageBuilder } from "../shared/message-side";
 
-const messageBuilder = new MessageBuilder()
+const messageBuilder = new MessageBuilder();
 
 // Simulating an asynchronous network request using Promise
 const mockAPI = async () => {
@@ -9,13 +9,13 @@ const mockAPI = async () => {
       resolve({
         body: {
           data: {
-            text: 'HELLO ZEPPOS'
-          }
-        }
-      })
-    }, 1000)
-  })
-}
+            text: "HELLO ZEPPOS",
+          },
+        },
+      });
+    }, 1000);
+  });
+};
 
 const fetchData = async (ctx) => {
   try {
@@ -45,29 +45,26 @@ const fetchData = async (ctx) => {
     ctx.response({
       data: { result: resBody.data },
     })
-
   } catch (error) {
     ctx.response({
-      data: { result: 'ERROR' },
-    })
+      data: { result: "ERROR" },
+    });
   }
-}
+};
 
 AppSideService({
   onInit() {
-    messageBuilder.listen(() => {})
+    messageBuilder.listen(() => {});
 
-    messageBuilder.on('request', (ctx) => {
-      const jsonRpc = messageBuilder.buf2Json(ctx.request.payload)
-      if (jsonRpc.method === 'GET_DATA') {
-        return fetchData(ctx)
+    messageBuilder.on("request", (ctx) => {
+      const jsonRpc = messageBuilder.buf2Json(ctx.request.payload);
+      if (jsonRpc.method === "GET_DATA") {
+        return fetchData(ctx);
       }
-    })
+    });
   },
 
-  onRun() {
-  },
+  onRun() {},
 
-  onDestroy() {
-  }
-})
+  onDestroy() {},
+});

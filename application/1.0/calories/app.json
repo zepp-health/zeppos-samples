@@ -24,10 +24,7 @@
     "gtr-3-pro": {
       "module": {
         "page": {
-          "pages": [
-            "page/gtr-3/index",
-            "page/gtr-3/food-list"
-          ]
+          "pages": ["page/gtr-3/index", "page/gtr-3/food-list"]
         }
       },
       "platforms": [
@@ -45,10 +42,7 @@
     "gtr-3": {
       "module": {
         "page": {
-          "pages": [
-            "page/gtr-3/index",
-            "page/gtr-3/food-list"
-          ]
+          "pages": ["page/gtr-3/index", "page/gtr-3/food-list"]
         }
       },
       "platforms": [
@@ -66,10 +60,7 @@
     "gts-3": {
       "module": {
         "page": {
-          "pages": [
-            "page/gts-3/index",
-            "page/gts-3/food-list"
-          ]
+          "pages": ["page/gts-3/index", "page/gts-3/food-list"]
         }
       },
       "platforms": [

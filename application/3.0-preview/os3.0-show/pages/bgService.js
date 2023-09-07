@@ -2,8 +2,12 @@ import { log } from "@zos/utils";
 import { replace } from "@zos/router";
 import * as appService from "@zos/app-service";
 import hmUI from "@zos/ui";
-import { queryPermission, requestPermission } from '@zos/app'
-import { SERVICE_TEXT, SERVICE_LABEL, SERVICE_BTN } from 'zosLoader:./style.[pf].layout.js'
+import { queryPermission, requestPermission } from "@zos/app";
+import {
+  SERVICE_TEXT,
+  SERVICE_LABEL,
+  SERVICE_BTN,
+} from "zosLoader:./style.[pf].layout.js";
 function setProperty(w, p, v) {
   w.setProperty(p, v);
 }
@@ -13,34 +17,34 @@ const serviceFile = "app-service/time_service";
 
 const txtResource = {
   label: {
-    'true': 'Click button to stop service!',
-    'false': 'Click button to start service!'
+    true: "Click button to stop service!",
+    false: "Click button to start service!",
   },
   btn: {
-    'true': 'Stop Service',
-    'false': 'start Service'
-  }
-}
-const logger = log.getLogger('bgService.page')
+    true: "Stop Service",
+    false: "start Service",
+  },
+};
+const logger = log.getLogger("bgService.page");
 // Start time report service
-const permissions = ['device:os.bg_service']
+const permissions = ["device:os.bg_service"];
 
 function permissionRequest(vm) {
   const [result2] = queryPermission({
-    permissions
-  })
+    permissions,
+  });
 
   if (result2 === 0) {
     requestPermission({
       permissions,
       callback([result2]) {
         if (result2 === 2) {
-          startTimeService(vm)
+          startTimeService(vm);
         }
-      }
-    })
+      },
+    });
   } else if (result2 === 2) {
-    startTimeService(vm)
+    startTimeService(vm);
   }
 }
 function startTimeService(vm) {
@@ -60,13 +64,17 @@ function startTimeService(vm) {
           hmUI.prop.TEXT,
           txtResource.label[vm.state.running]
         );
-        setProperty(vm.state.serviceBtn, hmUI.prop.TEXT, txtResource.btn[vm.state.running]);
+        setProperty(
+          vm.state.serviceBtn,
+          hmUI.prop.TEXT,
+          txtResource.btn[vm.state.running]
+        );
       }
     },
   });
 
   if (result) {
-    logger.log('startService result: ', result)
+    logger.log("startService result: ", result);
   }
 }
 
@@ -87,7 +95,11 @@ function stopTimeService(vm) {
           hmUI.prop.TEXT,
           txtResource.label[vm.state.running]
         );
-        setProperty(vm.state.serviceBtn, hmUI.prop.TEXT, txtResource.btn[vm.state.running]);
+        setProperty(
+          vm.state.serviceBtn,
+          hmUI.prop.TEXT,
+          txtResource.btn[vm.state.running]
+        );
       }
     },
   });
@@ -107,7 +119,7 @@ Page({
     let services = appService.getAllAppServices();
     vm.state.running = services.includes(serviceFile);
 
-    logger.log('service status %s', vm.state.running)
+    logger.log("service status %s", vm.state.running);
 
     // Show tips
     hmUI.createWidget(hmUI.widget.TEXT, {

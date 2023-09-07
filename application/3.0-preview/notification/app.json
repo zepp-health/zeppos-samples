@@ -28,15 +28,10 @@
     "gt": {
       "module": {
         "page": {
-          "pages": [
-            "page/index"
-          ]
+          "pages": ["page/index"]
         },
         "app-service": {
-          "services": [
-            "app-service/index",
-            "app-service/delay"
-          ]
+          "services": ["app-service/index", "app-service/delay"]
         }
       },
       "platforms": [

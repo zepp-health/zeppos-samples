@@ -1,7 +1,7 @@
-let logger = null
+let logger = null;
 
-if (typeof Logger !== 'undefined') {
-  logger = Logger
+if (typeof Logger !== "undefined") {
+  logger = Logger;
 }
 
-export { logger as Logger }
+export { logger as Logger };

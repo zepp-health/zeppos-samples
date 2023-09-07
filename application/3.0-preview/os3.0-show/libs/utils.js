@@ -1,10 +1,10 @@
-import { getDeviceInfo } from '@zos/device'
+import { getDeviceInfo } from "@zos/device";
 
 export const { height: DEVICE_HEIGHT, width: DEVICE_WIDTH } = getDeviceInfo();
 
 export function parseQuery(queryString) {
   if (!queryString) {
-    return {}
+    return {};
   }
   const query = {};
   const pairs = (

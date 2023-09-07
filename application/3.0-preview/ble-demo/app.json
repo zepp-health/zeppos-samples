@@ -12,10 +12,7 @@
     "vender": "zepp",
     "description": "BlueTooth Test app"
   },
-  "permissions": [
-    "data:os.device.info",
-    "device:os.ble"
-  ],
+  "permissions": ["data:os.device.info", "device:os.ble"],
   "runtime": {
     "apiVersion": {
       "compatible": "3.0.0",
@@ -28,9 +25,7 @@
     "os": {
       "module": {
         "page": {
-          "pages": [
-            "page/home/index.page"
-          ]
+          "pages": ["page/home/index.page"]
         }
       },
       "platforms": [

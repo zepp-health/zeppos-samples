@@ -8,12 +8,12 @@ const appId = 20001
 const messageBuilder = new MessageBuilder({
   appId,
   appDevicePort,
-  appSidePort,
+  appSidePort
 })
 
 App({
   globalData: {
-    messageBuilder: messageBuilder,
+    messageBuilder: messageBuilder
   },
   onCreate() {
     logger.log('app onCreate invoked')
@@ -23,5 +23,5 @@ App({
   onDestroy() {
     logger.log('app onDestroy invoked')
     messageBuilder.disConnect()
-  },
+  }
 })

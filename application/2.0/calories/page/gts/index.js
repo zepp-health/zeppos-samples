@@ -23,10 +23,10 @@ import {
   EQUIVALENT_TO_FOOD_ICON_WIDTH,
   EQUIVALENT_MORE_FOOD_ICON,
   EQUIVALENT_MORE_FOOD_NUM,
-} from '../../utils/styles-gts-3'
-import { FOOD_CALORIES } from '../../utils/constants'
-const logger = Logger.getLogger('calories')
-const globalData = getApp()._options.globalData
+} from "../../utils/styles-gts-3";
+import { FOOD_CALORIES } from "../../utils/constants";
+const logger = Logger.getLogger("calories");
+const globalData = getApp()._options.globalData;
 
 Page({
   buildTopContent(calories) {
@@ -38,18 +38,18 @@ Page({
     const { width: w2 } = getTextLayout(getText('unit'), {
       text_size: UNIT_TEXT_SIZE,
       text_width: 0,
-      wrapped: 0
-    })
+      wrapped: 0,
+    });
 
     const w =
-      w1 + w2 + CONSUME_ICON_WIDTH + IMGAE_CALORIES_MARIN + CALORIES_UNIT_MARIN
-    const x = Math.round((DEVICE_WIDTH - w) / 2)
+      w1 + w2 + CONSUME_ICON_WIDTH + IMGAE_CALORIES_MARIN + CALORIES_UNIT_MARIN;
+    const x = Math.round((DEVICE_WIDTH - w) / 2);
 
     const group = createWidget(widget.GROUP, {
       ...ALIGN_DESC_GROUP,
       x,
       w,
-    })
+    });
 
     group.createWidget(widget.TEXT, {
       ...CALORIE_TEXT,
@@ -65,12 +65,12 @@ Page({
     group.createWidget(widget.IMG, CONSUME_ICON)
   },
   build() {
-    let calories = new Calorie().getCurrent() // Math.floor(Math.random() * 1000)
-    let currentFood = globalData.foodType
+    let calories = new Calorie().getCurrent(); // Math.floor(Math.random() * 1000)
+    let currentFood = globalData.foodType;
 
     createWidget(widget.TEXT, TOTAL_CONSUME_TEXT)
 
-    this.buildTopContent(calories)
+    this.buildTopContent(calories);
 
     let activeIndex = FOOD_CALORIES.findIndex(
       (item) => item.type === currentFood,
@@ -80,25 +80,25 @@ Page({
       ...EQUIVALENT_TO_BUTTON,
       click_func: () => {
         push({
-          url: 'page/gts/food-list',
-        })
+          url: "page/gts/food-list",
+        });
       },
-    })
+    });
   },
   calculate(currentCalories, foodData) {
-    let { value, type } = foodData
-    let count = Math.floor(currentCalories / value)
+    let { value, type } = foodData;
+    let count = Math.floor(currentCalories / value);
     if (count === 1 || count === 2 || count === 3) {
       let x =
         (DEVICE_WIDTH -
           EQUIVALENT_TO_FOOD_ICON_WIDTH * count -
           EQUIVALENT_MARGIN * (count - 1)) /
-        2
+        2;
       for (let index = 0; index < count; index++) {
         this.drawFood(
           x + (EQUIVALENT_MARGIN + EQUIVALENT_TO_FOOD_ICON_WIDTH) * index,
-          type,
-        ) // icon
+          type
+        ); // icon
       }
     } else {
       this.drawFood(EQUIVALENT_MORE_X, type) // icon
@@ -106,7 +106,7 @@ Page({
       createWidget(widget.TEXT, {
         ...EQUIVALENT_MORE_FOOD_NUM,
         text: `${count}`,
-      })
+      });
     }
   },
   drawFood(x, type) {
@@ -114,7 +114,7 @@ Page({
       ...EQUIVALENT_TO_FOOD_ICON,
       x: px(x),
       src: `food/${type}.png`,
-    })
+    });
   },
   onReady() {},
 
@@ -123,4 +123,4 @@ Page({
   onHide() {},
 
   onDestroy() {},
-})
+});

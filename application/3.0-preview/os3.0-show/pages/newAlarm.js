@@ -1,9 +1,9 @@
 import hmUI from "@zos/ui";
-import { px } from '@zos/utils'
+import { px } from "@zos/utils";
 import { log } from "@zos/utils";
-import * as alarmMgr from '@zos/alarm'
+import * as alarmMgr from "@zos/alarm";
 import { onGesture, offGesture, GESTURE_RIGHT } from "@zos/interaction";
-import { DEVICE_WIDTH, DEVICE_HEIGHT } from './../libs/utils'
+import { DEVICE_WIDTH, DEVICE_HEIGHT } from "./../libs/utils";
 
 const FULL_SCREEN = {
   x: 0,
@@ -48,7 +48,7 @@ let alarmObj = {
 };
 let alarmBtn = null;
 
-const logger = log.getLogger('create-alarm.page')
+const logger = log.getLogger("create-alarm.page");
 
 Page({
   onInit() {
@@ -73,9 +73,9 @@ Page({
       //     alarmObj.end_time = 0;
       // }
       // check more params
-      console.log('********', JSON.stringify(alarmObj))
+      console.log("********", JSON.stringify(alarmObj));
       let id = alarmMgr.set(alarmObj);
-      logger.log('alarm= > %d', id)
+      logger.log("alarm= > %d", id);
       refreshSetup(id == 0 ? "failed" : id);
     }
 
@@ -86,7 +86,7 @@ Page({
     }
 
     function refreshSetup(alarmId) {
-      logger.log('alarmBtn', typeof alarmBtn.setProperty)
+      logger.log("alarmBtn", typeof alarmBtn.setProperty);
       if (alarmId === undefined)
         alarmBtn.setProperty(hmUI.prop.TEXT, `Setup Alarm`);
       else alarmBtn.setProperty(hmUI.prop.TEXT, `Setup Alarm (${alarmId})`);
@@ -95,7 +95,8 @@ Page({
     function refreshDate() {
       date_text.setProperty(
         hmUI.prop.TEXT,
-        `${dateTime.getFullYear()}-${dateTime.getMonth() + 1
+        `${dateTime.getFullYear()}-${
+          dateTime.getMonth() + 1
         }-${dateTime.getDate()}`
       );
     }
@@ -506,6 +507,6 @@ Page({
     });
   },
   onDestroy() {
-    offGesture()
+    offGesture();
   },
 });

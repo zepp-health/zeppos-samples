@@ -3,11 +3,11 @@ import { log as Logger, px } from '@zos/utils'
 import {
   DEFAULT_COLOR,
   DEFAULT_COLOR_TRANSPARENT,
-} from "../utils/config/constants"
-import { DEVICE_WIDTH } from "../utils/config/device"
+} from "../utils/config/constants";
+import { DEVICE_WIDTH } from "../utils/config/device";
 
-const logger = Logger.getLogger("fetch_api")
-const { messageBuilder } = getApp()._options.globalData
+const logger = Logger.getLogger("fetch_api");
+const { messageBuilder } = getApp()._options.globalData;
 
 Page({
   state: {},
@@ -23,19 +23,20 @@ Page({
       press_color: DEFAULT_COLOR_TRANSPARENT,
       text: "Fetch Data",
       click_func: (button_widget) => {
-        logger.log("click button")
-        this.fetchData()
+        logger.log("click button");
+        this.fetchData();
       },
-    })
+    });
   },
   fetchData() {
-    messageBuilder.request({
-      method: "GET_DATA",
-    })
-    .then(data => {
-      logger.log('receive data')
-      const { result = {} } = data
-      const { text } = result
+    messageBuilder
+      .request({
+        method: "GET_DATA",
+      })
+      .then((data) => {
+        logger.log("receive data");
+        const { result = {} } = data;
+        const { text } = result;
 
       createWidget(widget.TEXT, {
         x: px(50),
@@ -49,7 +50,6 @@ Page({
         text_style: text_style.NONE,
         text
       })
-    }).catch(res => {
-    })
+      .catch((res) => {});
   },
-})
+});

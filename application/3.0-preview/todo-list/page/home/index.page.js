@@ -3,7 +3,12 @@ import { getText } from '@zos/i18n'
 import { getDeviceInfo, SCREEN_SHAPE_SQUARE } from '@zos/device'
 import { log as Logger } from '@zos/utils'
 
-import { TITLE_TEXT_STYLE, TIPS_TEXT_STYLE, SCROLL_LIST, ADD_BUTTON } from 'zosLoader:./index.page.[pf].layout.js'
+import {
+  TITLE_TEXT_STYLE,
+  TIPS_TEXT_STYLE,
+  SCROLL_LIST,
+  ADD_BUTTON
+} from 'zosLoader:./index.page.[pf].layout.js'
 import { readFileSync, writeFileSync } from './../../utils/fs'
 import { getScrollListDataConfig } from './../../utils/index'
 
@@ -158,7 +163,7 @@ Page({
         item_enable_horizon_drag: true,
         item_drag_max_distance: -120,
         on_page: 1,
-        item_click_func: _scrollListItemClick,
+        item_click_func: _scrollListItemClick
       })
     }
   },

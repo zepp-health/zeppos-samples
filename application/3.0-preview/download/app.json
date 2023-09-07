@@ -12,10 +12,7 @@
     "vender": "zepp",
     "description": "empty application"
   },
-  "permissions": [
-    "data:os.device.info",
-    "device:os.ble"
-  ],
+  "permissions": ["data:os.device.info", "device:os.ble"],
   "runtime": {
     "apiVersion": {
       "compatible": "3.0.0",
@@ -27,9 +24,7 @@
     "gt": {
       "module": {
         "page": {
-          "pages": [
-            "page/index"
-          ]
+          "pages": ["page/index"]
         },
         "app-side": {
           "path": "app-side/index"

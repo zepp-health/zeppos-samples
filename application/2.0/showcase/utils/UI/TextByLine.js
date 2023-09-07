@@ -1,5 +1,5 @@
-import { createWidget, widget, align, text_style } from '@zos/ui'
-import { px } from '@zos/utils'
+import { createWidget, widget, align, text_style } from "@zos/ui";
+import { px } from "@zos/utils";
 
 export default class TextByLine {
   constructor(params = {}) {
@@ -31,7 +31,7 @@ export default class TextByLine {
       align_h: align.CENTER_H,
       align_v: align.CENTER_V,
       text_style: text_style.NONE,
-      text
-    })
+      text: this.text,
+    });
   }
 }

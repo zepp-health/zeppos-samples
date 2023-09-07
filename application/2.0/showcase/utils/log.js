@@ -1,3 +1,3 @@
-import { log } from '@zos/utils'
+import { log } from "@zos/utils";
 
-export default log.getLogger('Showcase')
+export default log.getLogger("Showcase");

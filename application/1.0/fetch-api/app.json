@@ -24,9 +24,7 @@
     "common": {
       "module": {
         "page": {
-          "pages": [
-            "pages/index"
-          ]
+          "pages": ["pages/index"]
         },
         "app-side": {
           "path": "app-side/index"

@@ -1,7 +1,23 @@
 import { getDeviceInfo } from "@zos/device";
 import hmUI from "@zos/ui";
 import { log } from "@zos/utils";
-import { CANVAS_1, CANVAS_2, CANVAS_BUTTON, CANVAS_TEXT, CANVAS_STYLE_1, CANVAS_STYLE_1_IMG, CANVAS_STYLE_2, CANVAS_STYLE_2_REC_1, CANVAS_STYLE_2_REC_2, CANVAS_STYLE_2_REC_3, CANVAS_STYLE_2_CLEAR_1, CANVAS_STYLE_2_REC_4, CANVAS_STYLE_2_REC_5, CANVAS_STYLE_2_REC_6, CANVAS_STYLE_1_CLEAR_1 } from 'zosLoader:./style.[pf].layout.js'
+import {
+  CANVAS_1,
+  CANVAS_2,
+  CANVAS_BUTTON,
+  CANVAS_TEXT,
+  CANVAS_STYLE_1,
+  CANVAS_STYLE_1_IMG,
+  CANVAS_STYLE_2,
+  CANVAS_STYLE_2_REC_1,
+  CANVAS_STYLE_2_REC_2,
+  CANVAS_STYLE_2_REC_3,
+  CANVAS_STYLE_2_CLEAR_1,
+  CANVAS_STYLE_2_REC_4,
+  CANVAS_STYLE_2_REC_5,
+  CANVAS_STYLE_2_REC_6,
+  CANVAS_STYLE_1_CLEAR_1,
+} from "zosLoader:./style.[pf].layout.js";
 const { height: DEVICE_HEIGHT, width: DEVICE_WIDTH } = getDeviceInfo();
 
 let canvasIndex0 = null;
@@ -9,7 +25,7 @@ let canvasIndex1 = null;
 let canvasIndex2 = null;
 
 let animTimer = null;
-const logger = log.getLogger('canvas.page')
+const logger = log.getLogger("canvas.page");
 Page({
   onInit() {
     logger.log("page on init invoke");
@@ -188,7 +204,7 @@ function timerCB() {
   });
   canvasIndex2.drawFill({
     ...CANVAS_STYLE_2_REC_6,
-    x1: CANVAS_STYLE_2_REC_6.x1 +  anim.rw,
+    x1: CANVAS_STYLE_2_REC_6.x1 + anim.rw,
   });
 
   //=================

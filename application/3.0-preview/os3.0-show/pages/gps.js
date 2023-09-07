@@ -1,12 +1,12 @@
 import hmUI from "@zos/ui";
 import { log } from "@zos/utils";
 import { Geolocation } from "@zos/sensor";
-import * as Styles from 'zosLoader:./style.[pf].layout.js'
+import * as Styles from "zosLoader:./style.[pf].layout.js";
 
 const gps = new Geolocation();
 let text = null;
 
-const logger = log.getLogger('gps.page')
+const logger = log.getLogger("gps.page");
 Page({
   onInit() {
     logger.log("page on init invoke");
