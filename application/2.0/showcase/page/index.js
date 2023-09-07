@@ -1,6 +1,7 @@
 import { push } from '@zos/router'
 import { APITree } from '../config/tree'
 import ButtonList from '../utils/UI/ButtonList'
+import EmptySpace from '../utils/UI/EmptySpace'
 import PageAdvanced from '../utils/template/PageAdvanced'
 
 PageAdvanced({
@@ -38,7 +39,7 @@ PageAdvanced({
 
     this.state.buttonList = new ButtonList({
       list,
-      absolute_y: px(40),
+      absolute_y: px(120),
       click_func: (i, index) => {
         this.state.logger.log('i', i)
         this.state.logger.log('index', index)
@@ -63,5 +64,8 @@ PageAdvanced({
     })
 
     this.state.buttonList.render()
+
+    const offset = list.length * (this.state.buttonList.space + this.state.buttonList.buttonHeight) + this.state.buttonList.absolute_y
+    new EmptySpace({ y: offset }).render()
   }
 })

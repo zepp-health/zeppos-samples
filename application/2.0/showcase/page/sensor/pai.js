@@ -1,6 +1,7 @@
 import { Pai } from '@zos/sensor'
 import PageAdvanced from '../../utils/template/PageAdvanced'
 import TextByLine from '../../utils/UI/TextByLine'
+import EmptySpace from '../../utils/UI/EmptySpace'
 
 PageAdvanced({
   state: {
@@ -51,9 +52,11 @@ PageAdvanced({
       line: 7
     }).render()
 
-    new TextByLine({
+    const lastText = new TextByLine({
       text: `lastWeekPAI6:${lastWeekPAIArray[6]}`,
       line: 8
-    }).render()
+    })
+    lastText.render()
+    new EmptySpace({ y: lastText.y_computed }).render()
   }
 })

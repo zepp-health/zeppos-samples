@@ -13,9 +13,9 @@ export default class TextByLine {
 
   render() {
     return createWidget(widget.TEXT, {
-      x: px(0),
+      x: px(40),
       y: this.y_computed,
-      w: px(480),
+      w: px(400),
       h: px(46),
       color: 0xffffff,
       text_size: px(20),

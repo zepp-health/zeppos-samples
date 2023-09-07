@@ -3,6 +3,7 @@ import { BloodOxygen } from '@zos/sensor'
 import { px } from '@zos/utils'
 import PageAdvanced from '../../utils/template/PageAdvanced'
 import TextByLine from '../../utils/UI/TextByLine'
+import EmptySpace from '../../utils/UI/EmptySpace'
 
 PageAdvanced({
   state: {
@@ -56,5 +57,6 @@ PageAdvanced({
         bloodOxygen.start()
       }
     })
+    new EmptySpace({ y: px(440) }).render()
   }
 })
