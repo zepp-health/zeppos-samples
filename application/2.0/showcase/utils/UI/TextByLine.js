@@ -17,6 +17,7 @@ export default class TextByLine {
     }
 
     const y = px(line * 60 + 120)
+    this.y = y
 
     this.line = line + 1
 

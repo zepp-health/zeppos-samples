@@ -2,6 +2,7 @@ import { createWidget, widget, prop, event, align, text_style } from '@zos/ui'
 import { HeartRate } from '@zos/sensor'
 import { px } from '@zos/utils'
 import PageAdvanced from '../../utils/template/PageAdvanced'
+import EmptySpace from '../../utils/UI/EmptySpace'
 
 PageAdvanced({
   state: {
@@ -94,5 +95,6 @@ PageAdvanced({
         heartRate.onLastChange(lastCallback)
       }
     })
+    new EmptySpace({ y: px(440) }).render()
   }
 })
