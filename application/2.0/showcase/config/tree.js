@@ -1,34 +1,34 @@
 export const APITree = {
   sensor: {
     BloodOxygen: {
-      page: 'blood_oxygen'
+      page: "blood_oxygen",
     },
     Calorie: {
-      page: 'calorie'
+      page: "calorie",
     },
     Distance: {
-      page: 'distance'
+      page: "distance",
     },
     FatBurning: {
-      page: 'fat_burning'
+      page: "fat_burning",
     },
     HeartRate: {
-      page: 'heart_rate'
+      page: "heart_rate",
     },
     Pai: {
-      page: 'pai'
+      page: "pai",
     },
     Sleep: {
-      page: 'sleep'
+      page: "sleep",
     },
     Stand: {
-      page: 'stand'
+      page: "stand",
     },
     Step: {
-      page: 'step'
+      page: "step",
     },
     Stress: {
-      page: 'stress'
-    }
-  }
-}
+      page: "stress",
+    },
+  },
+};

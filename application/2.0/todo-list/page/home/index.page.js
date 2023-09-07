@@ -29,7 +29,7 @@ Page({
       this.state.title = hmUI.createWidget(hmUI.widget.TEXT, {
         ...TITLE_TEXT_STYLE
       })
-    } 
+    }
 
     this.state.addButton = hmUI.createWidget(hmUI.widget.BUTTON, {
       ...ADD_BUTTON,

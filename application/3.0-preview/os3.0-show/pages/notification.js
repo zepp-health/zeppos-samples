@@ -1,9 +1,15 @@
 import hmUI from "@zos/ui";
 import { log } from "@zos/utils";
 import * as notificationMgr from "@zos/notification";
-import { BUTTON_H, BG_RECT, START_BUTTON, SERVICE_TEXT, SERVICE_BTN } from 'zosLoader:./style.[pf].layout.js'
+import {
+  BUTTON_H,
+  BG_RECT,
+  START_BUTTON,
+  SERVICE_TEXT,
+  SERVICE_BTN,
+} from "zosLoader:./style.[pf].layout.js";
 import { replace } from "@zos/router";
-import { DEVICE_HEIGHT } from './../libs/utils'
+import { DEVICE_HEIGHT } from "./../libs/utils";
 
 const BUTTON_Y = 250;
 const BUTTON_MARGIN_TOP = 5;
@@ -11,7 +17,7 @@ const BUTTON_OY = BUTTON_H + BUTTON_MARGIN_TOP;
 
 let thisFile = "pages/notification";
 
-const logger = log.getLogger('notification.page')
+const logger = log.getLogger("notification.page");
 
 Page({
   onInit() {

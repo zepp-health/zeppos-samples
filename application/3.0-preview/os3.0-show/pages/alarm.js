@@ -1,8 +1,8 @@
 import { getDeviceInfo } from "@zos/device";
-import { log } from '@zos/utils'
-import hmUI from '@zos/ui'
+import { log } from "@zos/utils";
+import hmUI from "@zos/ui";
 import { push, replace } from "@zos/router";
-import * as alarmMgr from '@zos/alarm'
+import * as alarmMgr from "@zos/alarm";
 
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = getDeviceInfo();
 
@@ -29,7 +29,7 @@ const BG_RECT = {
   color: 0x000000,
 };
 let thisFile = "pages/alarm";
-const logger = log.getLogger('alarm.page')
+const logger = log.getLogger("alarm.page");
 Page({
   onInit() {
     log.log("page on init invoke");

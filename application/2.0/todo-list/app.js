@@ -8,7 +8,7 @@ const logger = Logger.getLogger('todo-list-app')
 
 App({
   globalData: {
-    messageBuilder: null,
+    messageBuilder: null
   },
   onCreate() {
     logger.log('app onCreate invoked')
@@ -21,5 +21,5 @@ App({
   onDestroy() {
     logger.log('app onDestroy invoked')
     this.globalData.messageBuilder && this.globalData.messageBuilder.disConnect()
-  },
+  }
 })

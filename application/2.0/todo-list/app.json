@@ -45,10 +45,7 @@
       ]
     }
   },
-  "permissions": [
-    "data:os.device.info",
-    "device:os.local_storage"
-  ],
+  "permissions": ["data:os.device.info", "device:os.local_storage"],
   "i18n": {
     "en-US": {
       "name": "Todo List"

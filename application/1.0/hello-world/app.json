@@ -25,9 +25,7 @@
     "gtr3-pro": {
       "module": {
         "page": {
-          "pages": [
-            "page/gtr3-pro/home/index.page"
-          ]
+          "pages": ["page/gtr3-pro/home/index.page"]
         },
         "app-side": {
           "path": "app-side/index"
@@ -51,9 +49,7 @@
     "gtr3": {
       "module": {
         "page": {
-          "pages": [
-            "page/gtr3/home/index.page"
-          ]
+          "pages": ["page/gtr3/home/index.page"]
         },
         "app-side": {
           "path": "app-side/index"
@@ -85,9 +81,7 @@
     "gts3": {
       "module": {
         "page": {
-          "pages": [
-            "page/gts3/home/index.page"
-          ]
+          "pages": ["page/gts3/home/index.page"]
         },
         "app-side": {
           "path": "app-side/index"

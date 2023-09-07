@@ -1,8 +1,4 @@
-import {
-  statSync,
-  writeFileSync as writeFile,
-  readFileSync as readFile
-} from '@zos/fs'
+import { statSync, writeFileSync as writeFile, readFileSync as readFile } from '@zos/fs'
 
 import { TODO_FILE_NAME } from './constants'
 

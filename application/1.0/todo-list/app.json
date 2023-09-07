@@ -81,7 +81,7 @@
         "page": {
           "pages": ["page/gtr-3/home/index.page"]
         },
-      
+
         "app-side": {
           "path": "app-side/index"
         },

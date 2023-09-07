@@ -28,10 +28,7 @@
     "gts": {
       "module": {
         "page": {
-          "pages": [
-            "page/gts/index",
-            "page/gts/food-list"
-          ]
+          "pages": ["page/gts/index", "page/gts/food-list"]
         }
       },
       "platforms": [

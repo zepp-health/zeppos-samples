@@ -1,5 +1,5 @@
 import { getDeviceInfo } from "@zos/device";
-import { px } from '@zos/utils'
+import { px } from "@zos/utils";
 import hmUI from "@zos/ui";
 import { log } from "@zos/utils";
 import { Stress } from "@zos/sensor";
@@ -26,7 +26,7 @@ const BUTTON = {
 let text_info = null;
 let show_text = "";
 
-const logger = log.getLogger('stress.page')
+const logger = log.getLogger("stress.page");
 Page({
   onInit() {
     logger.log("page on init invoke");
@@ -59,17 +59,12 @@ Page({
           logger.log("All Day Stress: ");
           allday.forEach((item, index) => {
             if (item !== 0) {
-              show_text +=
-              "min" +
-              index +
-              " stress val:" +
-              item +
-              "\n";
+              show_text += "min" + index + " stress val:" + item + "\n";
             }
-          })
+          });
           text_info.setProperty(hmUI.prop.TEXT, show_text);
         }
-      }
+      },
     });
 
     hmUI.createWidget(hmUI.widget.BUTTON, {
@@ -116,10 +111,7 @@ Page({
           for (let index = 0; index < all7DaysHours.length; index++) {
             if (all7DaysHours[index] != 0) {
               show_text +=
-                "day" + index +
-                " stress val:" +
-                all7DaysHours[index] +
-                "\n";
+                "day" + index + " stress val:" + all7DaysHours[index] + "\n";
             }
           }
           text_info.setProperty(hmUI.prop.TEXT, show_text);

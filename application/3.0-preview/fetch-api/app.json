@@ -12,10 +12,7 @@
     "vender": "zepp",
     "description": "A sample application to demonstrate the fetch API"
   },
-  "permissions": [
-    "data:os.device.info",
-    "device:os.local_storage"
-  ],
+  "permissions": ["data:os.device.info", "device:os.local_storage"],
   "runtime": {
     "apiVersion": {
       "compatible": "2.0.0",
@@ -27,9 +24,7 @@
     "common": {
       "module": {
         "page": {
-          "pages": [
-            "page/index"
-          ]
+          "pages": ["page/index"]
         },
         "app-side": {
           "path": "app-side/index"

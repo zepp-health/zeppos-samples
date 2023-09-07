@@ -1,12 +1,12 @@
 import hmUI from "@zos/ui";
 import { log } from "@zos/utils";
 import { Sleep } from "@zos/sensor";
-import * as Styles from 'zosLoader:./style.[pf].layout.js'
+import * as Styles from "zosLoader:./style.[pf].layout.js";
 
 let text_info = null;
 let show_text = "";
 
-const logger = log.getLogger('sleep.page')
+const logger = log.getLogger("sleep.page");
 Page({
   onInit() {
     logger.log("page on init invoke");

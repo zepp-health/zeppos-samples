@@ -1,17 +1,17 @@
-import { parseQuery } from '../libs/utils'
-import { log } from '@zos/utils'
-import * as notificationMgr from '@zos/notification'
-import * as appServiceMgr from '@zos/app-service'
-import { Time } from '@zos/sensor'
+import { parseQuery } from "../libs/utils";
+import { log } from "@zos/utils";
+import * as notificationMgr from "@zos/notification";
+import * as appServiceMgr from "@zos/app-service";
+import { Time } from "@zos/sensor";
 
 const moduleName = "Time Service";
 const timeSensor = new Time();
 
-const logger = log.getLogger('time.service')
+const logger = log.getLogger("time.service");
 
 // Send a notification
 function sendNotification() {
-  logger.log('send notification')
+  logger.log("send notification");
   notificationMgr.notify({
     title: "Time Service",
     content: `Now the time is ${timeSensor.getHours()}:${timeSensor.getMinutes()}:${timeSensor.getSeconds()}`,

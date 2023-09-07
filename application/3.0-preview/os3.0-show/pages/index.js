@@ -1,10 +1,10 @@
 import hmUI from "@zos/ui";
 import { log } from "@zos/utils";
 import { push } from "@zos/router";
-import * as Styles from 'zosLoader:./style.[pf].layout.js'
-import { createEmptySpace } from './../components/empty-space'
+import * as Styles from "zosLoader:./style.[pf].layout.js";
+import { createEmptySpace } from "./../components/empty-space";
 
-const logger = log.getLogger('index.page')
+const logger = log.getLogger("index.page");
 
 Page({
   onCreate(e) {
@@ -23,13 +23,13 @@ Page({
     });
 
     const featureArray = [
-      { name: "BG Service", url: "pages/bgService"},
-      { name: "Notification", url: "pages/notification"},
-      { name: "Alarm", url: "pages/alarm"},
-      { name: "Screen", url: "pages/screen"},
-      { name: "Canvas", url: "pages/canvas"},
-      { name: "Health", url: "pages/sensor"}
-    ]
+      { name: "BG Service", url: "pages/bgService" },
+      { name: "Notification", url: "pages/notification" },
+      { name: "Alarm", url: "pages/alarm" },
+      { name: "Screen", url: "pages/screen" },
+      { name: "Canvas", url: "pages/canvas" },
+      { name: "Health", url: "pages/sensor" },
+    ];
     featureArray.forEach((feature, index) => {
       hmUI.createWidget(hmUI.widget.BUTTON, {
         ...Styles.MAIN_BUTTON,
@@ -41,9 +41,11 @@ Page({
           });
         },
       });
-    })
+    });
 
-    createEmptySpace(Styles.MAIN_BUTTON_Y + Styles.MAIN_BUTTON_OY * featureArray.length)
+    createEmptySpace(
+      Styles.MAIN_BUTTON_Y + Styles.MAIN_BUTTON_OY * featureArray.length
+    );
   },
   onHide() {
     logger.log("page on hide invoke");

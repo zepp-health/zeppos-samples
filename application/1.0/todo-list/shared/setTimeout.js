@@ -16,7 +16,7 @@ if (typeof setTimeout === 'undefined' && isHmTimerDefined()) {
         globalNS.clearTimeout(timer1)
         func && func()
       },
-      {},
+      {}
     )
 
     return timer1
@@ -34,7 +34,7 @@ if (typeof setTimeout === 'undefined' && isHmTimerDefined()) {
         globalNS.clearImmediate(timer1)
         func && func()
       },
-      {},
+      {}
     )
 
     return timer1
@@ -51,7 +51,7 @@ if (typeof setTimeout === 'undefined' && isHmTimerDefined()) {
       function () {
         func && func()
       },
-      {},
+      {}
     )
 
     return timer1

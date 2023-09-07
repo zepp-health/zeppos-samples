@@ -12,10 +12,7 @@
     "vender": "zepp",
     "description": "hello world app"
   },
-  "permissions": [
-    "data:os.device.info",
-    "device:os.local_storage"
-  ],
+  "permissions": ["data:os.device.info", "device:os.local_storage"],
   "runtime": {
     "apiVersion": {
       "compatible": "2.0.0",
@@ -28,9 +25,7 @@
     "gt": {
       "module": {
         "page": {
-          "pages": [
-            "page/gt/home/index.page"
-          ]
+          "pages": ["page/gt/home/index.page"]
         }
       },
       "platforms": [

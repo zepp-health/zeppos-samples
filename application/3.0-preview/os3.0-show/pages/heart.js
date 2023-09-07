@@ -1,12 +1,12 @@
 import hmUI from "@zos/ui";
 import { log } from "@zos/utils";
 import { HeartRate } from "@zos/sensor";
-import * as Styles from 'zosLoader:./style.[pf].layout.js'
+import * as Styles from "zosLoader:./style.[pf].layout.js";
 
 let text_info = null;
 let show_text = "";
 
-const logger = log.getLogger('heart.page')
+const logger = log.getLogger("heart.page");
 Page({
   onInit() {
     logger.log("page on init invoke");
@@ -16,7 +16,7 @@ Page({
       text: "max heart rate info:",
     });
 
-    let hrSr = new HeartRate()
+    let hrSr = new HeartRate();
 
     hmUI.createWidget(hmUI.widget.BUTTON, {
       ...Styles.STOP_BUTTON,

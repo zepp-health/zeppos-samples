@@ -1,9 +1,9 @@
-import hmUI from '@zos/ui'
-import { Accelerometer } from '@zos/sensor';
-import { log } from '@zos/utils'
-import * as Styles from 'zosLoader:./style.[pf].layout.js'
+import hmUI from "@zos/ui";
+import { Accelerometer } from "@zos/sensor";
+import { log } from "@zos/utils";
+import * as Styles from "zosLoader:./style.[pf].layout.js";
 
-const logger = log.getLogger('acc.page')
+const logger = log.getLogger("acc.page");
 const acc = new Accelerometer();
 
 let textWidget = null;
