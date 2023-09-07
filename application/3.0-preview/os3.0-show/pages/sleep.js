@@ -1,26 +1,7 @@
-import { getDeviceInfo } from "@zos/device";
 import hmUI from "@zos/ui";
 import { log } from "@zos/utils";
 import { Sleep } from "@zos/sensor";
-
-const { height: DEVICE_HEIGHT, width: DEVICE_WIDTH } = getDeviceInfo();
-
-const BUTTON_X = 50;
-const BUTTON_Y = 70;
-const BUTTON_W = DEVICE_WIDTH - 2 * BUTTON_X;
-const BUTTON_H = 50;
-const BUTTON_MARGIN_TOP = 20;
-const BUTTON_OY = BUTTON_H + BUTTON_MARGIN_TOP;
-
-const BUTTON = {
-  x: BUTTON_X,
-  y: BUTTON_Y,
-  w: BUTTON_W,
-  h: BUTTON_H,
-  press_color: 10066329,
-  normal_color: 3355443,
-  radius: 16,
-};
+import * as Styles from 'zosLoader:./style.[pf].layout.js'
 
 let text_info = null;
 let show_text = "";
@@ -31,25 +12,15 @@ Page({
     logger.log("page on init invoke");
 
     text_info = hmUI.createWidget(hmUI.widget.TEXT, {
-      x: BUTTON_X + 20,
-      y: BUTTON_Y + BUTTON_H * 4,
-      w: BUTTON_W,
-      h: BUTTON_H,
+      ...Styles.TEXT_STYLE,
       text_size: 15,
       text: "Sleep Sensor Function Info:",
-      color: 0x34e073,
     });
 
     let sleepSr = new Sleep();
 
     hmUI.createWidget(hmUI.widget.BUTTON, {
-      x: BUTTON_X,
-      y: BUTTON_Y,
-      w: BUTTON_W,
-      h: BUTTON_H,
-      press_color: 10066329,
-      normal_color: 3355443,
-      radius: 16,
+      ...Styles.START_BUTTON,
       text: "Is sleeping ?",
       click_func: () => {
         let sleeping = sleepSr.getSleepingStatus();
@@ -59,13 +30,7 @@ Page({
     });
 
     hmUI.createWidget(hmUI.widget.BUTTON, {
-      x: BUTTON_X,
-      y: BUTTON_Y + 100,
-      w: BUTTON_W,
-      h: BUTTON_H,
-      press_color: 10066329,
-      normal_color: 3355443,
-      radius: 16,
+      ...Styles.STOP_BUTTON,
       text: "Short Sleep Info",
       click_func: () => {
         logger.log("click to get sleep data");

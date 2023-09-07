@@ -1,11 +1,9 @@
-import { getDeviceInfo } from "@zos/device";
 import { log } from "@zos/utils";
 import { replace } from "@zos/router";
 import * as appService from "@zos/app-service";
 import hmUI from "@zos/ui";
-import { DEVICE_WIDTH } from "../libs/utils";
 import { queryPermission, requestPermission } from '@zos/app'
-
+import { SERVICE_TEXT, SERVICE_LABEL, SERVICE_BTN } from 'zosLoader:./style.[pf].layout.js'
 function setProperty(w, p, v) {
   w.setProperty(p, v);
 }
@@ -113,35 +111,17 @@ Page({
 
     // Show tips
     hmUI.createWidget(hmUI.widget.TEXT, {
-      x: 40,
-      y: 80,
-      w: DEVICE_WIDTH - 40 * 2,
-      h: 80,
-      text_size: 24,
-      align_h: hmUI.align.CENTER_H,
-      color: 0xffffff,
+      ...SERVICE_TEXT,
       text: "Time report service:\nsend a notification every minute!",
     });
 
     vm.state.txtLabel = hmUI.createWidget(hmUI.widget.TEXT, {
-      x: 40,
-      y: 80 + 80 + 20,
-      w: DEVICE_WIDTH - 40 * 2,
-      h: 120,
-      text_size: 24,
-      align_h: hmUI.align.CENTER_H,
-      color: 0xffffff,
+      ...SERVICE_LABEL,
       text: txtResource.label[vm.state.running],
     });
 
     vm.state.serviceBtn = hmUI.createWidget(hmUI.widget.BUTTON, {
-      x: 100,
-      y: 280,
-      w: DEVICE_WIDTH - 100 * 2,
-      h: 50,
-      radius: 8,
-      press_color: 0x1976d2,
-      normal_color: 0xef5350,
+      ...SERVICE_BTN,
       text: txtResource.btn[vm.state.running],
       click_func: function () {
         if (vm.state.running) stopTimeService(vm);

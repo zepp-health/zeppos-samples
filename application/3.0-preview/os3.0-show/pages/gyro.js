@@ -1,37 +1,7 @@
-import { getDeviceInfo } from "@zos/device";
 import hmUI from "@zos/ui";
 import { log } from "@zos/utils";
 import { Gyroscope } from "@zos/sensor";
-
-const { height: DEVICE_HEIGHT, width: DEVICE_WIDTH } = getDeviceInfo();
-
-const BUTTON_X = 50;
-const BUTTON_Y = 80;
-const BUTTON_W = DEVICE_WIDTH - 2 * BUTTON_X;
-const BUTTON_H = 50;
-const BUTTON_MARGIN_TOP = 20;
-const BUTTON_OY = BUTTON_H + BUTTON_MARGIN_TOP;
-
-const START_BUTTON = {
-  x: BUTTON_X,
-  y: BUTTON_Y,
-  w: BUTTON_W,
-  h: BUTTON_H,
-  press_color: 10066329,
-  normal_color: 3355443,
-  radius: 16,
-};
-
-const STOP_BUTTON = {
-  x: BUTTON_X,
-  y: BUTTON_Y + BUTTON_H * 2,
-  w: BUTTON_W,
-  h: BUTTON_H,
-  press_color: 10066329,
-  normal_color: 3355443,
-  radius: 16,
-};
-
+import * as Styles from 'zosLoader:./style.[pf].layout.js'
 
 const gyro = new Gyroscope();
 let text = null;
@@ -41,13 +11,8 @@ Page({
     logger.log("page on init invoke");
 
     text = hmUI.createWidget(hmUI.widget.TEXT, {
-      x: BUTTON_X + 20,
-      y: BUTTON_Y + BUTTON_H * 4,
-      w: BUTTON_W,
-      h: BUTTON_H * 2,
-      text_size: 18,
-      text: "GYRO Info simulator sample value is from horizontal to vertical",
-      color: 0x34e073,
+      ...Styles.TEXT_STYLE,
+      text: "GYRO Info simulator sample value is from horizontal to vertical"
     });
 
     gyro.onChange(function (cb_info) {
@@ -57,7 +22,7 @@ Page({
     });
 
     hmUI.createWidget(hmUI.widget.BUTTON, {
-      ...START_BUTTON,
+      ...Styles.START_BUTTON,
       text: "START GYRO",
       click_func: () => {
         logger.log("click to start gyro");
@@ -66,7 +31,7 @@ Page({
     });
 
     hmUI.createWidget(hmUI.widget.BUTTON, {
-      ...STOP_BUTTON,
+      ...Styles.STOP_BUTTON,
       text: "STOP GYRO",
       click_func: () => {
         logger.log("click to stop gyro");

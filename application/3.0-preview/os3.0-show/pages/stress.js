@@ -1,15 +1,16 @@
 import { getDeviceInfo } from "@zos/device";
+import { px } from '@zos/utils'
 import hmUI from "@zos/ui";
 import { log } from "@zos/utils";
 import { Stress } from "@zos/sensor";
 
 const { height: DEVICE_HEIGHT, width: DEVICE_WIDTH } = getDeviceInfo();
 
-const BUTTON_X = 25;
-const BUTTON_Y = 70;
+const BUTTON_X = px(25);
+const BUTTON_Y = px(70);
 const BUTTON_W = (DEVICE_WIDTH * 10) / 25;
-const BUTTON_H = 50;
-const BUTTON_MARGIN_TOP = 20;
+const BUTTON_H = px(50);
+const BUTTON_MARGIN_TOP = px(20);
 const BUTTON_OY = BUTTON_H + BUTTON_MARGIN_TOP;
 
 const BUTTON = {
@@ -19,7 +20,7 @@ const BUTTON = {
   h: BUTTON_H,
   press_color: 10066329,
   normal_color: 3355443,
-  radius: 16,
+  radius: px(16),
 };
 
 let text_info = null;
@@ -31,11 +32,11 @@ Page({
     logger.log("page on init invoke");
 
     text_info = hmUI.createWidget(hmUI.widget.TEXT, {
-      x: BUTTON_X + 50,
+      x: BUTTON_X + px(50),
       y: BUTTON_Y + BUTTON_H * 4,
       w: DEVICE_WIDTH,
       h: BUTTON_H * 6,
-      text_size: 15,
+      text_size: px(15),
       text: "stress record info:",
       color: 0x34e073,
     });
@@ -44,12 +45,12 @@ Page({
 
     hmUI.createWidget(hmUI.widget.BUTTON, {
       x: BUTTON_X,
-      y: BUTTON_Y + 50,
+      y: BUTTON_Y + px(50),
       w: BUTTON_W,
       h: BUTTON_H,
       press_color: 10066329,
       normal_color: 3355443,
-      radius: 16,
+      radius: px(16),
       text: "All Day Stress",
       click_func: () => {
         show_text = "";
@@ -78,7 +79,7 @@ Page({
       h: BUTTON_H,
       press_color: 10066329,
       normal_color: 3355443,
-      radius: 16,
+      radius: px(16),
       text: "All 24 hours Stress",
       click_func: () => {
         show_text = "";
@@ -101,12 +102,12 @@ Page({
 
     hmUI.createWidget(hmUI.widget.BUTTON, {
       x: BUTTON_X + DEVICE_WIDTH / 2,
-      y: BUTTON_Y + BUTTON_H * 2 + 10,
+      y: BUTTON_Y + BUTTON_H * 2 + px(10),
       w: BUTTON_W,
       h: BUTTON_H,
       press_color: 10066329,
       normal_color: 3355443,
-      radius: 16,
+      radius: px(16),
       text: "All 7 days Stress",
       click_func: () => {
         show_text = "";
@@ -128,12 +129,12 @@ Page({
 
     hmUI.createWidget(hmUI.widget.BUTTON, {
       x: BUTTON_X,
-      y: BUTTON_Y + BUTTON_H * 2 + 10,
+      y: BUTTON_Y + BUTTON_H * 2 + px(10),
       w: BUTTON_W,
       h: BUTTON_H,
       press_color: 10066329,
       normal_color: 3355443,
-      radius: 16,
+      radius: px(16),
       text: "getDailyAverage",
       click_func: () => {
         show_text = "";

@@ -28,17 +28,6 @@ const BG_RECT = {
   w: DEVICE_WIDTH,
   color: 0x000000,
 };
-const INFO_TEXT = {
-  x: BUTTON_X,
-  y: BUTTON_Y,
-  w: BUTTON_W,
-  h: DEVICE_HEIGHT - 2 * BUTTON_Y,
-  align_h: hmUI.align.CENTER_H,
-  color: 0xff0000,
-  text_size: 24,
-  // text: `string content`,
-};
-
 let thisFile = "pages/alarm";
 const logger = log.getLogger('alarm.page')
 Page({

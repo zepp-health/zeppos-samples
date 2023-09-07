@@ -1,12 +1,7 @@
 import hmUI from '@zos/ui'
 import { Workout } from '@zos/sensor'
 import { log } from '@zos/utils'
-import { DEVICE_WIDTH } from '../libs/utils'
-
-const BUTTON_X = 50;
-const BUTTON_Y = 80;
-const BUTTON_W = DEVICE_WIDTH - 2 * BUTTON_X;
-const BUTTON_H = 50;
+import * as Styles from 'zosLoader:./style.[pf].layout.js'
 
 const logger = log.getLogger('workout.page')
 const workout = new Workout();
@@ -16,18 +11,7 @@ Page({
   onInit() {
     logger.log("page on init invoke");
 
-    textWidget = hmUI.createWidget(hmUI.widget.TEXT, {
-      x: BUTTON_X + 20,
-      y: BUTTON_Y,
-      w: BUTTON_W,
-      h: BUTTON_H * 6,
-      text_style: hmUI.text_style.WRAP,
-      align_h: hmUI.align.CENTER_H,
-      align_v: hmUI.align.CENTER_V,
-      text_size: 18,
-      text: "workout Info",
-      color: 0x34e073,
-    });
+    textWidget = hmUI.createWidget(hmUI.widget.TEXT, Styles.WORKOUT_TEXT_STYLE);
     const status= workout.getStatus()
     console.log('-----', JSON.stringify(status))
     if (status) {
