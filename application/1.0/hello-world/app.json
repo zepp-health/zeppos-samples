@@ -27,14 +27,7 @@
         "page": {
           "pages": [
             "page/gtr3-pro/home/index.page"
-          ],
-          "window": {
-            "navigationBarBackgroundColor": "#ffffff",
-            "navigationBarTextStyle": "black",
-            "navigationBarTitleText": "Hello World",
-            "backgroundColor": "#eeeeee",
-            "backgroundTextStyle": "light"
-          }
+          ]
         },
         "app-side": {
           "path": "app-side/index"
@@ -60,14 +53,7 @@
         "page": {
           "pages": [
             "page/gtr3/home/index.page"
-          ],
-          "window": {
-            "navigationBarBackgroundColor": "#ffffff",
-            "navigationBarTextStyle": "black",
-            "navigationBarTitleText": "Hello World",
-            "backgroundColor": "#eeeeee",
-            "backgroundTextStyle": "light"
-          }
+          ]
         },
         "app-side": {
           "path": "app-side/index"
@@ -101,14 +87,7 @@
         "page": {
           "pages": [
             "page/gts3/home/index.page"
-          ],
-          "window": {
-            "navigationBarBackgroundColor": "#ffffff",
-            "navigationBarTextStyle": "black",
-            "navigationBarTitleText": "Hello World",
-            "backgroundColor": "#eeeeee",
-            "backgroundTextStyle": "light"
-          }
+          ]
         },
         "app-side": {
           "path": "app-side/index"
