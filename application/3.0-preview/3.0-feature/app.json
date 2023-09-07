@@ -2,7 +2,7 @@
   "configVersion": "v3",
   "app": {
     "appId": 1000004,
-    "appName": "os3.0-show",
+    "appName": "3.0-feature",
     "appType": "app",
     "version": {
       "code": 3,
