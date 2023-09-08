@@ -1,28 +1,14 @@
-import "./shared/device-polyfill";
-import { MessageBuilder } from "./shared/message";
-import { getPackageInfo } from "@zos/app";
-import * as ble from "@zos/ble";
+import { BaseApp } from "@zeppos/zml/base-app";
 
-App({
-  globalData: {
-    messageBuilder: null,
-  },
-  onCreate(options) {
-    console.log("app on create invoke");
-    const { appId } = getPackageInfo();
-    const messageBuilder = new MessageBuilder({
-      appId,
-      appDevicePort: 20,
-      appSidePort: 0,
-      ble,
-    });
-    this.globalData.messageBuilder = messageBuilder;
-    messageBuilder.connect();
-  },
+App(
+  BaseApp({
+    globalData: {},
+    onCreate(options) {
+      console.log("app on create invoke");
+    },
 
-  onDestroy(options) {
-    console.log("app on destroy invoke");
-    this.globalData.messageBuilder &&
-      this.globalData.messageBuilder.disConnect();
-  },
-});
+    onDestroy(options) {
+      console.log("app on destroy invoke");
+    },
+  })
+);
