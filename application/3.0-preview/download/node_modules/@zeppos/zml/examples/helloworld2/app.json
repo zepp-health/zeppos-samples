@@ -1,0 +1,61 @@
+{
+  "configVersion": "v3",
+  "app": {
+    "appId": 27234,
+    "appName": "helloworld-request",
+    "appType": "app",
+    "version": {
+      "code": 1,
+      "name": "1.0.1"
+    },
+    "icon": "icon.png",
+    "vender": "zepp",
+    "description": "helloworld"
+  },
+  "permissions": [
+    "data:os.device.info"
+  ],
+  "runtime": {
+    "apiVersion": {
+      "compatible": "1.0",
+      "target": "1.0",
+      "minVersion": "2.0"
+    }
+  },
+  "debug": false,
+  "targets": {
+    "common": {
+      "module": {
+        "page": {
+          "pages": [
+            "page/index/index.page"
+          ]
+        },
+        "app-side": {
+          "path": "app-side/index"
+        }
+      },
+      "platforms": [
+        {
+          "st": "r"
+        },
+        {
+          "st": "s"
+        },
+        {
+          "st": "b"
+        }
+      ],
+      "designWidth": 480
+    }
+  },
+  "i18n": {
+    "en-US": {
+      "appName": "helloworld-1.0"
+    },
+    "zh-CN": {
+      "appName": "你好世界-1.0"
+    }
+  },
+  "defaultLanguage": "zh-CN"
+}
