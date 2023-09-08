@@ -10,7 +10,7 @@
     },
     "icon": "icon.png",
     "vender": "Zepp Health",
-    "description": "os3.0 Feature"
+    "description": "A sample application about the new features of 3.0"
   },
   "permissions": [
     "event:os.bp.high",
