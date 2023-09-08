@@ -12,10 +12,7 @@
     "vender": "zepp",
     "description": "hello world app"
   },
-  "permissions": [
-    "data:os.device.info",
-    "device:os.local_storage"
-  ],
+  "permissions": ["data:os.device.info", "device:os.local_storage"],
   "runtime": {
     "apiVersion": {
       "compatible": "2.0.0",
@@ -28,22 +25,7 @@
     "gtr": {
       "module": {
         "page": {
-          "pages": [
-            "page/gtr/home/index.page"
-          ],
-          "window": {
-            "navigationBarBackgroundColor": "#ffffff",
-            "navigationBarTextStyle": "black",
-            "navigationBarTitleText": "Hello World",
-            "backgroundColor": "#eeeeee",
-            "backgroundTextStyle": "light"
-          }
-        },
-        "app-side": {
-          "path": "app-side/index"
-        },
-        "setting": {
-          "path": "setting/index"
+          "pages": ["page/gtr/home/index.page"]
         }
       },
       "platforms": [
@@ -61,22 +43,7 @@
     "gts": {
       "module": {
         "page": {
-          "pages": [
-            "page/gts/home/index.page"
-          ],
-          "window": {
-            "navigationBarBackgroundColor": "#ffffff",
-            "navigationBarTextStyle": "black",
-            "navigationBarTitleText": "Hello World",
-            "backgroundColor": "#eeeeee",
-            "backgroundTextStyle": "light"
-          }
-        },
-        "app-side": {
-          "path": "app-side/index"
-        },
-        "setting": {
-          "path": "setting/index"
+          "pages": ["page/gts/home/index.page"]
         }
       },
       "platforms": [

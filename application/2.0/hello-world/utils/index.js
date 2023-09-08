@@ -1,3 +1,3 @@
 export function assets(type) {
-  return (path) => type + '/' + path
+  return (path) => type + "/" + path;
 }

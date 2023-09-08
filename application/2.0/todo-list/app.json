@@ -23,23 +23,7 @@
     "gts": {
       "module": {
         "page": {
-          "pages": ["page/home/index.page"],
-          "window": {
-            "navigationBarBackgroundColor": "#ffffff",
-            "navigationBarTextStyle": "black",
-            "navigationBarTitleText": "",
-            "backgroundColor": "#eeeeee",
-            "backgroundTextStyle": "light"
-          }
-        },
-        "app-widget": {
-          "widgets": []
-        },
-        "watchface": {
-          "path": ""
-        },
-        "watch-widget": {
-          "widgets": []
+          "pages": ["page/home/index.page"]
         },
         "app-side": {
           "path": "app-side/index"
@@ -69,10 +53,7 @@
       ]
     }
   },
-  "permissions": [
-    "data:os.device.info",
-    "device:os.local_storage"
-  ],
+  "permissions": ["data:os.device.info", "device:os.local_storage"],
   "i18n": {
     "en-US": {
       "name": "Todo List"

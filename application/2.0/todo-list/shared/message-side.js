@@ -111,8 +111,17 @@ class Session extends EventBus {
     }
 
     if (payload.payloadLength !== payload.payload.byteLength) {
-      logger.error('receive chunk data length error, expect %d but %d', payload.payloadLength, payload.payload.byteLength)
-      this.emit('error', Error(`receive chunk data length error, expect ${payload.payloadLength} but ${payload.payload.byteLength}`))
+      logger.error(
+        'receive chunk data length error, expect %d but %d',
+        payload.payloadLength,
+        payload.payload.byteLength
+      )
+      this.emit(
+        'error',
+        Error(
+          `receive chunk data length error, expect ${payload.payloadLength} but ${payload.payload.byteLength}`
+        )
+      )
       return
     }
 
@@ -142,8 +151,17 @@ class Session extends EventBus {
     this.finishChunk.payloadLength = this.finishChunk.payload.byteLength
 
     if (this.finishChunk.totalLength !== this.finishChunk.payloadLength) {
-      logger.error('receive full data length error, expect %d but %d', this.finishChunk.payloadLength, this.finishChunk.payload.byteLength)
-      this.emit('error', Error(`receive full data length error, expect ${this.finishChunk.payloadLength} but ${this.finishChunk.payload.byteLength}`))
+      logger.error(
+        'receive full data length error, expect %d but %d',
+        this.finishChunk.payloadLength,
+        this.finishChunk.payload.byteLength
+      )
+      this.emit(
+        'error',
+        Error(
+          `receive full data length error, expect ${this.finishChunk.payloadLength} but ${this.finishChunk.payload.byteLength}`
+        )
+      )
       return
     }
 
@@ -261,7 +279,8 @@ export class MessageBuilder extends EventBus {
 
     this.ble &&
       this.ble.createConnect((index, data, size) => {
-        DEBUG && logger.warn('[RAW] [R] receive index=>%d size=>%d bin=>%s', index, size, bin2hex(data))
+        DEBUG &&
+          logger.warn('[RAW] [R] receive index=>%d size=>%d bin=>%s', index, size, bin2hex(data))
         this.onFragmentData(data)
       })
 
@@ -285,7 +304,8 @@ export class MessageBuilder extends EventBus {
 
     messaging &&
       messaging.peerSocket.addListener('message', (message) => {
-        DEBUG && logger.warn('[RAW] [R] receive size=>%d bin=>%s', message.byteLength, bin2hex(message))
+        DEBUG &&
+          logger.warn('[RAW] [R] receive size=>%d bin=>%s', message.byteLength, bin2hex(message))
         this.onMessage(message)
       })
 
@@ -453,7 +473,10 @@ export class MessageBuilder extends EventBus {
   }
 
   // 大数据的复杂头部分包协议
-  sendHmProtocol({ requestId, dataBin, type, contentType, dataType }, { messageType = MessageType.Data } = {}) {
+  sendHmProtocol(
+    { requestId, dataBin, type, contentType, dataType },
+    { messageType = MessageType.Data } = {}
+  ) {
     const headerSize = 0
     const hmDataSize = HM_MESSAGE_PROTO_PAYLOAD
     const userDataLength = dataBin.byteLength
@@ -523,7 +546,8 @@ export class MessageBuilder extends EventBus {
     if (offset === userDataLength) {
       DEBUG && logger.debug('HmProtocol send ok msgSize=> %d dataSize=> %d', offset, userDataLength)
     } else {
-      DEBUG && logger.error('HmProtocol send error msgSize=> %d dataSize=> %d', offset, userDataLength)
+      DEBUG &&
+        logger.error('HmProtocol send error msgSize=> %d dataSize=> %d', offset, userDataLength)
     }
   }
 
@@ -615,7 +639,10 @@ export class MessageBuilder extends EventBus {
     )
   }
 
-  sendDataWithSession({ traceId, spanId, seqId, payload, type, opCode, totalLength, contentType, dataType }, { messageType }) {
+  sendDataWithSession(
+    { traceId, spanId, seqId, payload, type, opCode, totalLength, contentType, dataType },
+    { messageType }
+  ) {
     const payloadBin = this.buildPayload({
       traceId,
       spanId,
@@ -630,8 +657,8 @@ export class MessageBuilder extends EventBus {
 
     let data = this.isDevice
       ? this.buildData(payloadBin, {
-        type: messageType
-      })
+          type: messageType
+        })
       : payloadBin
 
     this.sendMsg(data)
@@ -640,8 +667,8 @@ export class MessageBuilder extends EventBus {
   sendSimpleData({ payload }, { messageType }) {
     let data = this.isDevice
       ? this.buildData(payload, {
-        type: messageType
-      })
+          type: messageType
+        })
       : payload
 
     this._logSend(data)
@@ -840,20 +867,32 @@ export class MessageBuilder extends EventBus {
       this.appSidePort = data.port2
       logger.debug('appSidePort=>', data.port2)
       this.shakeTask.resolve()
-    } else if (data.flag === MessageFlag.App && data.type === MessageType.Data && data.port2 === this.appSidePort) {
+    } else if (
+      data.flag === MessageFlag.App &&
+      data.type === MessageType.Data &&
+      data.port2 === this.appSidePort
+    ) {
       this.emit('message', data.payload)
       this.emit('read', data)
-    } else if (data.flag === MessageFlag.App && data.type === MessageType.DataWithSystemTool && data.port2 === this.appSidePort) {
+    } else if (
+      data.flag === MessageFlag.App &&
+      data.type === MessageType.DataWithSystemTool &&
+      data.port2 === this.appSidePort
+    ) {
       this.emit('message', data.payload)
       this.emit('read', data)
-    } else if (data.flag === MessageFlag.App && data.type === MessageType.Log && data.port2 === this.appSidePort) {
+    } else if (
+      data.flag === MessageFlag.App &&
+      data.type === MessageType.Log &&
+      data.port2 === this.appSidePort
+    ) {
       this.emit('log', data.payload)
     } else {
       logger.error('error appSidePort=>%d data=>%j', this.appSidePort, data)
     }
   }
 
-  errorIfBleDisconnect() { }
+  errorIfBleDisconnect() {}
 
   onMessage(messagePayload) {
     const payload = this.readPayload(messagePayload)
@@ -983,7 +1022,12 @@ export class MessageBuilder extends EventBus {
             return resolve()
           }
 
-          DEBUG && logger.error(`request timeout in ${opts.timeout}ms error=> %d data=> %j`, requestId, data)
+          DEBUG &&
+            logger.error(
+              `request timeout in ${opts.timeout}ms error=> %d data=> %j`,
+              requestId,
+              data
+            )
           this.off('response', transact)
 
           reject(Error(`Timed out in ${opts.timeout}ms.`))
@@ -1078,7 +1122,8 @@ export class MessageBuilder extends EventBus {
           return
         }
 
-        DEBUG && logger.error(`request time out in ${opts.timeout}ms error=>%d data=>%j`, requestId, data)
+        DEBUG &&
+          logger.error(`request time out in ${opts.timeout}ms error=>%d data=>%j`, requestId, data)
         this.off('response', transact)
         cb(Error(`Timed out in ${opts.timeout}ms.`))
       }, opts.timeout)

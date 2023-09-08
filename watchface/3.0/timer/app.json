@@ -1,0 +1,48 @@
+{
+  "configVersion": "v3",
+  "app": {
+    "appId": 20001,
+    "appName": "Timer",
+    "appType": "watchface",
+    "version": {
+      "code": 2,
+      "name": "2.0.0"
+    },
+    "vender": "zepp",
+    "description": "timer watchface",
+    "icon": "images/preview.png"
+  },
+  "permissions": [],
+  "runtime": {
+    "apiVersion": {
+      "compatible": "2.0",
+      "target": "2.0",
+      "minVersion": "2.0"
+    }
+  },
+  "targets": {
+    "gtr-3-pro": {
+      "module": {
+        "watchface": {
+          "path": "watchface/gtr-3-pro/index",
+          "main": 1,
+          "editable": 1,
+          "lockscreen": 1
+        }
+      },
+      "platforms": [
+        {
+          "st": "r"
+        }
+      ],
+      "designWidth": 480
+    }
+  },
+  "i18n": {
+    "en-US": {
+      "name": "Timer"
+    }
+  },
+  "defaultLanguage": "en-US",
+  "debug": false
+}

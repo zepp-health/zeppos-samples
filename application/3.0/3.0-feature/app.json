@@ -1,0 +1,92 @@
+{
+  "configVersion": "v3",
+  "app": {
+    "appId": 1000004,
+    "appName": "3.0 Feature",
+    "appType": "app",
+    "version": {
+      "code": 3,
+      "name": "3.0"
+    },
+    "icon": "icon.png",
+    "vender": "Zepp Health",
+    "description": "A sample application about the new features of 3.0"
+  },
+  "permissions": [
+    "event:os.bp.high",
+    "event:os.bp.low",
+    "event:os.bp.expires",
+    "device:os.notification",
+    "event:os.health.sleep_status",
+    "event:os.health.heart_rate_abnl",
+    "event:os.weather.sun_rise",
+    "event:os.weather.sun_set",
+    "event:os.system.power_saving",
+    "event:os.system.theater_mode",
+    "event:os.system.no_disturb",
+    "event:customize.keyboard",
+    "data:os.device.info",
+    "device:os.alarm",
+    "device:os.accelerometer",
+    "device:os.geolocation",
+    "device:os.gyroscope",
+    "device:os.compass",
+    "data:user.hd.sleep",
+    "data:user.hd.heart_rate",
+    "data:user.hd.spo2",
+    "data:user.hd.stress",
+    "device:os.bg_service",
+    "data:user.hd.workout",
+    "device:os.ble"
+  ],
+  "runtime": {
+    "apiVersion": {
+      "compatible": "1.0.0",
+      "target": "1.0.1",
+      "minVersion": "2.0"
+    }
+  },
+  "targets": {
+    "common": {
+      "module": {
+        "page": {
+          "pages": [
+            "pages/index",
+            "pages/acc",
+            "pages/alarm",
+            "pages/bgService",
+            "pages/canvas",
+            "pages/ble",
+            "pages/compass",
+            "pages/gps",
+            "pages/screen",
+            "pages/workout",
+            "pages/gyro",
+            "pages/heart",
+            "pages/newAlarm",
+            "pages/notification",
+            "pages/sensor",
+            "pages/sleep",
+            "pages/spo2",
+            "pages/stress",
+            "pages/target"
+          ]
+        },
+        "app-service": {
+          "services": ["app-service/time_service", "app-event/index"]
+        },
+        "app-event": {
+          "path": "app-event/index"
+        }
+      },
+      "platforms": [
+        {
+          "st": "r"
+        }
+      ],
+      "designWidth": 480
+    }
+  },
+  "debug": false,
+  "defaultLanguage": "en-US"
+}

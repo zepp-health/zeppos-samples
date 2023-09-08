@@ -1,14 +1,15 @@
-import { createWidget, widget, prop, event, align, text_style } from '@zos/ui'
-import { HeartRate } from '@zos/sensor'
-import { px } from '@zos/utils'
-import PageAdvanced from '../../utils/template/PageAdvanced'
+import { createWidget, widget, prop, event, align, text_style } from "@zos/ui";
+import { HeartRate } from "@zos/sensor";
+import { px } from "@zos/utils";
+import PageAdvanced from "../../utils/template/PageAdvanced";
+import EmptySpace from "../../utils/UI/EmptySpace";
 
 PageAdvanced({
   state: {
-    pageName: 'HeartRate'
+    pageName: "HeartRate",
   },
   build() {
-    const heartRate = new HeartRate()
+    const heartRate = new HeartRate();
 
     const text = createWidget(widget.TEXT, {
       x: px(0),
@@ -20,14 +21,14 @@ PageAdvanced({
       align_h: align.CENTER_H,
       align_v: align.CENTER_V,
       text_style: text_style.NONE,
-      text: `CURRENT: ${heartRate.getCurrent()}; LAST: ${heartRate.getLast()}`
-    })
+      text: `CURRENT: ${heartRate.getCurrent()}; LAST: ${heartRate.getLast()}`,
+    });
 
     text.addEventListener(event.CLICK_DOWN, (info) => {
       text.setProperty(prop.MORE, {
-        text: `CURRENT: ${heartRate.getCurrent()}; LAST: ${heartRate.getLast()}`
-      })
-    })
+        text: `CURRENT: ${heartRate.getCurrent()}; LAST: ${heartRate.getLast()}`,
+      });
+    });
 
     const currentText = createWidget(widget.TEXT, {
       x: px(0),
@@ -39,8 +40,8 @@ PageAdvanced({
       align_h: align.CENTER_H,
       align_v: align.CENTER_V,
       text_style: text_style.NONE,
-      text: `EVENT-CURRENT: `
-    })
+      text: `EVENT-CURRENT: `,
+    });
 
     const lastText = createWidget(widget.TEXT, {
       x: px(0),
@@ -52,14 +53,14 @@ PageAdvanced({
       align_h: align.CENTER_H,
       align_v: align.CENTER_V,
       text_style: text_style.NONE,
-      text: `EVENT-LAST: `
-    })
+      text: `EVENT-LAST: `,
+    });
 
     const currCallback = () => {
       currentText.setProperty(prop.MORE, {
-        text: `EVENT-CURRENT: ${heartRate.getCurrent()}`
-      })
-    }
+        text: `EVENT-CURRENT: ${heartRate.getCurrent()}`,
+      });
+    };
 
     createWidget(widget.BUTTON, {
       x: px(80),
@@ -69,17 +70,15 @@ PageAdvanced({
       radius: px(12),
       normal_color: 0xfc6950,
       press_color: 0xfeb4a8,
-      text: 'REGISTER_CURRENT',
-      click_func: () => {
-        heartRate.onCurrentChange(currCallback)
-      }
-    })
+      text: "REGISTER_CURRENT",
+      click_func: heartRate.onCurrentChange(currCallback),
+    });
 
     const lastCallback = () => {
       lastText.setProperty(prop.MORE, {
-        text: `EVENT-LAST: ${heartRate.getLast()}`
-      })
-    }
+        text: `EVENT-LAST: ${heartRate.getLast()}`,
+      });
+    };
 
     createWidget(widget.BUTTON, {
       x: px(80),
@@ -89,10 +88,9 @@ PageAdvanced({
       radius: px(12),
       normal_color: 0xfc6950,
       press_color: 0xfeb4a8,
-      text: 'REGISTER_LAST',
-      click_func: () => {
-        heartRate.onLastChange(lastCallback)
-      }
-    })
-  }
-})
+      text: "REGISTER_LAST",
+      click_func: heartRate.onLastChange(lastCallback),
+    });
+    new EmptySpace({ y: px(440) }).render();
+  },
+});

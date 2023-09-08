@@ -23,23 +23,7 @@
     "gtr-3-pro": {
       "module": {
         "page": {
-          "pages": ["page/gtr-3/home/index.page"],
-          "window": {
-            "navigationBarBackgroundColor": "#ffffff",
-            "navigationBarTextStyle": "black",
-            "navigationBarTitleText": "",
-            "backgroundColor": "#eeeeee",
-            "backgroundTextStyle": "light"
-          }
-        },
-        "app-widget": {
-          "widgets": []
-        },
-        "watchface": {
-          "path": ""
-        },
-        "watch-widget": {
-          "widgets": []
+          "pages": ["page/gtr-3/home/index.page"]
         },
         "app-side": {
           "path": "app-side/index"
@@ -63,23 +47,7 @@
     "gtr-3": {
       "module": {
         "page": {
-          "pages": ["page/gtr-3/home/index.page"],
-          "window": {
-            "navigationBarBackgroundColor": "#ffffff",
-            "navigationBarTextStyle": "black",
-            "navigationBarTitleText": "",
-            "backgroundColor": "#eeeeee",
-            "backgroundTextStyle": "light"
-          }
-        },
-        "app-widget": {
-          "widgets": []
-        },
-        "watchface": {
-          "path": ""
-        },
-        "watch-widget": {
-          "widgets": []
+          "pages": ["page/gtr-3/home/index.page"]
         },
         "app-side": {
           "path": "app-side/index"
@@ -111,24 +79,9 @@
     "gts-3": {
       "module": {
         "page": {
-          "pages": ["page/gtr-3/home/index.page"],
-          "window": {
-            "navigationBarBackgroundColor": "#ffffff",
-            "navigationBarTextStyle": "black",
-            "navigationBarTitleText": "",
-            "backgroundColor": "#eeeeee",
-            "backgroundTextStyle": "light"
-          }
+          "pages": ["page/gtr-3/home/index.page"]
         },
-        "app-widget": {
-          "widgets": []
-        },
-        "watchface": {
-          "path": ""
-        },
-        "watch-widget": {
-          "widgets": []
-        },
+
         "app-side": {
           "path": "app-side/index"
         },

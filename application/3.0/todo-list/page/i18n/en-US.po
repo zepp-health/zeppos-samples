@@ -1,0 +1,21 @@
+
+msgid "todoList"
+msgstr "todo List"
+
+msgid "noData"
+msgstr "No data, please add it on the phone"
+
+msgid "add"
+msgstr "Add"
+
+msgid "deleteSuccess"
+msgstr "successfully deleted"
+
+msgid "deleteFailure"
+msgstr "Delete failed, check the network"
+
+msgid "addSuccess"
+msgstr "Added successfully"
+
+msgid "addFailure"
+msgstr "Failed to add, check the network"

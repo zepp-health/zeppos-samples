@@ -46,7 +46,7 @@ SecondaryWidget({
     const w =
       w1 + w2 + CONSUME_ICON_WIDTH + IMGAE_CALORIES_MARIN + CALORIES_UNIT_MARIN;
     const x = Math.round((DEVICE_WIDTH - w) / 2);
-    const baseY = 64;
+    const baseY = px(64);
 
     const textId = createWidget(widget.TEXT, {
       ...CALORIE_TEXT,

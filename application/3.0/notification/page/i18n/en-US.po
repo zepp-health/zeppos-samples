@@ -1,0 +1,8 @@
+msgid "content"
+msgstr "This is a message about system notifications"
+
+msgid "title"
+msgstr "Title"
+
+msgid "later_min"
+msgstr "%d min Later"

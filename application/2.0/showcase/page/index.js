@@ -2,68 +2,78 @@ import { push } from '@zos/router'
 import { px } from '@zos/utils'
 import { APITree } from '../config/tree'
 import ButtonList from '../utils/UI/ButtonList'
+import EmptySpace from '../utils/UI/EmptySpace'
 import PageAdvanced from '../utils/template/PageAdvanced'
 
 
 PageAdvanced({
   state: {
     params: null,
-    buttonList: null
+    buttonList: null,
   },
   onInit(params) {
-    this.state.logger.log('params', params)
+    this.state.logger.log("params", params);
 
     try {
-      this.state.params = JSON.parse(params)
+      this.state.params = JSON.parse(params);
     } catch (error) {
       this.state.params = {
-        path: []
-      }
+        path: [],
+      };
     }
   },
   build() {
-    this.state.logger.log('build')
+    this.state.logger.log("build");
 
-    const { path = [] } = this.state.params
+    const { path = [] } = this.state.params;
     const currentTree = path.reduce((prev, curr) => {
-      return prev[curr]
-    }, APITree)
+      return prev[curr];
+    }, APITree);
 
-    this.state.logger.log('currentTree', currentTree)
+    this.state.logger.log("currentTree", currentTree);
 
     const list = Object.keys(currentTree).map((key) => {
       return {
         text: key,
-        path: currentTree[key].page || ''
-      }
-    })
+        path: currentTree[key].page || "",
+      };
+    });
 
     this.state.buttonList = new ButtonList({
       list,
-      absolute_y: px(40),
+      absolute_y: px(120),
       click_func: (i, index) => {
-        this.state.logger.log('i', i)
-        this.state.logger.log('index', index)
+        this.state.logger.log("i", i);
+        this.state.logger.log("index", index);
 
-        const { text, path } = i
+        const { text, path } = i;
 
         if (path) {
-          this.state.logger.log('path', path)
-          this.state.logger.log('final path', `page/${this.state.params.path.join('/')}/${path}`)
+          this.state.logger.log("path", path);
+          this.state.logger.log(
+            "final path",
+            `page/${this.state.params.path.join("/")}/${path}`
+          );
           push({
-            url: `page/${this.state.params.path.join('/')}/${path}`
-          })
+            url: `page/${this.state.params.path.join("/")}/${path}`,
+          });
         } else {
           push({
-            url: 'page/index',
+            url: "page/index",
             params: {
-              path: [...this.state.params.path, text]
-            }
-          })
+              path: [...this.state.params.path, text],
+            },
+          });
         }
-      }
-    })
+      },
+    });
 
-    this.state.buttonList.render()
-  }
-})
+    this.state.buttonList.render();
+
+    const offset =
+      list.length *
+        (this.state.buttonList.space + this.state.buttonList.buttonHeight) +
+      this.state.buttonList.absolute_y;
+    new EmptySpace({ y: offset }).render();
+  },
+});

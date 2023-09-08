@@ -1,7 +1,6 @@
 import { gettext as getText } from 'i18n'
 
-export const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } =
-  hmSetting.getDeviceInfo()
+export const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = hmSetting.getDeviceInfo()
 
 export const TITLE_TEXT_STYLE = {
   text: getText('todoList'),
@@ -12,7 +11,7 @@ export const TITLE_TEXT_STYLE = {
   color: 0xffffff,
   text_size: 36,
   align_h: hmUI.align.CENTER_H,
-  text_style: hmUI.text_style.WRAP,
+  text_style: hmUI.text_style.WRAP
 }
 
 export const ADD_BUTTON = {
@@ -36,7 +35,7 @@ export const TIPS_TEXT_STYLE = {
   text_size: 32,
   align_h: hmUI.align.CENTER_H,
   align_v: hmUI.align.CENTER_V,
-  text_style: hmUI.text_style.WRAP,
+  text_style: hmUI.text_style.WRAP
 }
 
 export const SCROLL_LIST = {
@@ -56,11 +55,11 @@ export const SCROLL_LIST = {
           key: 'name',
           color: 0xffff00,
           text_size: px(36),
-          align_h: hmUI.align.LEFT,
-        },
+          align_h: hmUI.align.LEFT
+        }
       ],
       text_view_count: 1,
-      item_height: px(80),
+      item_height: px(80)
     },
     {
       type_id: 2,
@@ -75,16 +74,16 @@ export const SCROLL_LIST = {
           key: 'name',
           color: 0xff0000,
           text_size: px(36),
-          align_h: hmUI.align.LEFT,
-        },
+          align_h: hmUI.align.LEFT
+        }
       ],
       text_view_count: 1,
-      item_height: px(80),
-    },
+      item_height: px(80)
+    }
   ],
   item_config_count: 2,
   x: px(30),
   y: px(120),
   h: DEVICE_HEIGHT - px(180),
-  w: DEVICE_WIDTH - px(30) * 2,
+  w: DEVICE_WIDTH - px(30) * 2
 }

@@ -34,7 +34,7 @@ PageAdvanced({
       click_func: (button_widget) => {
         button_widget.setProperty(prop.MORE, {
           x: (DEVICE_WIDTH - px(400)) / 2,
-          y: px(300),
+          y: px(260),
           w: px(400),
           h: px(100)
         })

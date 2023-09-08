@@ -3,10 +3,10 @@ import { px } from '@zos/utils'
 
 export default class Title {
   constructor(params) {
-    const { text = '', y = px(40) } = params
+    const { text = "", y = px(40) } = params;
 
-    this.text = text
-    this.y = y
+    this.text = text;
+    this.y = y;
   }
 
   render() {
@@ -20,7 +20,7 @@ export default class Title {
       align_h: align.CENTER_H,
       align_v: align.CENTER_V,
       text_style: text_style.NONE,
-      text: this.text
-    })
+      text: this.text,
+    });
   }
 }

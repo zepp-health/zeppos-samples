@@ -81,14 +81,6 @@
         {
           "name": "gtr4-w",
           "deviceSource": 7930113
-        },
-        {
-          "name": "gts",
-          "deviceSource": 7995648
-        },
-        {
-          "name": "gts-w",
-          "deviceSource": 7995649
         }
       ],
       "designWidth": 480

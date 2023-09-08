@@ -25,22 +25,7 @@
     "gtr3-pro": {
       "module": {
         "page": {
-          "pages": [
-            "page/gtr3-pro/home/index.page"
-          ],
-          "window": {
-            "navigationBarBackgroundColor": "#ffffff",
-            "navigationBarTextStyle": "black",
-            "navigationBarTitleText": "Hello World",
-            "backgroundColor": "#eeeeee",
-            "backgroundTextStyle": "light"
-          }
-        },
-        "app-side": {
-          "path": "app-side/index"
-        },
-        "setting": {
-          "path": "setting/index"
+          "pages": ["page/gtr3-pro/home/index.page"]
         }
       },
       "platforms": [
@@ -58,22 +43,7 @@
     "gtr3": {
       "module": {
         "page": {
-          "pages": [
-            "page/gtr3/home/index.page"
-          ],
-          "window": {
-            "navigationBarBackgroundColor": "#ffffff",
-            "navigationBarTextStyle": "black",
-            "navigationBarTitleText": "Hello World",
-            "backgroundColor": "#eeeeee",
-            "backgroundTextStyle": "light"
-          }
-        },
-        "app-side": {
-          "path": "app-side/index"
-        },
-        "setting": {
-          "path": "setting/index"
+          "pages": ["page/gtr3/home/index.page"]
         }
       },
       "platforms": [
@@ -99,22 +69,7 @@
     "gts3": {
       "module": {
         "page": {
-          "pages": [
-            "page/gts3/home/index.page"
-          ],
-          "window": {
-            "navigationBarBackgroundColor": "#ffffff",
-            "navigationBarTextStyle": "black",
-            "navigationBarTitleText": "Hello World",
-            "backgroundColor": "#eeeeee",
-            "backgroundTextStyle": "light"
-          }
-        },
-        "app-side": {
-          "path": "app-side/index"
-        },
-        "setting": {
-          "path": "setting/index"
+          "pages": ["page/gts3/home/index.page"]
         }
       },
       "platforms": [

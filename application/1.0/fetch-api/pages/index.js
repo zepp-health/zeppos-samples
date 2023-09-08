@@ -5,7 +5,7 @@ import {
 import { DEVICE_WIDTH } from "../utils/config/device";
 
 const logger = DeviceRuntimeCore.HmLogger.getLogger("fetch_api");
-const { messageBuilder } = getApp()._options.globalData
+const { messageBuilder } = getApp()._options.globalData;
 
 Page({
   state: {},
@@ -27,26 +27,27 @@ Page({
     });
   },
   fetchData() {
-    messageBuilder.request({
-      method: "GET_DATA",
-    })
-    .then(data => {
-      logger.log('receive data')
-      const { result = {} } = data
-      const { text } = result
-
-      hmUI.createWidget(hmUI.widget.TEXT, {
-        x: px(96),
-        y: px(100),
-        w: px(288),
-        h: px(46),
-        color: 0xffffff,
-        text_size: px(36),
-        align_h: hmUI.align.CENTER_H,
-        align_v: hmUI.align.CENTER_V,
-        text_style: hmUI.text_style.NONE,
-        text
+    messageBuilder
+      .request({
+        method: "GET_DATA",
       })
-    })
+      .then((data) => {
+        logger.log("receive data");
+        const { result = {} } = data;
+        const { text } = result;
+
+        hmUI.createWidget(hmUI.widget.TEXT, {
+          x: px(96),
+          y: px(100),
+          w: px(288),
+          h: px(46),
+          color: 0xffffff,
+          text_size: px(36),
+          align_h: hmUI.align.CENTER_H,
+          align_v: hmUI.align.CENTER_V,
+          text_style: hmUI.text_style.NONE,
+          text,
+        });
+      });
   },
 });

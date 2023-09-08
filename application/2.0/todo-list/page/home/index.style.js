@@ -62,7 +62,7 @@ export const SCROLL_LIST = {
         },
       ],
       text_view_count: 1,
-      item_height: px(80),
+      item_height: px(80)
     },
     {
       type_id: 2,
@@ -81,12 +81,12 @@ export const SCROLL_LIST = {
         },
       ],
       text_view_count: 1,
-      item_height: px(80),
-    },
+      item_height: px(80)
+    }
   ],
   item_config_count: 2,
   x: px(30),
   y: px(120),
   h: DEVICE_HEIGHT - px(180),
-  w: DEVICE_WIDTH - px(30) * 2,
+  w: DEVICE_WIDTH - px(30) * 2
 }

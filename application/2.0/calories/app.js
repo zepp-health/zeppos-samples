@@ -13,7 +13,7 @@ App({
       this.globalData.foodType = foodType
 
     } catch (e) {
-      logger.log('--->e:', e)
+      logger.log("--->e:", e);
     }
   },
 

@@ -15,6 +15,8 @@ PageAdvanced({
       content_text_size: 40,
       content_bg_color: 0x000000,
       content_text_color: 0xffffff,
+      ok_text_color: 0x333333,
+      cancel_text_color: 0x333333,
       dialog_align_h: align.CENTER_H,
       content_text_align_h: align.CENTER_H,
       content_text_align_v: align.CENTER_V,
