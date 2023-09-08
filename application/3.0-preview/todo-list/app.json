@@ -25,15 +25,6 @@
         "page": {
           "pages": ["page/home/index.page"]
         },
-        "app-widget": {
-          "widgets": []
-        },
-        "watchface": {
-          "path": ""
-        },
-        "watch-widget": {
-          "widgets": []
-        },
         "app-side": {
           "path": "app-side/index"
         },
