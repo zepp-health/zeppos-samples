@@ -1,4 +1,4 @@
-import { BaseApp } from "./lib/base-app";
+import { BaseApp } from "@zeppos/zml/base-app";
 import { EventBus } from "@zos/utils";
 
 const bus = new EventBus();

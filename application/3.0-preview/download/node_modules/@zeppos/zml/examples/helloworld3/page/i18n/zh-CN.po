@@ -1,0 +1,12 @@
+
+msgid "appName"
+msgstr "你好世界"
+
+msgid "httpRequest"
+msgstr "测试 httpRequest"
+
+msgid "bleRequest"
+msgstr "测试 bleRequest"
+
+msgid "fileTransfer"
+msgstr "测试 fileTransfer"

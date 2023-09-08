@@ -1,0 +1,3 @@
+
+msgid "appName"
+msgstr "你好世界"
