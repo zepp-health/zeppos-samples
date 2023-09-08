@@ -47,7 +47,7 @@
     }
   },
   "targets": {
-    "gtr4": {
+    "common": {
       "module": {
         "page": {
           "pages": [
