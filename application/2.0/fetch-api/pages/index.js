@@ -38,18 +38,19 @@ Page({
         const { result = {} } = data;
         const { text } = result;
 
-      createWidget(widget.TEXT, {
-        x: px(50),
-        y: px(100),
-        w: DEVICE_WIDTH - 2 * px(50),
-        h: px(46),
-        color: 0xffffff,
-        text_size: px(36),
-        align_h: align.CENTER_H,
-        align_v: align.CENTER_V,
-        text_style: text_style.NONE,
-        text
+        createWidget(widget.TEXT, {
+          x: px(50),
+          y: px(100),
+          w: DEVICE_WIDTH - 2 * px(50),
+          h: px(46),
+          color: 0xffffff,
+          text_size: px(36),
+          align_h: align.CENTER_H,
+          align_v: align.CENTER_V,
+          text_style: text_style.NONE,
+          text
+        })
+          .catch((res) => { });
       })
-      .catch((res) => {});
-  },
-});
+    }
+})

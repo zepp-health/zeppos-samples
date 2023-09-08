@@ -1,5 +1,5 @@
 import { getTextLayout, createWidget, widget, deleteWidget, setAppWidgetSize, getAppWidgetSize } from "@zos/ui";
-import { log as Logger } from "@zos/utils";
+import { log as Logger, px } from "@zos/utils";
 import { Calorie } from "@zos/sensor";
 import { getText } from "@zos/i18n";
 
@@ -33,7 +33,7 @@ AppWidget({
     logger.log(getAppWidgetSize())
 
     setAppWidgetSize({
-      h: 120
+      h: px(120)
     })
 
     createWidget(widget.TEXT, TOTAL_CONSUME_TEXT);
@@ -77,7 +77,7 @@ AppWidget({
     const w =
       w1 + w2 + CONSUME_ICON_WIDTH + IMGAE_CALORIES_MARIN + CALORIES_UNIT_MARIN;
     const x = Math.round((DEVICE_WIDTH - w) / 2);
-    const baseY = 48;
+    const baseY = px(48);
 
     const textId = createWidget(widget.TEXT, {
       ...CALORIE_TEXT,

@@ -1,4 +1,4 @@
-import { createWidget, widget, prop, event } from '@zos/ui'
+import { createWidget, widget, prop, event, align } from '@zos/ui'
 import { px } from '@zos/utils'
 import PageAdvanced from '../../../utils/template/PageAdvanced'
 
@@ -21,11 +21,13 @@ PageAdvanced({
 
     const confirm = createWidget(widget.TEXT, {
       x: 0,
-      y: 400,
-      w: 480,
-      h: 80,
-      text_size: 42,
+      y: px(360),
+      w: px(480),
+      h: px(80),
+      text_size: px(42),
       color: 0xffffff,
+      align_h: align.CENTER_H,
+      align_v: align.CENTER_V,
       text: 'confirm'
     })
 
