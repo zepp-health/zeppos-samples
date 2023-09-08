@@ -26,12 +26,6 @@
       "module": {
         "page": {
           "pages": ["page/gtr3-pro/home/index.page"]
-        },
-        "app-side": {
-          "path": "app-side/index"
-        },
-        "setting": {
-          "path": "setting/index"
         }
       },
       "platforms": [
@@ -50,12 +44,6 @@
       "module": {
         "page": {
           "pages": ["page/gtr3/home/index.page"]
-        },
-        "app-side": {
-          "path": "app-side/index"
-        },
-        "setting": {
-          "path": "setting/index"
         }
       },
       "platforms": [
@@ -82,12 +70,6 @@
       "module": {
         "page": {
           "pages": ["page/gts3/home/index.page"]
-        },
-        "app-side": {
-          "path": "app-side/index"
-        },
-        "setting": {
-          "path": "setting/index"
         }
       },
       "platforms": [
