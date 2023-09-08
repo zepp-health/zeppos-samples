@@ -9,10 +9,6 @@ AppService({
     logger.log("index onInit=", params);
     this.invokeNotification(params);
   },
-  onEvent(params) {
-    logger.log("index onEvent=", params);
-    this.invokeNotification(params);
-  },
   invokeNotification(params) {
     notificationMgr.notify({
       title: getText("title"),
