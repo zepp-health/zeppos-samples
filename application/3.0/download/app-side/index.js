@@ -50,7 +50,7 @@ AppSideService(
           break;
         }
         default: {
-          res({
+          res(null, {
             status: "error",
             message: "unknown action",
           });
