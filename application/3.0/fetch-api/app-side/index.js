@@ -1,10 +1,9 @@
-import { MessageBuilder } from "../shared/message-side";
-
-const messageBuilder = new MessageBuilder();
+import { BaseSideService } from "@zeppos/zml/base-side";
 
 const padStart = (str, maxLength, fillStr = "0") => {
   return str.toString().padStart(maxLength, fillStr);
 };
+
 const formatDate = (date = new Date()) => {
   const y = date.getFullYear();
   const m = date.getMonth() + 1;
@@ -22,7 +21,6 @@ const formatDate = (date = new Date()) => {
 const mockAPI = async () => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      const now = new Date();
       resolve({
         body: {
           data: {
@@ -34,7 +32,7 @@ const mockAPI = async () => {
   });
 };
 
-const fetchData = async (ctx) => {
+const fetchData = async (res) => {
   try {
     // Requesting network data using the fetch API
     // The sample program is for simulation only and does not request real network data, so it is commented here
@@ -58,29 +56,29 @@ const fetchData = async (ctx) => {
     // A network request is simulated here
     const { body: { data = {} } = {} } = await mockAPI();
 
-    ctx.response({
-      data: { result: data },
+    res(null, {
+      result: data,
     });
   } catch (error) {
-    ctx.response({
-      data: { result: "ERROR" },
+    res(null, {
+      result: "ERROR",
     });
   }
 };
 
-AppSideService({
-  onInit() {
-    messageBuilder.listen(() => {});
+AppSideService(
+  BaseSideService({
+    onInit() {},
 
-    messageBuilder.on("request", (ctx) => {
-      const jsonRpc = messageBuilder.buf2Json(ctx.request.payload);
-      if (jsonRpc.method === "GET_DATA") {
-        return fetchData(ctx);
+    onRequest(req, res) {
+      console.log("=====>,", req.method);
+      if (req.method === "GET_DATA") {
+        fetchData(res);
       }
-    });
-  },
+    },
 
-  onRun() {},
+    onRun() {},
 
-  onDestroy() {},
-});
+    onDestroy() {},
+  })
+);
