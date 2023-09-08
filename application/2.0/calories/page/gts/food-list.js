@@ -57,7 +57,7 @@ Page({
     this.initRadioGroup();
   },
   buildElement() {
-    hmUI.createWidget(widget.FILL_RECT, {
+    hmUI.createWidget(hmUI.widget.FILL_RECT, {
       x: 0,
       y: 0,
       w: DEVICE_WIDTH,
@@ -70,14 +70,14 @@ Page({
     this.buildFoodList();
   },
   buildRadioButton(index) {
-    const radio = this.state.radioGroup.createWidget(widget.STATE_BUTTON, {
+    const radio = this.state.radioGroup.createWidget(hmUI.widget.STATE_BUTTON, {
       ...FOOD_LIST_RADIO_ITEM.styles,
       y: px(index * (FOOD_LIST_ITEM_HEIGHT + FOOD_LIST_ITEM_MARGIN)),
     });
     this.state.radioButtonsArray.push(radio);
   },
   buildRadioText(index) {
-    const text = hmUI.createWidget(widget.TEXT, {
+    const text = hmUI.createWidget(hmUI.widget.TEXT, {
       ...FOOD_LIST_RADIO_ITEM_TEXT,
       y: px(
         FOOD_LIST_Y + index * (FOOD_LIST_ITEM_HEIGHT + FOOD_LIST_ITEM_MARGIN)
