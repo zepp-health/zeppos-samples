@@ -1,45 +1,47 @@
-import { MessageBuilder } from '../shared/message-side'
+import { BaseSideService } from '@zeppos/zml/base-side'
+import { settingsLib } from '@zeppos/zml/base-side'
+
 import { DEFAULT_TODO_LIST } from './../utils/constants'
-const messageBuilder = new MessageBuilder()
 
 function getTodoList() {
-  return settings.settingsStorage.getItem('todoList')
-    ? JSON.parse(settings.settingsStorage.getItem('todoList'))
+  return settingsLib.getItem('todoList')
+    ? JSON.parse(settingsLib.getItem('todoList'))
     : [...DEFAULT_TODO_LIST]
 }
-AppSideService({
-  onInit() {
-    messageBuilder.listen(() => {})
-    settings.settingsStorage.addListener('change', ({ key, newValue, oldValue }) => {
-      messageBuilder.call(getTodoList())
-    })
-    messageBuilder.on('request', (ctx) => {
-      const payload = messageBuilder.buf2Json(ctx.request.payload)
-      if (payload.method === 'GET_TODO_LIST') {
-        ctx.response({
-          data: { result: getTodoList() }
+AppSideService(
+  BaseSideService({
+    onInit() {},
+    onRequest(req, res) {
+      if (req.method === 'GET_TODO_LIST') {
+        res(null, {
+          result: getTodoList()
         })
-      } else if (payload.method === 'ADD') {
+      } else if (req.method === 'ADD') {
         // 这里补充一个
         const todoList = getTodoList()
         const newTodoList = [...todoList, String(Math.floor(Math.random() * 100))]
-        settings.settingsStorage.setItem('todoList', JSON.stringify(newTodoList))
+        settingsLib.setItem('todoList', JSON.stringify(newTodoList))
 
-        ctx.response({
-          data: { result: newTodoList }
+        res(null, {
+          result: newTodoList
         })
-      } else if (payload.method === 'DELETE') {
-        const { params: { index } = {} } = payload
+      } else if (req.method === 'DELETE') {
+        const { index } = req.params
         const todoList = getTodoList()
         const newTodoList = todoList.filter((_, i) => i !== index)
-        settings.settingsStorage.setItem('todoList', JSON.stringify(newTodoList))
+        settingsLib.setItem('todoList', JSON.stringify(newTodoList))
 
-        ctx.response({
-          data: { result: newTodoList }
+        res(null, {
+          result: newTodoList
         })
       }
-    })
-  },
-  onRun() {},
-  onDestroy() {}
-})
+    },
+    onSettingsChange({ key, newValue, oldValue }) {
+      this.call({
+        result: getTodoList()
+      })
+    },
+    onRun() {},
+    onDestroy() {}
+  })
+)
