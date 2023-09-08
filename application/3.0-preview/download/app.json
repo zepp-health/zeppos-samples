@@ -10,7 +10,7 @@
     },
     "icon": "icon.png",
     "vender": "zepp",
-    "description": "empty application"
+    "description": "A sample application for downloading and transferring resources"
   },
   "permissions": ["data:os.device.info", "device:os.ble"],
   "runtime": {

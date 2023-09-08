@@ -10,7 +10,7 @@
     },
     "icon": "icon.png",
     "vender": "zepp",
-    "description": "empty application"
+    "description": "A sample app for notifications"
   },
   "permissions": [
     "data:os.device.info",
