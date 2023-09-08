@@ -8,9 +8,6 @@ AppService({
     logger.log("delay onInit=", params);
     this.delayAlarm(params);
   },
-  onEvent(params) {
-    logger.log("delay onEvent=", params);
-  },
   delayAlarm() {
     const { appId } = getPackageInfo();
     const date = new Date();
