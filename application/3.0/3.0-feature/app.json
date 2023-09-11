@@ -41,9 +41,9 @@
   ],
   "runtime": {
     "apiVersion": {
-      "compatible": "1.0.0",
-      "target": "1.0.1",
-      "minVersion": "2.0"
+      "compatible": "3.0.0",
+      "target": "3.0.0",
+      "minVersion": "3.0"
     }
   },
   "targets": {
