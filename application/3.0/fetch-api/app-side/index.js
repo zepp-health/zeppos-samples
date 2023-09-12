@@ -18,7 +18,7 @@ const formatDate = (date = new Date()) => {
   )}:${padStart(s, 2)}`;
 };
 // Simulating an asynchronous network request using Promise
-const mockAPI = async () => {
+async function mockAPI() {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve({
@@ -32,7 +32,7 @@ const mockAPI = async () => {
   });
 };
 
-const fetchData = async (res) => {
+async function fetchData(res) {
   try {
     // Requesting network data using the fetch API
     // The sample program is for simulation only and does not request real network data, so it is commented here
