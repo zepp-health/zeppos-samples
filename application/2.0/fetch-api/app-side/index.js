@@ -3,7 +3,7 @@ import { MessageBuilder } from "../shared/message-side";
 const messageBuilder = new MessageBuilder();
 
 // Simulating an asynchronous network request using Promise
-const mockAPI = async () => {
+async function mockAPI() {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve({
@@ -17,7 +17,7 @@ const mockAPI = async () => {
   });
 };
 
-const fetchData = async (ctx) => {
+async function fetchData(ctx) {
   try {
     // Requesting network data using the fetch API
     // The sample program is for simulation only and does not request real network data, so it is commented here
@@ -40,11 +40,12 @@ const fetchData = async (ctx) => {
 
     // A network request is simulated here
     const res = await mockAPI()
-    const resBody = typeof res.body === 'string' ?  JSON.parse(res.body) : res.body
+    const resBody = typeof res.body === 'string' ? JSON.parse(res.body) : res.body
 
     ctx.response({
       data: { result: resBody.data },
     })
+
   } catch (error) {
     ctx.response({
       data: { result: "ERROR" },
@@ -54,7 +55,7 @@ const fetchData = async (ctx) => {
 
 AppSideService({
   onInit() {
-    messageBuilder.listen(() => {});
+    messageBuilder.listen(() => { });
 
     messageBuilder.on("request", (ctx) => {
       const jsonRpc = messageBuilder.buf2Json(ctx.request.payload);
@@ -64,7 +65,7 @@ AppSideService({
     });
   },
 
-  onRun() {},
+  onRun() { },
 
-  onDestroy() {},
+  onDestroy() { },
 });
