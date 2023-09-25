@@ -1,20 +1,27 @@
 import "./shared/device-polyfill";
 import { MessageBuilder } from "./shared/message";
 
-const appId = 27280;
-const messageBuilder = new MessageBuilder({ appId });
-
 App({
   globalData: {
-    messageBuilder: messageBuilder,
+    messageBuilder: null
   },
   onCreate(options) {
     console.log("app on create invoke");
-    messageBuilder.connect();
+    let appId;
+    if (!hmApp.packageInfo) {
+      // appId = XXX // Modify appId
+      throw new Error('Set appId,  appId needs to be the same as the configuration in app.json');
+    } else {
+      appId = hmApp.packageInfo().appId;
+    }
+    this.globalData.messageBuilder = new MessageBuilder({
+      appId,
+    });
+    this.globalData.messageBuilder.connect();
   },
 
   onDestroy(options) {
     console.log("app on destroy invoke");
-    messageBuilder.disConnect();
+    this.globalData.messageBuilder.disConnect();
   },
 });
