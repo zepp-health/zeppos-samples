@@ -8,10 +8,10 @@ import {
 import { DEVICE_WIDTH } from "../utils/config/device";
 
 export const FETCH_BUTTON = {
-  x: (DEVICE_WIDTH - px(400)) / 2,
-  y: px(260),
-  w: px(400),
-  h: px(100),
+  x: (DEVICE_WIDTH - px(360)) / 2,
+  y: px(300),
+  w: px(360),
+  h: px(80),
   text_size: px(36),
   radius: px(12),
   normal_color: DEFAULT_COLOR,
@@ -20,10 +20,10 @@ export const FETCH_BUTTON = {
 };
 
 export const FETCH_RESULT_TEXT = {
-  x: px(50),
-  y: px(100),
-  w: DEVICE_WIDTH - 2 * px(50),
-  h: px(120),
+  x: px(56),
+  y: px(74),
+  w: DEVICE_WIDTH - 2 * px(56),
+  h: px(200),
   color: 0xffffff,
   text_size: px(36),
   align_h: hmUI.align.CENTER_H,
