@@ -34,19 +34,19 @@ Page({
       .then((data) => {
         logger.log("receive data");
         const { result = {} } = data;
-        const { text } = result;
+        const text = JSON.stringify(result);
 
         hmUI.createWidget(hmUI.widget.TEXT, {
-          x: px(96),
-          y: px(100),
-          w: px(288),
-          h: px(46),
+          x: px(56),
+          y: px(74),
+          w: DEVICE_WIDTH - 2 * px(56),
+          h: px(200),
           color: 0xffffff,
           text_size: px(36),
           align_h: hmUI.align.CENTER_H,
           align_v: hmUI.align.CENTER_V,
           text_style: hmUI.text_style.NONE,
-          text,
+          text: text,
         });
       });
   },

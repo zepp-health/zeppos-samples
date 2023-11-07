@@ -36,13 +36,13 @@ Page({
       .then((data) => {
         logger.log("receive data");
         const { result = {} } = data;
-        const { text } = result;
+        const text = JSON.stringify(result);
 
         createWidget(widget.TEXT, {
-          x: px(50),
-          y: px(100),
-          w: DEVICE_WIDTH - 2 * px(50),
-          h: px(46),
+          x: px(56),
+          y: px(74),
+          w: DEVICE_WIDTH - 2 * px(56),
+          h: px(200),
           color: 0xffffff,
           text_size: px(36),
           align_h: align.CENTER_H,
@@ -52,5 +52,5 @@ Page({
         })
           .catch((res) => { });
       })
-    }
+  }
 })

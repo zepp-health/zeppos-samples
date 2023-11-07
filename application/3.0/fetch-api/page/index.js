@@ -28,7 +28,7 @@ Page(
         .then((data) => {
           logger.log("receive data");
           const { result = {} } = data;
-          const { text } = result;
+          const text = JSON.stringify(result);
 
           if (!textWidget) {
             textWidget = hmUI.createWidget(hmUI.widget.TEXT, {

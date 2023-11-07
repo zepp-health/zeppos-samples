@@ -11,7 +11,7 @@ export const FETCH_BUTTON = {
   x: (DEVICE_WIDTH - px(340)) / 2,
   y: px(280),
   w: px(340),
-  h: px(100),
+  h: px(80),
   text_size: px(36),
   radius: px(12),
   normal_color: DEFAULT_COLOR,

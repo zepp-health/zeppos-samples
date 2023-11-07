@@ -2,21 +2,6 @@ import { MessageBuilder } from "../shared/message-side";
 
 const messageBuilder = new MessageBuilder();
 
-// Simulating an asynchronous network request using Promise
-async function mockAPI() {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve({
-        body: {
-          data: {
-            text: "HELLO ZEPPOS",
-          },
-        },
-      });
-    }, 1000);
-  });
-};
-
 async function fetchData(ctx) {
   try {
     // Requesting network data using the fetch API
@@ -38,12 +23,15 @@ async function fetchData(ctx) {
     //   })
     // })
 
-    // A network request is simulated here
-    const res = await mockAPI()
+    // A network request is simulated here, Reference documentation: https://jsonplaceholder.typicode.com/
+    const res = await fetch({
+      url: 'https://jsonplaceholder.typicode.com/todos/1',
+      method: 'GET'
+    })
     const resBody = typeof res.body === 'string' ? JSON.parse(res.body) : res.body
 
     ctx.response({
-      data: { result: resBody.data },
+      data: { result: resBody },
     })
 
   } catch (error) {
