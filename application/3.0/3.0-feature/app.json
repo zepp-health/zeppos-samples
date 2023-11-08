@@ -24,7 +24,7 @@
     "event:os.system.power_saving",
     "event:os.system.theater_mode",
     "event:os.system.no_disturb",
-    "event:customize.keyboard",
+    "event:customize.test",
     "data:os.device.info",
     "device:os.alarm",
     "device:os.accelerometer",
@@ -69,14 +69,15 @@
             "pages/sleep",
             "pages/spo2",
             "pages/stress",
-            "pages/target"
+            "pages/target",
+            "pages/systemEvent"
           ]
         },
         "app-service": {
-          "services": ["app-service/time_service", "app-event/index"]
+          "services": ["app-service/time_service", "app-service/system_event_service"]
         },
         "app-event": {
-          "path": "app-event/index"
+          "path": "app-service/system_event_service"
         }
       },
       "platforms": [

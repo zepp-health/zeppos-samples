@@ -25,6 +25,7 @@ Page({
     const featureArray = [
       { name: "BG Service", url: "pages/bgService" },
       { name: "Notification", url: "pages/notification" },
+      { name: "SystemEvent", url: "pages/systemEvent" },
       { name: "Alarm", url: "pages/alarm" },
       { name: "Screen", url: "pages/screen" },
       { name: "Canvas", url: "pages/canvas" },
