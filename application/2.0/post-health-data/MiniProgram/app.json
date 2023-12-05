@@ -1,0 +1,383 @@
+{
+  "configVersion": "v2",
+  "app": {
+    "appId": 26777,
+    "appName": "Post Health Data",
+    "appType": "app",
+    "version": {
+      "code": 1,
+      "name": "1.0.0"
+    },
+    "icon": "icon.png",
+    "vender": "zepp",
+    "description": "empty application"
+  },
+  "permissions": ["data:user.hd.sleep", "data:os.device.info"],
+  "runtime": {
+    "apiVersion": {
+      "compatible": "2.0.0",
+      "target": "2.0.0",
+      "minVersion": "2.0.0"
+    }
+  },
+  "targets": {
+    "454x454-amazfit-t-rex-2": {
+      "module": {
+        "page": {
+          "pages": ["page/index"]
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
+        }
+      },
+      "platforms": [
+        {
+          "name": "Teide",
+          "deviceSource": 418
+        },
+        {
+          "name": "Teidew",
+          "deviceSource": 419
+        }
+      ],
+      "designWidth": 454
+    },
+    "466x466-amazfit-gtr-4": {
+      "module": {
+        "page": {
+          "pages": ["page/index"]
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
+        }
+      },
+      "platforms": [
+        {
+          "name": "Berlin",
+          "deviceSource": 7930112
+        },
+        {
+          "name": "BerlinW",
+          "deviceSource": 7930113
+        }
+      ],
+      "designWidth": 466
+    },
+    "390x450-amazfit-gts-4": {
+      "module": {
+        "page": {
+          "pages": ["page/index"]
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
+        }
+      },
+      "platforms": [
+        {
+          "name": "Lille",
+          "deviceSource": 7995648
+        },
+        {
+          "name": "Lillew",
+          "deviceSource": 7995649
+        }
+      ],
+      "designWidth": 390
+    },
+    "416x416-amazfit-falcon": {
+      "module": {
+        "page": {
+          "pages": ["page/index"]
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
+        }
+      },
+      "platforms": [
+        {
+          "name": "Vienna",
+          "deviceSource": 414
+        },
+        {
+          "name": "ViennaW",
+          "deviceSource": 415
+        }
+      ],
+      "designWidth": 416
+    },
+    "454x454-amazfit-t-rex-ultra": {
+      "module": {
+        "page": {
+          "pages": ["page/index"]
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
+        }
+      },
+      "platforms": [
+        {
+          "name": "Andes",
+          "deviceSource": 6553856
+        },
+        {
+          "name": "AndesW",
+          "deviceSource": 6553857
+        }
+      ],
+      "designWidth": 454
+    },
+    "480x480-amazfit-balance": {
+      "module": {
+        "page": {
+          "pages": ["page/index"]
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
+        }
+      },
+      "platforms": [
+        {
+          "name": "Monaco",
+          "deviceSource": 8519936
+        },
+        {
+          "name": "MonacoWN",
+          "deviceSource": 8519937
+        },
+        {
+          "name": "MonacoW",
+          "deviceSource": 8519939
+        }
+      ],
+      "designWidth": 480
+    },
+    "454x454-amazfit-cheetah-round": {
+      "module": {
+        "page": {
+          "pages": ["page/index"]
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
+        }
+      },
+      "platforms": [
+        {
+          "name": "Swift",
+          "deviceSource": 8192256
+        },
+        {
+          "name": "SwiftW",
+          "deviceSource": 8192257
+        }
+      ],
+      "designWidth": 454
+    },
+    "390x450-amazfit-cheetah-square": {
+      "module": {
+        "page": {
+          "pages": ["page/index"]
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
+        }
+      },
+      "platforms": [
+        {
+          "name": "SwordfishW",
+          "deviceSource": 8257793
+        }
+      ],
+      "designWidth": 390
+    },
+    "480x480-runner-pro": {
+      "module": {
+        "page": {
+          "pages": ["page/index"]
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
+        }
+      },
+      "platforms": [
+        {
+          "name": "cheetah-w",
+          "deviceSource": 8126721
+        }
+      ],
+      "designWidth": 480
+    },
+    "390x450-amazfit-active": {
+      "module": {
+        "page": {
+          "pages": ["page/index"]
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
+        }
+      },
+      "platforms": [
+        {
+          "name": "Hannover（海外版）",
+          "deviceSource": 8323329
+        },
+        {
+          "name": "Hannover（国内）",
+          "deviceSource": 8323328
+        }
+      ],
+      "designWidth": 390
+    },
+    "360x360-amazfit-active-edge": {
+      "module": {
+        "page": {
+          "pages": ["page/index"]
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
+        }
+      },
+      "platforms": [
+        {
+          "name": "Etna（国内版）",
+          "deviceSource": 8388864
+        },
+        {
+          "name": "Etna（海外版）",
+          "deviceSource": 8388865
+        }
+      ],
+      "designWidth": 360
+    },
+    "320x380-amazfit-bip-5": {
+      "module": {
+        "page": {
+          "pages": ["page/index"]
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
+        }
+      },
+      "platforms": [
+        {
+          "name": "Altai",
+          "deviceSource": 8454400
+        },
+        {
+          "name": "AltaiW",
+          "deviceSource": 8454401
+        }
+      ],
+      "designWidth": 320
+    },
+    "416x416-amazfit-gtr-mini": {
+      "module": {
+        "page": {
+          "pages": ["page/index"]
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
+        }
+      },
+      "platforms": [
+        {
+          "name": "LeidenW",
+          "deviceSource": 251
+        }
+      ],
+      "designWidth": 416
+    },
+    "480x480-amazfit-cheetah-pro": {
+      "module": {
+        "page": {
+          "pages": ["page/index"]
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
+        }
+      },
+      "platforms": [
+        {
+          "name": "Cheetah",
+          "deviceSource": 8126720
+        },
+        {
+          "name": "CheetahW",
+          "deviceSource": 8126721
+        }
+      ],
+      "designWidth": 480
+    },
+    "480x480-amazfit-gtr-4-limited-edition": {
+      "module": {
+        "page": {
+          "pages": ["page/index"]
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
+        }
+      },
+      "platforms": [
+        {
+          "name": "Florence",
+          "deviceSource": 7864576
+        },
+        {
+          "name": "FlorenceW",
+          "deviceSource": 7864577
+        }
+      ],
+      "designWidth": 480
+    }
+  },
+  "i18n": {
+    "en-US": {
+      "appName": "Post Health Data"
+    }
+  },
+  "defaultLanguage": "en-US"
+}
