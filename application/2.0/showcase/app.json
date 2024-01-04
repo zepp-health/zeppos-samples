@@ -23,13 +23,14 @@
     "data:user.hd.sleep",
     "data:user.hd.stand",
     "data:user.hd.step",
-    "data:user.hd.stress"
+    "data:user.hd.stress",
+    "device:os.geolocation"
   ],
   "runtime": {
     "apiVersion": {
       "compatible": "2.0.0",
       "target": "2.0.0",
-      "minVersion": "2.0.0"
+      "minVersion": "2.1.0"
     }
   },
   "targets": {
@@ -48,9 +49,13 @@
             "page/sensor/stand",
             "page/sensor/step",
             "page/sensor/stress",
+            "page/sensor/geolocation",
             "page/router/set_launch_app_timeout",
             "page/interaction/on_digital_crown",
+            "page/interaction/on_wrist_motion",
             "page/interaction/on_key",
+            "page/interaction/show_toast",
+            "page/interaction/create_modal",
             "page/ui/widget/text",
             "page/ui/widget/img",
             "page/ui/widget/button",
@@ -79,8 +84,20 @@
           "deviceSource": 7930112
         },
         {
-          "name": "gtr4-w",
+          "name": "gtr4",
           "deviceSource": 7930113
+        },
+        {
+          "name": "gtr4",
+          "deviceSource": 7864577
+        },
+        {
+          "name": "gts4",
+          "deviceSource": 7995648
+        },
+        {
+          "name": "gts4",
+          "deviceSource": 7995649
         }
       ],
       "designWidth": 480

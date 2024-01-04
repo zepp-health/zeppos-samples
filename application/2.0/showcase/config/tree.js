@@ -90,14 +90,26 @@ export const APITree = {
     },
     Stress: {
       page: 'stress'
+    },
+    Geolocation: {
+      page: 'geolocation'
     }
   },
   interaction: {
     OnDigitalCrown: {
       page: 'on_digital_crown'
     },
+    OnWristMotion: {
+      page: 'on_wrist_motion'
+    },
     OnKey: {
       page: 'on_key'
+    },
+    ShowToast: {
+      page: 'show_toast'
+    },
+    CreateModal: {
+      page: 'create_modal'
     }
   },
   router: {
