@@ -50,7 +50,10 @@
             "page/sensor/stress",
             "page/router/set_launch_app_timeout",
             "page/interaction/on_digital_crown",
+            "page/interaction/on_wrist_motion",
             "page/interaction/on_key",
+            "page/interaction/show_toast",
+            "page/interaction/create_modal",
             "page/ui/widget/text",
             "page/ui/widget/img",
             "page/ui/widget/button",
@@ -76,11 +79,11 @@
       "platforms": [
         {
           "name": "gtr4",
-          "deviceSource": 7930112
+          "deviceSource": 8519936
         },
         {
           "name": "gtr4-w",
-          "deviceSource": 7930113
+          "deviceSource": 8519937
         }
       ],
       "designWidth": 480
