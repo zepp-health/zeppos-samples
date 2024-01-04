@@ -90,6 +90,9 @@ export const APITree = {
     },
     Stress: {
       page: 'stress'
+    },
+    Geolocation: {
+      page: 'geolocation'
     }
   },
   interaction: {
