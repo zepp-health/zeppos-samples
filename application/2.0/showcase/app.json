@@ -28,8 +28,8 @@
   ],
   "runtime": {
     "apiVersion": {
-      "compatible": "2.0.0",
-      "target": "2.0.0",
+      "compatible": "2.0",
+      "target": "2.0",
       "minVersion": "2.1.0"
     }
   },
