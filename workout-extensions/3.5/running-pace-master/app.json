@@ -16,8 +16,8 @@
   "permissions": [],
   "runtime": {
     "apiVersion": {
-      "compatible": "3.6.0",
-      "target": "3.6.0",
+      "compatible": "3.6",
+      "target": "3.6",
       "minVersion": "3.6"
     }
   },
