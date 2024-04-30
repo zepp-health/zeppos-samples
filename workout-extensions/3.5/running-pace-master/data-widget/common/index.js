@@ -1,6 +1,6 @@
 import { createWidget, widget, align, text_style, sport_data, edit_widget_group_type } from '@zos/ui'
 
-Page({
+DataWidget({
   init() {
     const bg = createWidget(widget.IMG, {
       x: 0,
@@ -136,12 +136,6 @@ Page({
     this.init()
   },
   onInit() {},
-
-  onReady() {},
-
-  onShow() {},
-
-  onHide() {},
 
   onDestroy() {}
 })

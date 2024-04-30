@@ -18,7 +18,7 @@
     "apiVersion": {
       "compatible": "3.6.0",
       "target": "3.6.0",
-      "minVersion": "3.6.0"
+      "minVersion": "3.6"
     }
   },
   "targets": {
@@ -27,7 +27,7 @@
         "data-widget": {
           "widgets": [
             {
-              "path": "page/common/index",
+              "path": "data-widget/common/index",
               "name": "Running Pace Master",
               "icon": "icon.png",
               "window": {
