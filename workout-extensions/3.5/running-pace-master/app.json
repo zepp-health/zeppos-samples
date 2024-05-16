@@ -13,7 +13,7 @@
     "vender": "huami",
     "description": ""
   },
-  "permissions": [],
+  "permissions": ["data:user.hd.workout"],
   "runtime": {
     "apiVersion": {
       "compatible": "3.6",
