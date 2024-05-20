@@ -1,0 +1,368 @@
+{
+  "configVersion": "v3",
+  "app": {
+    "appId": 1047460,
+    "appName": "Running Pace Master",
+    "appType": "app",
+    "extType": "workout",
+    "version": {
+      "code": 1,
+      "name": "1.0.1"
+    },
+    "icon": "icon.png",
+    "vender": "huami",
+    "description": ""
+  },
+  "permissions": [],
+  "runtime": {
+    "apiVersion": {
+      "compatible": "3.6",
+      "target": "3.6",
+      "minVersion": "3.6"
+    }
+  },
+  "targets": {
+    "common": {
+      "module": {
+        "data-widget": {
+          "widgets": [
+            {
+              "path": "data-widget/common/index",
+              "name": "Running Pace Master",
+              "icon": "icon.png",
+              "window": {
+                "isPinned": 1
+              },
+              "runtime": {
+                "ability": [
+                  {
+                    "type": 1,
+                    "subType": []
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "app-side": {
+          "path": "app-side/index/index"
+        }
+      },
+      "platforms": [
+        {
+          "st": "r"
+        }
+      ],
+      "designWidth": 480
+    }
+  },
+  "i18n": {
+    "ar-EG": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Running Pace Master"
+          }
+        ]
+      }
+    },
+    "ca-ES": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Running Pace Master"
+          }
+        ]
+      }
+    },
+    "cs-CZ": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Running Pace Master"
+          }
+        ]
+      }
+    },
+    "da-DK": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Running Pace Master"
+          }
+        ]
+      }
+    },
+    "de-DE": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Running Pace Master"
+          }
+        ]
+      }
+    },
+    "el-GR": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Running Pace Master"
+          }
+        ]
+      }
+    },
+    "en-US": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Running Pace Master"
+          }
+        ]
+      }
+    },
+    "es-ES": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Running Pace Master"
+          }
+        ]
+      }
+    },
+    "fi-FI": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Running Pace Master"
+          }
+        ]
+      }
+    },
+    "fr-FR": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Running Pace Master"
+          }
+        ]
+      }
+    },
+    "iw-IL": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Running Pace Master"
+          }
+        ]
+      }
+    },
+    "hi-IN": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Running Pace Master"
+          }
+        ]
+      }
+    },
+    "hu-HU": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Running Pace Master"
+          }
+        ]
+      }
+    },
+    "id-ID": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Running Pace Master"
+          }
+        ]
+      }
+    },
+    "it-IT": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Running Pace Master"
+          }
+        ]
+      }
+    },
+    "ja-JP": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Running Pace Master"
+          }
+        ]
+      }
+    },
+    "ko-KR": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Running Pace Master"
+          }
+        ]
+      }
+    },
+    "ms-MY": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Running Pace Master"
+          }
+        ]
+      }
+    },
+    "nb-NO": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Running Pace Master"
+          }
+        ]
+      }
+    },
+    "nl-NL": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Running Pace Master"
+          }
+        ]
+      }
+    },
+    "pl-PL": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Running Pace Master"
+          }
+        ]
+      }
+    },
+    "pt-PT": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Running Pace Master"
+          }
+        ]
+      }
+    },
+    "pt-BR": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Running Pace Master"
+          }
+        ]
+      }
+    },
+    "ro-RO": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Running Pace Master"
+          }
+        ]
+      }
+    },
+    "ru-RU": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Running Pace Master"
+          }
+        ]
+      }
+    },
+    "sk-SK": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Running Pace Master"
+          }
+        ]
+      }
+    },
+    "sr-RS": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Running Pace Master"
+          }
+        ]
+      }
+    },
+    "sv-SE": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Running Pace Master"
+          }
+        ]
+      }
+    },
+    "th-TH": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Running Pace Master"
+          }
+        ]
+      }
+    },
+    "tr-TR": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Running Pace Master"
+          }
+        ]
+      }
+    },
+    "uk-UA": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Running Pace Master"
+          }
+        ]
+      }
+    },
+    "vi-VN": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "Running Pace Master"
+          }
+        ]
+      }
+    },
+    "zh-CN": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "跑步配速大师"
+          }
+        ]
+      }
+    },
+    "zh-TW": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "跑步配速大師"
+          }
+        ]
+      }
+    }
+  },
+  "defaultLanguage": "en-US"
+}
