@@ -1,0 +1,302 @@
+{
+  "configVersion": "v3",
+  "app": {
+    "appId": 1047459,
+    "appName": "Running Data Assistant",
+    "appType": "app",
+    "extType": "workout",
+    "version": {
+      "code": 1,
+      "name": "1.0.1"
+    },
+    "icon": "icon.png",
+    "vender": "huami",
+    "description": ""
+  },
+  "permissions": [],
+  "runtime": {
+    "apiVersion": {
+      "compatible": "3.6",
+      "target": "3.6",
+      "minVersion": "3.6"
+    }
+  },
+  "targets": {
+    "common": {
+      "module": {
+        "data-widget": {
+          "widgets": [
+            {
+              "path": "data-widget/common/index",
+              "name": "Running Data Assistant",
+              "icon": "icon.png",
+              "window": {
+                "isPinned": 1
+              },
+              "runtime": {
+                "ability": [
+                  {
+                    "type": 1,
+                    "subType": []
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "platforms": [
+        {
+          "st": "r",
+          "dw": 480
+        },
+        {
+          "st": "s",
+          "dw": 390
+        }
+      ],
+      "designWidth": 480
+    }
+  },
+  "i18n": {
+    "ar-EG": {
+      "data-widget": {
+        "widgets":[{
+          "name": "Running Data Assistant"
+        }]
+      }
+    },
+    "ca-ES": {
+      "data-widget": {
+        "widgets":[{
+          "name": "Running Data Assistant"
+        }]
+      }
+    },
+    "cs-CZ": {
+      "data-widget": {
+        "widgets":[{
+          "name": "Running Data Assistant"
+        }]
+      }
+    },
+    "da-DK": {
+      "data-widget": {
+        "widgets":[{
+          "name": "Running Data Assistant"
+        }]
+      }
+    },
+    "de-DE": {
+      "data-widget": {
+        "widgets":[{
+          "name": "Running Data Assistant"
+        }]
+      }
+    },
+    "el-GR": {
+      "data-widget": {
+        "widgets":[{
+          "name": "Running Data Assistant"
+        }]
+      }
+    },
+    "en-US": {
+      "data-widget": {
+        "widgets":[{
+          "name": "Running Data Assistant"
+        }]
+      }
+    },
+    "es-ES": {
+      "data-widget": {
+        "widgets":[{
+          "name": "Running Data Assistant"
+        }]
+      }
+    },
+    "fi-FI": {
+      "data-widget": {
+        "widgets":[{
+          "name": "Running Data Assistant"
+        }]
+      }
+    },
+    "fr-FR": {
+      "data-widget": {
+        "widgets":[{
+          "name": "Running Data Assistant"
+        }]
+      }
+    },
+    "iw-IL": {
+      "data-widget": {
+        "widgets":[{
+          "name": "Running Data Assistant"
+        }]
+      }
+    },
+    "hi-IN": {
+      "data-widget": {
+        "widgets":[{
+          "name": "Running Data Assistant"
+        }]
+      }
+    },
+    "hu-HU": {
+      "data-widget": {
+        "widgets":[{
+          "name": "Running Data Assistant"
+        }]
+      }
+    },
+    "id-ID": {
+      "data-widget": {
+        "widgets":[{
+          "name": "Running Data Assistant"
+        }]
+      }
+    },
+    "it-IT": {
+      "data-widget": {
+        "widgets":[{
+          "name": "Running Data Assistant"
+        }]
+      }
+    },
+    "ja-JP": {
+      "data-widget": {
+        "widgets":[{
+          "name": "Running Data Assistant"
+        }]
+      }
+    },
+    "ko-KR": {
+      "data-widget": {
+        "widgets":[{
+          "name": "Running Data Assistant"
+        }]
+      }
+    },
+    "ms-MY": {
+      "data-widget": {
+        "widgets":[{
+          "name": "Running Data Assistant"
+        }]
+      }
+    },
+    "nb-NO": {
+      "data-widget": {
+        "widgets":[{
+          "name": "Running Data Assistant"
+        }]
+      }
+    },
+    "nl-NL": {
+      "data-widget": {
+        "widgets":[{
+          "name": "Running Data Assistant"
+        }]
+      }
+    },
+    "pl-PL": {
+      "data-widget": {
+        "widgets":[{
+          "name": "Running Data Assistant"
+        }]
+      }
+    },
+    "pt-PT": {
+      "data-widget": {
+        "widgets":[{
+          "name": "Running Data Assistant"
+        }]
+      }
+    },
+    "pt-BR": {
+      "data-widget": {
+        "widgets":[{
+          "name": "Running Data Assistant"
+        }]
+      }
+    },
+    "ro-RO": {
+      "data-widget": {
+        "widgets":[{
+          "name": "Running Data Assistant"
+        }]
+      }
+    },
+    "ru-RU": {
+      "data-widget": {
+        "widgets":[{
+          "name": "Running Data Assistant"
+        }]
+      }
+    },
+    "sk-SK": {
+      "data-widget": {
+        "widgets":[{
+          "name": "Running Data Assistant"
+        }]
+      }
+    },
+    "sr-RS": {
+      "data-widget": {
+        "widgets":[{
+          "name": "Running Data Assistant"
+        }]
+      }
+    },
+    "sv-SE": {
+      "data-widget": {
+        "widgets":[{
+          "name": "Running Data Assistant"
+        }]
+      }
+    },
+    "th-TH": {
+      "data-widget": {
+        "widgets":[{
+          "name": "Running Data Assistant"
+        }]
+      }
+    },
+    "tr-TR": {
+      "data-widget": {
+        "widgets":[{
+          "name": "Running Data Assistant"
+        }]
+      }
+    },
+    "uk-UA": {
+      "data-widget": {
+        "widgets":[{
+          "name": "Running Data Assistant"
+        }]
+      }
+    },
+    "vi-VN": {
+      "data-widget": {
+        "widgets":[{
+          "name": "Running Data Assistant"
+        }]
+      }
+    },
+    "zh-CN": {
+      "data-widget": {
+        "widgets":[{
+          "name": "跑步数据助手"
+        }]
+      }
+    },
+    "zh-TW": {
+      "data-widget": {
+        "widgets":[{
+          "name": "跑步數據助手"
+        }]
+      }
+    }
+  },
+  "defaultLanguage": "en-US"
+}
