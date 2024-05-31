@@ -1,6 +1,7 @@
 import { createWidget, widget, prop } from "@zos/ui";
 import { Time } from "@zos/sensor";
 import {
+  bgStyle,
   timeStyle,
   batteryStyle,
   sportTimeStyle,
@@ -16,11 +17,7 @@ DataWidget({
     intervalId: null
   },
   init() {
-    const bg = createWidget(widget.IMG, {
-      x: 0,
-      y: 0,
-      src: "bg.png",
-    });
+    const bg = createWidget(widget.IMG, bgStyle);
 
     const timeText = createWidget(widget.TEXT, timeStyle);
 

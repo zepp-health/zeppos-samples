@@ -30,7 +30,6 @@ DataWidget({
       h: px(120),
       category: edit_widget_group_type.SPORTS,
       default_type: sport_data.CONSUME,
-      
       line_color: 0x000000,
       text_size: px(50),
       text_color: 0xffffff,
@@ -54,9 +53,9 @@ DataWidget({
       w: px(104),
       h: px(120),
       category: edit_widget_group_type.SPORTS,
+      default_type: sport_data.DISTANCE_TOTAL,
       line_color: 0x000000,
       text_size: px(50),
-      
       text_color: 0xffffff,
       text_x: 0,
       text_y: 0,
@@ -81,7 +80,6 @@ DataWidget({
       category: edit_widget_group_type.SPORTS,
       default_type: sport_data.PACE,
       line_width: 0,
-      
       line_color: 0xc1e002,
       text_size: px(90),
       text_color: 0x000000,
@@ -107,7 +105,6 @@ DataWidget({
       h: px(84),
       category: edit_widget_group_type.SPORTS,
       default_type: sport_data.HR,
-      
       line_color: 0x000000,
       text_size: px(50),
       text_color: 0xffffff,
