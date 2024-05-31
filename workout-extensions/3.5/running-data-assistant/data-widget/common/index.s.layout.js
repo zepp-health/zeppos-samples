@@ -11,6 +11,16 @@ const batteryArr = Array.from({ length: 10 }).map(
   (_, i) => `battery/${i + 1}.png`
 );
 
+export const bgStyle = {
+  x: 0,
+  y: 0,
+  w: 390,
+  h: 450,
+  auto_scale: true,
+  auto_scale_obj_fit: true,
+  src: "bg.png",
+};
+
 export const timeStyle = {
   x: 0,
   y: 46,
