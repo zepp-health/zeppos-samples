@@ -1,0 +1,365 @@
+{
+  "configVersion": "v3",
+  "app": {
+    "appId": 1047460,
+    "appName": "Empty",
+    "appType": "app",
+    "extType": "workout",
+    "version": {
+      "code": 1,
+      "name": "1.0.0"
+    },
+    "icon": "icon.png",
+    "vender": "huami",
+    "description": ""
+  },
+  "permissions": [],
+  "runtime": {
+    "apiVersion": {
+      "compatible": "3.6",
+      "target": "3.6",
+      "minVersion": "3.6"
+    }
+  },
+  "targets": {
+    "common": {
+      "module": {
+        "data-widget": {
+          "widgets": [
+            {
+              "path": "data-widget/common/index",
+              "name": "empty",
+              "icon": "icon.png",
+              "window": {
+                "isPinned": 1
+              },
+              "runtime": {
+                "ability": [
+                  {
+                    "type": 1,
+                    "subType": []
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "platforms": [
+        {
+          "st": "r"
+        }
+      ],
+      "designWidth": 480
+    }
+  },
+  "i18n": {
+    "ar-EG": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "empty"
+          }
+        ]
+      }
+    },
+    "ca-ES": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "empty"
+          }
+        ]
+      }
+    },
+    "cs-CZ": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "empty"
+          }
+        ]
+      }
+    },
+    "da-DK": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "empty"
+          }
+        ]
+      }
+    },
+    "de-DE": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "empty"
+          }
+        ]
+      }
+    },
+    "el-GR": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "empty"
+          }
+        ]
+      }
+    },
+    "en-US": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "empty"
+          }
+        ]
+      }
+    },
+    "es-ES": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "empty"
+          }
+        ]
+      }
+    },
+    "fi-FI": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "empty"
+          }
+        ]
+      }
+    },
+    "fr-FR": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "empty"
+          }
+        ]
+      }
+    },
+    "iw-IL": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "empty"
+          }
+        ]
+      }
+    },
+    "hi-IN": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "empty"
+          }
+        ]
+      }
+    },
+    "hu-HU": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "empty"
+          }
+        ]
+      }
+    },
+    "id-ID": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "empty"
+          }
+        ]
+      }
+    },
+    "it-IT": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "empty"
+          }
+        ]
+      }
+    },
+    "ja-JP": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "empty"
+          }
+        ]
+      }
+    },
+    "ko-KR": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "empty"
+          }
+        ]
+      }
+    },
+    "ms-MY": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "empty"
+          }
+        ]
+      }
+    },
+    "nb-NO": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "empty"
+          }
+        ]
+      }
+    },
+    "nl-NL": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "empty"
+          }
+        ]
+      }
+    },
+    "pl-PL": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "empty"
+          }
+        ]
+      }
+    },
+    "pt-PT": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "empty"
+          }
+        ]
+      }
+    },
+    "pt-BR": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "empty"
+          }
+        ]
+      }
+    },
+    "ro-RO": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "empty"
+          }
+        ]
+      }
+    },
+    "ru-RU": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "empty"
+          }
+        ]
+      }
+    },
+    "sk-SK": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "empty"
+          }
+        ]
+      }
+    },
+    "sr-RS": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "empty"
+          }
+        ]
+      }
+    },
+    "sv-SE": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "empty"
+          }
+        ]
+      }
+    },
+    "th-TH": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "empty"
+          }
+        ]
+      }
+    },
+    "tr-TR": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "empty"
+          }
+        ]
+      }
+    },
+    "uk-UA": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "empty"
+          }
+        ]
+      }
+    },
+    "vi-VN": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "empty"
+          }
+        ]
+      }
+    },
+    "zh-CN": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "跑步配速大师"
+          }
+        ]
+      }
+    },
+    "zh-TW": {
+      "data-widget": {
+        "widgets": [
+          {
+            "name": "跑步配速大師"
+          }
+        ]
+      }
+    }
+  },
+  "defaultLanguage": "en-US"
+}

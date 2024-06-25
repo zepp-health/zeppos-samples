@@ -1,0 +1,5 @@
+DataWidget({
+  onInit() {},
+  build() {},
+  onDestroy() {},
+});
