@@ -1,0 +1,2 @@
+msgid "appName"
+msgstr "你好 Zepp OS4"
