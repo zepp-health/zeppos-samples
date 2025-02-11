@@ -42,6 +42,9 @@
   "i18n": {
     "en-US": {
       "appName": "Hello World"
+    },
+    "zh-CN": {
+      "appName": "你好世界"
     }
   },
   "defaultLanguage": "en-US"

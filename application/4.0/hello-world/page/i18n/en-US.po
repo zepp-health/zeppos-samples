@@ -1,3 +1,2 @@
-
 msgid "appName"
 msgstr "Hello World Zepp OS4"
