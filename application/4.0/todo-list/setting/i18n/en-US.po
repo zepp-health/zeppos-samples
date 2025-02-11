@@ -1,0 +1,5 @@
+msgid "addTodo"
+msgstr "ADD TODO"
+
+msgid "delete"
+msgstr "DELETE"
