@@ -1,0 +1,55 @@
+{
+  "configVersion": "v3",
+  "app": {
+    "appType": "app",
+    "version": {
+      "code": 1,
+      "name": "1.0.0"
+    },
+    "appId": 20001,
+    "appName": "Todo List",
+    "icon": "icon.png",
+    "vender": "zepp",
+    "description": "todo list application"
+  },
+  "runtime": {
+    "apiVersion": {
+      "compatible": "4.0",
+      "target": "4.0",
+      "minVersion": "4.0"
+    }
+  },
+  "targets": {
+    "gt": {
+      "module": {
+        "page": {
+          "pages": ["page/home/index.page"]
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
+        }
+      },
+      "platforms": [
+        {
+          "st": "r",
+          "dw": 480
+        },
+        {
+          "st": "s",
+          "dw": 390
+        }
+      ]
+    }
+  },
+  "permissions": ["data:os.device.info", "device:os.local_storage"],
+  "i18n": {
+    "en-US": {
+      "name": "Todo List"
+    }
+  },
+  "defaultLanguage": "en-US",
+  "debug": false
+}

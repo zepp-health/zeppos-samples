@@ -6,11 +6,11 @@ An ZeppOS sample code repository containing sample code for watchface / applicat
 
 Application
 
-* HelloWorld [1.0](./application/1.0/hello-world) | [2.0](./application/2.0/hello-world)  | [3.0](./application/3.0/hello-world)
-* Calories [1.0](./application/1.0/calories) | [2.0](./application/2.0/calories/) | [3.0](./application/3.0/calories/)
-* TodoList [1.0](./application/1.0/todo-list) | [2.0](./application/2.0/todo-list) | [3.0](./application/3.0/todo-list)
-* FetchApi [1.0](./application/1.0/fetch-api) | [2.0](./application/2.0/fetch-api) | [3.0](./application/3.0/fetch-api)
-* ShowCase [2.0](./application/2.0/showcase) | [3.0](./application/3.0/3.0-feature)
+* HelloWorld [1.0](./application/1.0/hello-world) | [2.0](./application/2.0/hello-world)  | [3.0](./application/3.0/hello-world) | [4.0](./application/4.0/hello-world)
+* Calories [1.0](./application/1.0/calories) | [2.0](./application/2.0/calories/) | [3.0](./application/3.0/calories/) | [4.0](./application/4.0/calories)
+* TodoList [1.0](./application/1.0/todo-list) | [2.0](./application/2.0/todo-list) | [3.0](./application/3.0/todo-list) | [4.0](./application/4.0/todo-list)
+* FetchApi [1.0](./application/1.0/fetch-api) | [2.0](./application/2.0/fetch-api) | [3.0](./application/3.0/fetch-api) | [4.0](./application/4.0/fetch-api)
+* ShowCase [2.0](./application/2.0/showcase) | [3.0](./application/3.0/3.0-feature) | [4.0](./application/4.0/4.0-feature)
 
 Watchface
 
