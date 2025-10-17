@@ -43,7 +43,7 @@
     "apiVersion": {
       "compatible": "4.0",
       "target": "4.0",
-      "minVersion": "4.0"
+      "minVersion": "3.7"
     }
   },
   "targets": {
