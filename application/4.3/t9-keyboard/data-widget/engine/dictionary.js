@@ -44,7 +44,8 @@ export const dictionary=[
 'words','needed',
 
 // manual addition is
-'hello','saw','seeing','ok','bye','thank','thanks','awesome','amazing','horrible','subscribe','began',
+'hello','saw','seeing','ok','bye','thank','thanks','awesome','amazing','horrible','subscribe',
+'began','boss',
 
 // missing numbers as words
 'zero','six','seven','eight','nine','ten',

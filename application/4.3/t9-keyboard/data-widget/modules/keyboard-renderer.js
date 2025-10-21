@@ -1,12 +1,14 @@
 // modules/keyboard-renderer.js
 import { createWidget, widget, prop, event, align, getImageInfo } from '@zos/ui';
 import { px } from '@zos/utils';
-import { KEYBOARD_MODES, CAPS_MODES, LONGPRESS_THRESHOLD, DEBOUNCE_TIME, EMOJI_MAP, NUMBER_SYMBOL_MAP, IS_DEBUG } from './keyboard-config';
+import {
+  KEYBOARD_MODES, CAPS_MODES, LONGPRESS_THRESHOLD, DEBOUNCE_TIME,
+  EMOJI_MAP, NUMBER_SYMBOL_MAP, COLORS
+} from './keyboard-config';
 import { keyboard } from './safe-keyboard';
-import { debugLog } from '../../helpers/required';
-import { getDeviceInfo } from '@zos/device';
+import { debugLog, DeviceInfo } from '../../helpers/required';
 
-const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = getDeviceInfo();
+const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = DeviceInfo;
 const IS_ROUND = DEVICE_WIDTH === DEVICE_HEIGHT;
 
 export class KeyboardRenderer {
@@ -64,19 +66,19 @@ export class KeyboardRenderer {
           h: btn_h,
           text: letters,
           text_size: this.styles.t9_key_btn.text_size,
-          color: 0xFFFFFF,
+          color: COLORS.WHITE,
           align_h: align.CENTER_H,
           align_v: align.CENTER_V,
         });
 
-        if (IS_DEBUG) {
+        if (this.keyboard.state.is_debug) {
           const debug_border = createWidget(widget.STROKE_RECT, {
             x: btn_x,
             y: btn_y + sq_num_y_shift,
             w: btn_w,
             h: full_btn_h,
             line_width: 2,
-            color: 0xFF00FF,
+            color: COLORS.DEBUG_DRAW,
           });
 
           if (!this.keyboard.state.ui.debug_btn_borders_arr) {
@@ -90,7 +92,6 @@ export class KeyboardRenderer {
           y: btn_y + sq_num_y_shift,
           w: btn_w,
           h: full_btn_h,
-          color: 0xFFFFFF,
           alpha: 0
         });
 
@@ -250,19 +251,19 @@ export class KeyboardRenderer {
       }
     }
 
-    if (IS_DEBUG) {
+    if (this.keyboard.state.is_debug) {
       const borders = this.keyboard.state.ui.debug_btn_borders_arr;
       if (borders) {
         for (let i = 0, len = borders.length; i < len; i++) {
           if (borders[i]) borders[i].setProperty(prop.VISIBLE, false);
         }
       }
-    }
 
-    const overlays = this.keyboard.state.ui.symbol_overlays;
-    if (overlays) {
-      for (let i = 0, len = overlays.length; i < len; i++) {
-        overlays[i].widget.setProperty(prop.VISIBLE, false);
+      const overlays = this.keyboard.state.ui.symbol_overlays;
+      if (overlays) {
+        for (let i = 0, len = overlays.length; i < len; i++) {
+          overlays[i].widget.setProperty(prop.VISIBLE, false);
+        }
       }
     }
 
@@ -300,7 +301,6 @@ export class KeyboardRenderer {
     }
   }
 
-
   hideEmojiGrid() {
     const emoji_btns = this.keyboard.state.ui.emoji_btns;
     if (emoji_btns) {
@@ -322,7 +322,7 @@ export class KeyboardRenderer {
       }
     }
 
-    if (IS_DEBUG) {
+    if (this.keyboard.state.is_debug) {
       const borders = this.keyboard.state.ui.debug_btn_borders_arr;
       if (borders) {
         for (let i = 0, len = borders.length; i < len; i++) {
@@ -357,6 +357,7 @@ export class KeyboardRenderer {
         ...icons.voice,
         src: 'kb_icons/no_voice.png'
       };
+
     createIconButton(voice_icon_config, () => {
       if (is_voice_available) {
         this.keyboard.keyboardHandlers.handleVoicePress();
@@ -364,9 +365,53 @@ export class KeyboardRenderer {
     });
 
     // shift
-    this.keyboard.state.ui.shift_btn = createWidget(widget.IMG, icons.shift_off);
+    const shift_config = icons.shift_off;
+    const shift_img_info = getImageInfo(shift_config.src);
+    const shift_trigger_scale_h = 1.5;
+    const shift_trigger_scale_w = 2.0;
+
+    const shift_trigger_w = Math.round(shift_img_info.width * shift_trigger_scale_w);
+    const shift_trigger_h = Math.round(shift_img_info.height * shift_trigger_scale_h);
+    const shift_trigger_x = shift_config.x - Math.round((shift_trigger_w - shift_img_info.width) / 2);
+    const shift_trigger_y = shift_config.y - Math.round((shift_trigger_h - shift_img_info.height) / 2);
+
+    if (this.keyboard.state.is_debug) {
+      if (!this.keyboard.state.ui.debug_shift_border) {
+        this.keyboard.state.ui.debug_shift_border = createWidget(widget.STROKE_RECT, {
+          x: shift_trigger_x,
+          y: shift_trigger_y,
+          w: shift_trigger_w,
+          h: shift_trigger_h,
+          line_width: 2,
+          color: COLORS.DEBUG_DRAW,
+        });
+      }
+    }
+
+    this.keyboard.state.ui.shift_btn = createWidget(widget.IMG, shift_config);
+
+    const shift_overlay = createWidget(widget.FILL_RECT, {
+      x: shift_trigger_x,
+      y: shift_trigger_y,
+      w: shift_trigger_w,
+      h: shift_trigger_h,
+      alpha: 0
+    });
+
+    this.keyboard.state.ui.shift_trigger_info = {
+      x: shift_trigger_x,
+      y: shift_trigger_y,
+      w: shift_trigger_w,
+      h: shift_trigger_h,
+      img_w: shift_img_info.width,
+      img_h: shift_img_info.height,
+      overlay: shift_overlay,
+      scale_w: shift_trigger_scale_w,
+      scale_h: shift_trigger_scale_h
+    };
+
     this.setupUniversalButtonHandler(
-      this.keyboard.state.ui.shift_btn,
+      shift_overlay, // handler on the overlay
       'shift',
       () => this.keyboard.keyboardHandlers.handleShift(),
       () => this.keyboard.keyboardHandlers.handleCapsLock()
@@ -387,10 +432,21 @@ export class KeyboardRenderer {
       () => this.keyboard.keyboardHandlers.handleEmojiMode()
     );
 
-    // confirm
-    createIconButton(
-      icons.confirm,
-      () => this.keyboard.keyboardHandlers.handleSubmit()
+    // confirm/cancel
+    const is_empty = this.keyboard.state.is_input_empty;
+    const icon_config = is_empty ? icons.cancel : icons.confirm;
+
+    this.keyboard.state.ui.confirm_cancel_btn = createWidget(widget.IMG, icon_config);
+    this.setupUniversalButtonHandler(
+      this.keyboard.state.ui.confirm_cancel_btn,
+      'confirm_cancel',
+      () => {
+        if (this.keyboard.state.full_text && this.keyboard.state.full_text.length > 0) {
+          this.keyboard.keyboardHandlers.handleSubmit();
+        } else {
+          this.keyboard.keyboardHandlers.handleCancel();
+        }
+      }
     );
 
     // globe
@@ -457,6 +513,27 @@ export class KeyboardRenderer {
       }
     }
 
+    const key_btns = this.keyboard.state.ui.key_btns_arr;
+    if (key_btns && key_btns.length > 0) {
+      for (let i = 0, len = key_btns.length; i < len; i++) {
+        const key_data = key_btns[i];
+
+        if (key_data.touch_overlay) {
+          key_data.touch_overlay.setProperty(prop.VISIBLE, false);
+        }
+
+        key_data.touch_overlay = createWidget(widget.FILL_RECT, {
+          x: key_data.bounds.x,
+          y: key_data.bounds.y,
+          w: key_data.bounds.w,
+          h: key_data.bounds.h,
+          alpha: 0
+        });
+
+        this.setupKeyTouchHandler(key_data);
+      }
+    }
+
     debugLog(3, 'created symbol overlays for numbers mode');
   }
 
@@ -472,6 +549,10 @@ export class KeyboardRenderer {
       }
       if (this.keyboard.state.ui.prediction_touch_overlay) {
         this.keyboard.state.ui.prediction_touch_overlay.setProperty(prop.VISIBLE, false);
+      }
+      // hide debug border when no predictions
+      if (this.keyboard.state.is_debug && this.keyboard.state.ui.debug_pred_border) {
+        this.keyboard.state.ui.debug_pred_border.setProperty(prop.VISIBLE, false);
       }
       return;
     }
@@ -509,6 +590,29 @@ export class KeyboardRenderer {
 
     const touch_overlay_w = IS_ROUND ? container_w : available_width;
     const touch_overlay_x = IS_ROUND ? container_x : start_x;
+    const touch_overlay_h = container_h;
+    const touch_overlay_y = container_y;
+
+    if (this.keyboard.state.is_debug) {
+      if (!this.keyboard.state.ui.debug_pred_border) {
+        this.keyboard.state.ui.debug_pred_border = createWidget(widget.STROKE_RECT, {
+          x: touch_overlay_x,
+          y: touch_overlay_y,
+          w: touch_overlay_w,
+          h: touch_overlay_h,
+          line_width: 2,
+          color: COLORS.DEBUG_DRAW,
+        });
+      } else {
+        this.keyboard.state.ui.debug_pred_border.setProperty(prop.MORE, {
+          x: touch_overlay_x,
+          y: touch_overlay_y,
+          w: touch_overlay_w,
+          h: touch_overlay_h,
+        });
+        this.keyboard.state.ui.debug_pred_border.setProperty(prop.VISIBLE, true);
+      }
+    }
 
     if (!this.keyboard.state.ui.prediction_widgets) {
       this.keyboard.state.ui.prediction_widgets = [];
@@ -537,14 +641,27 @@ export class KeyboardRenderer {
           h: btn_height,
           text: prediction,
           text_size: px(15),
-          color: is_first_btn ? 0xFFFFFF : 0xA7A7A7,
+          color: is_first_btn ? COLORS.WHITE : 0xA7A7A7,
           align_h: align.CENTER_H,
           align_v: align.CENTER_V
         });
 
+        let btn_debug_border = null;
+        if (this.keyboard.state.is_debug) {
+          btn_debug_border = createWidget(widget.STROKE_RECT, {
+            x: btn_x,
+            y: container_y,
+            w: btn_width,
+            h: container_h,
+            line_width: 2,
+            color: COLORS.BLUE,
+          });
+        }
+
         this.keyboard.state.ui.prediction_widgets[idx] = {
           bg: btn_bg,
           text: btn_text,
+          debug_border: btn_debug_border,
           prediction,
           index: idx
         };
@@ -562,9 +679,20 @@ export class KeyboardRenderer {
           x: btn_x,
           y: btn_y,
           text: prediction,
-          color: is_first_btn ? 0xFFFFFF : 0xA7A7A7,
+          color: is_first_btn ? COLORS.WHITE : 0xA7A7A7,
         });
         widget_obj.text.setProperty(prop.VISIBLE, true);
+
+        if (this.keyboard.state.is_debug && widget_obj.debug_border) {
+          widget_obj.debug_border.setProperty(prop.MORE, {
+            x: btn_x,
+            y: container_y,
+            w: btn_width,
+            h: container_h,
+          });
+          widget_obj.debug_border.setProperty(prop.VISIBLE, true);
+        }
+
         widget_obj.prediction = prediction;
         widget_obj.index = idx;
       }
@@ -576,48 +704,31 @@ export class KeyboardRenderer {
       if (widget_obj) {
         if (widget_obj.bg) widget_obj.bg.setProperty(prop.VISIBLE, false);
         if (widget_obj.text) widget_obj.text.setProperty(prop.VISIBLE, false);
+        if (this.keyboard.state.is_debug && widget_obj.debug_border) {
+          widget_obj.debug_border.setProperty(prop.VISIBLE, false);
+        }
       }
     }
 
     if (!this.keyboard.state.ui.prediction_touch_overlay) {
       this.keyboard.state.ui.prediction_touch_overlay = createWidget(widget.FILL_RECT, {
         x: touch_overlay_x,
-        y: container_y,
+        y: touch_overlay_y,
         w: touch_overlay_w,
-        h: container_h,
-        alpha: IS_DEBUG ? 50 : 0,
-        color: IS_DEBUG ? 0xFF0000 : 0x000000,
+        h: touch_overlay_h,
+        alpha: 0,
       });
       this.setupPredictionTouchHandlers(this.keyboard.state.ui.prediction_touch_overlay);
-      debugLog(3, `created prediction overlay at x=${touch_overlay_x}, y=${container_y}, w=${touch_overlay_w}, h=${container_h}`);
+      debugLog(3, `created prediction overlay at x=${touch_overlay_x}, y=${touch_overlay_y}, w=${touch_overlay_w}, h=${touch_overlay_h}`);
     } else {
       this.keyboard.state.ui.prediction_touch_overlay.setProperty(prop.MORE, {
         x: touch_overlay_x,
-        y: container_y,
+        y: touch_overlay_y,
         w: touch_overlay_w,
-        h: container_h,
+        h: touch_overlay_h,
       });
       this.keyboard.state.ui.prediction_touch_overlay.setProperty(prop.VISIBLE, true);
-      debugLog(3, `updated prediction overlay to x=${touch_overlay_x}, y=${container_y}, w=${touch_overlay_w}, h=${container_h}`);
-    }
-
-    if (IS_DEBUG) {
-      if (!this.keyboard.state.ui.debug_pred_border) {
-        this.keyboard.state.ui.debug_pred_border = createWidget(widget.STROKE_RECT, {
-          x: touch_overlay_x,
-          y: container_y,
-          w: touch_overlay_w,
-          h: container_h,
-          line_width: 1,
-          color: 0xFF0000,
-        });
-      } else {
-        this.keyboard.state.ui.debug_pred_border.setProperty(prop.MORE, {
-          x: touch_overlay_x,
-          w: touch_overlay_w,
-        });
-        this.keyboard.state.ui.debug_pred_border.setProperty(prop.VISIBLE, true);
-      }
+      debugLog(3, `updated prediction overlay to x=${touch_overlay_x}, y=${touch_overlay_y}, w=${touch_overlay_w}, h=${touch_overlay_h}`);
     }
 
     this.keyboard.state.ui.prediction_layout = {
@@ -633,7 +744,6 @@ export class KeyboardRenderer {
       container_x: touch_overlay_x
     };
   }
-
 
   createPredictionTouchOverlay() {
     const container_x = this.styles.prediction_bar.x;
@@ -712,6 +822,15 @@ export class KeyboardRenderer {
             x: btn_x,
             y: btn_y
           });
+
+          if (this.keyboard.state.is_debug && widget_obj.debug_border) {
+            widget_obj.debug_border.setProperty(prop.MORE, {
+              x: btn_x,
+              y: container_y,
+              w: btn_width,
+              h: container_h,
+            });
+          }
         }
       }
     }
@@ -720,7 +839,6 @@ export class KeyboardRenderer {
       this.keyboard.state.ui.prediction_layout.overlay_x = final_overlay_x;
     }
   }
-
 
   handlePredictionTap(tap_x, tap_y) {
     const layout = this.keyboard.state.ui.prediction_layout;
@@ -731,9 +849,10 @@ export class KeyboardRenderer {
     const display_count = pred_count < 5 ? pred_count : 5;
     if (display_count === 0) return;
 
-    const btn_y_start = layout.btn_y;
-    const btn_y_end = layout.btn_y + layout.btn_height;
-    if (tap_y < btn_y_start || tap_y > btn_y_end) return;
+    // using full container height instead of virtual btn_h (UX improvement)
+    const container_y = layout.overlay_y;
+    const container_h = layout.overlay_h;
+    if (tap_y < container_y || tap_y > container_y + container_h) return;
 
     const btn_area_start_x = layout.overlay_x + layout.side_margin;
     const tap_relative_to_btns = tap_x - btn_area_start_x;
@@ -759,7 +878,7 @@ export class KeyboardRenderer {
     const swipe_threshold = 15;
     const tap_time_threshold = 300;
 
-    if (IS_DEBUG && !this.keyboard.state.ui.debug_click_indicators) {
+    if (this.keyboard.state.is_debug && !this.keyboard.state.ui.debug_click_indicators) {
       this.keyboard.state.ui.debug_click_indicators = [];
     }
 
@@ -769,13 +888,13 @@ export class KeyboardRenderer {
 
       debugLog(3, `prediction CLICK_DOWN at x=${info.x}, y=${info.y}`);
 
-      if (IS_DEBUG) {
+      if (this.keyboard.state.is_debug) {
         setTimeout(() => {
           const indicator = createWidget(widget.CIRCLE, {
             center_x: info.x,
             center_y: info.y,
             radius: 6,
-            color: 0xFF0000,
+            color: COLORS.DEBUG_DRAW,
             alpha: 200
           });
 
@@ -830,6 +949,18 @@ export class KeyboardRenderer {
       start_x = null;
       start_time = null;
     });
+  }
+
+  updateConfirmCancelButton() {
+    if (!this.keyboard.state.ui.confirm_cancel_btn) return;
+
+    const is_empty = this.keyboard.state.is_input_empty;
+    const icon_src = is_empty
+      ? this.styles.icons.cancel.src
+      : this.styles.icons.confirm.src;
+
+    this.keyboard.state.ui.confirm_cancel_btn.setProperty(prop.SRC, icon_src);
+    debugLog(3, `updated confirm/cancel button: ${is_empty ? 'cancel' : 'confirm'}`);
   }
 
   updateKeyboardVisuals() {
@@ -887,7 +1018,7 @@ export class KeyboardRenderer {
             key_data.num_text.setProperty(prop.VISIBLE, false);
           }
 
-          if (!this.keyboard.state.ui.symbol_overlays) {
+          if (!this.keyboard.state.ui.symbol_overlays || this.keyboard.state.ui.symbol_overlays.length === 0) {
             this.createSymbolOverlays();
           } else {
             const overlays = this.keyboard.state.ui.symbol_overlays;
@@ -918,10 +1049,9 @@ export class KeyboardRenderer {
             } else {
               letters = letters.toLowerCase();
             }
-          }
-
-          if (key_data.letter_text) {
-            key_data.letter_text.setProperty(prop.TEXT, letters);
+            if (key_data.letter_text) {
+              key_data.letter_text.setProperty(prop.TEXT, letters);
+            }
           }
           if (key_data.num_text) {
             key_data.num_text.setProperty(prop.VISIBLE, true);
@@ -957,6 +1087,34 @@ export class KeyboardRenderer {
         shift_icon = this.styles.icons.shift_caps.src;
       }
       this.keyboard.state.ui.shift_btn.setProperty(prop.SRC, shift_icon);
+
+      if (this.keyboard.state.is_debug && this.keyboard.state.ui.debug_shift_border && this.keyboard.state.ui.shift_trigger_info) {
+        const new_img_info = getImageInfo(shift_icon);
+        const trigger_info = this.keyboard.state.ui.shift_trigger_info;
+
+        const new_trigger_w = Math.round(new_img_info.width * trigger_info.scale_w);
+        const new_trigger_h = Math.round(new_img_info.height * trigger_info.scale_h);
+        const shift_config = caps === CAPS_MODES.OFF ? this.styles.icons.shift_off :
+          (caps === CAPS_MODES.LOCK ? this.styles.icons.shift_caps : this.styles.icons.shift_on);
+        const new_trigger_x = shift_config.x - Math.round((new_trigger_w - new_img_info.width) / 2);
+        const new_trigger_y = shift_config.y - Math.round((new_trigger_h - new_img_info.height) / 2);
+
+        this.keyboard.state.ui.debug_shift_border.setProperty(prop.MORE, {
+          x: new_trigger_x,
+          y: new_trigger_y,
+          w: new_trigger_w,
+          h: new_trigger_h,
+        });
+
+        if (this.keyboard.state.ui.shift_trigger_info.overlay) {
+          this.keyboard.state.ui.shift_trigger_info.overlay.setProperty(prop.MORE, {
+            x: new_trigger_x,
+            y: new_trigger_y,
+            w: new_trigger_w,
+            h: new_trigger_h,
+          });
+        }
+      }
     }
   }
 

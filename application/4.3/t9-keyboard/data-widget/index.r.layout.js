@@ -1,8 +1,8 @@
 // index.r.layout.js
 import { px } from '@zos/utils';
-import { getDeviceInfo } from '@zos/device';
+import { DeviceInfo } from '../helpers/required';
 
-const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = getDeviceInfo();
+const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = DeviceInfo;
 
 const COLOR_BG = 0x2a2a2c;
 const COLOR_WHITE = 0xffffff;
@@ -50,6 +50,7 @@ export const styles = {
     backspace:    { x: px(350), y: px(60), src: 'kb_icons/delete.png' },
     smiley:       { x: px(403), y: px(132), src: 'kb_icons/face.png' },
     confirm:      { x: px(408), y: px(203), src: 'kb_icons/check.png' },
+    cancel:       { x: px(408), y: px(203), src: 'kb_icons/cancel.png' },
     globe:        { x: px(395), y: px(286), src: 'kb_icons/globe.png' },
     space:        { x: px(208), y: px(394), src: 'kb_icons/blank.png' },
     t9:           { x: px(404), y: px(142), src: 'kb_icons/t9.png' },

@@ -1,8 +1,8 @@
 // index.s.layout.js
 import { px } from '@zos/utils';
-import { getDeviceInfo } from '@zos/device';
+import { DeviceInfo } from '../helpers/required';
 
-const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = getDeviceInfo();
+const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = DeviceInfo;
 
 const COLOR_BG = 0x2a2a2c;
 const COLOR_WHITE = 0xffffff;
@@ -93,6 +93,7 @@ export const styles = {
     
     space:     { x: px(205), y: px(380), src: 'kb_icons/blank.png' },
     confirm:   { x: px(304), y: px(375), src: 'kb_icons/check.png' },
+    cancel:    { x: px(304), y: px(375), src: 'kb_icons/cancel.png' },
     
     // T9 mode
     t9:        { x: px(16), y: px(293), src: 'kb_icons/t9.png' },

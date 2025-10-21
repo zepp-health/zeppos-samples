@@ -1,4 +1,4 @@
-// engine/t9-engine-async.js
+// engine/t9-engine.js
 import { debugLog } from '../../helpers/required';
 import { dictionary } from './dictionary';
 
@@ -220,7 +220,7 @@ class T9Engine {
         this.seq_cache.set(cache_key, suggestions_arr);
         const elapsed = Date.now() - start_time;
         if (elapsed > 5) {
-          debugLog(3, `t9 async search("${seq}"): ${elapsed}ms, ${suggestions_arr.length} results`);
+          debugLog(3, `t9 search("${seq}"): ${elapsed}ms, ${suggestions_arr.length} results`);
         }
         callback(this.applyCapitalization(suggestions_arr, typed_prefix));
         return;

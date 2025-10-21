@@ -1,5 +1,5 @@
 // modules/keyboard-config.js
-const IS_DEBUG = 0; // 1 - will break things but might show something useful
+let IS_DEBUG = 0; // 1 - will break things but might show something useful
 
 const MAX_CANDIDATES = 5;
 
@@ -7,6 +7,13 @@ const MULTITAP_TIMEOUT = 1200;
 const LONGPRESS_THRESHOLD = 700;
 const DEBOUNCE_TIME = 50;
 const PREDICTION_DEBOUNCE = 150;
+
+const COLORS = {
+  DEBUG_DRAW: 0xFF00FF,
+  BLACK: 0x000000,
+  WHITE: 0xFFFFFF,
+  BLUE: 0x0000FF,
+}
 
 const T9_LETTER_MAP = {
   '2': ['a', 'b', 'c'],
@@ -71,5 +78,6 @@ export {
   DEBOUNCE_TIME,
   MAX_CANDIDATES,
   IS_DEBUG,
+  COLORS,
   PREDICTION_DEBOUNCE,
 };

@@ -1,10 +1,9 @@
 // modules/input-field-manager.js
 import { createWidget, widget, prop, getTextLayout, event, text_style } from '@zos/ui';
 import { px } from '@zos/utils';
-import { debugLog, timeIt } from '../../helpers/required';
-import { getDeviceInfo } from '@zos/device';
+import { debugLog, DeviceInfo, timeIt } from '../../helpers/required';
 
-const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = getDeviceInfo();
+const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = DeviceInfo;
 const IS_ROUND = DEVICE_WIDTH === DEVICE_HEIGHT;
 
 export class InputFieldManager {
@@ -17,6 +16,9 @@ export class InputFieldManager {
 
     this.cached_display_info = null;
     this.last_cache_key = '';
+
+    this.last_rendered_text = '';
+    this.last_rendered_cursor_x = -1;
 
     const backspace_x = styles.icons.backspace.x;
     const input_x = styles.input_field.x;
@@ -312,6 +314,15 @@ export class InputFieldManager {
       if (is_multitap_only && this.cached_display_info) {
         this.last_cache_key = '';
         const display_info = this.getCurrentDisplayInfo();
+
+        if (display_info.text === this.last_rendered_text &&
+          display_info.cursor_x === this.last_rendered_cursor_x) {
+          return;
+        }
+
+        this.last_rendered_text = display_info.text;
+        this.last_rendered_cursor_x = display_info.cursor_x;
+
         this.keyboard.state.ui.input_field_widget.setProperty(prop.TEXT, display_info.text);
 
         const cursor_x = this.styles.input_field.x + display_info.cursor_x;
@@ -325,6 +336,14 @@ export class InputFieldManager {
 
       this.last_cache_key = '';
       const display_info = this.getCurrentDisplayInfo();
+
+      if (display_info.text === this.last_rendered_text &&
+        display_info.cursor_x === this.last_rendered_cursor_x) {
+        return;
+      }
+
+      this.last_rendered_text = display_info.text;
+      this.last_rendered_cursor_x = display_info.cursor_x;
 
       this.keyboard.state.ui.input_field_widget.setProperty(prop.TEXT, display_info.text);
       this.keyboard.state.ui.input_field_widget.setProperty(prop.X, this.styles.input_field.x);
