@@ -1,7 +1,7 @@
 // helpers/required.js
 
 // #region LOGGER
-const LOG_LEVEL = 1; // set to 4 to see all the noise
+const LOG_LEVEL = 3; // set to 4 to see all the noise
 const LOG_PREFIX = "T9KB > ";
 
 export function debugLog(level, ...params) {
@@ -20,6 +20,12 @@ export function debugLog(level, ...params) {
 };
 // #endregion
 
+
+// device info cache (this is a slow call, 2-4ms)
+import { getDeviceInfo, SCREEN_SHAPE_SQUARE } from '@zos/device';
+export const DeviceInfo = getDeviceInfo();
+
+// timing helper
 export const timeIt = (label, func) => {
   if (LOG_LEVEL < 3) return func();
   const now = Date.now();
@@ -32,8 +38,7 @@ export const timeIt = (label, func) => {
   return res;
 };
 
-// === hide status bar on square watches
-import { getDeviceInfo, SCREEN_SHAPE_SQUARE } from '@zos/device';
+// hide status bar on square watches
 import { setStatusBarVisible } from '@zos/ui';
 import { setScrollLock } from '@zos/page';
 
@@ -42,8 +47,7 @@ export function activateDefaults() {
   setScrollLock({ lock: true });
 
   // hide the status bar
-  if (getDeviceInfo().screenShape === SCREEN_SHAPE_SQUARE) {
+  if (DeviceInfo.screenShape === SCREEN_SHAPE_SQUARE) {
     setStatusBarVisible(false);
   }
 }
-// ===

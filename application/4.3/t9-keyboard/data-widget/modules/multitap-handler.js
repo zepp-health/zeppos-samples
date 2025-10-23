@@ -18,6 +18,7 @@ export class MultitapHandler {
         this.keyboard.state.cur_sequence += digit;
         keyboard.inputBuffer(this.keyboard.state.cur_sequence, 0xFFFFFF, 0x00FF00);
         debugLog(3, `added digit ${digit} to t9 sequence: "${this.keyboard.state.cur_sequence}"`);
+        this.keyboard.updateInputEmptyState();
       }
 
       if (this.keyboard.state.cur_multitap_key === digit &&
@@ -144,6 +145,7 @@ export class MultitapHandler {
 
         this.updateCapsAfterChar();
         this.keyboard.updateKeyboardState();
+        this.keyboard.updateInputEmptyState();
       }
     });
   }

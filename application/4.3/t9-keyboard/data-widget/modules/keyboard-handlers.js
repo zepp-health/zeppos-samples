@@ -1,8 +1,12 @@
 // modules/keyboard-handlers.js
 import { keyboard } from './safe-keyboard';
+import { inputType } from '@zos/ui';
 import { KEYBOARD_MODES, CAPS_MODES, NUMBER_SYMBOL_MAP, MULTITAP_TIMEOUT } from './keyboard-config';
 import { debugLog, timeIt } from '../../helpers/required';
 import { t9_engine } from '../engine/t9-engine';
+import { Vibrator } from '@zos/sensor';
+
+const vibro = new Vibrator();
 
 export class KeyboardHandlers {
   constructor(keyboard) {
@@ -34,6 +38,7 @@ export class KeyboardHandlers {
 
       debugLog(3, `inserted "${digit}" at pos ${cursor_pos}, new cursor pos: ${this.keyboard.state.cursor_pos}`);
       this.keyboard.updateKeyboardState();
+      this.keyboard.updateInputEmptyState();
       return;
     }
 
@@ -78,12 +83,12 @@ export class KeyboardHandlers {
         this.keyboard.state.is_in_multitap_mode = false;
         this.keyboard.state.cur_multitap_key = null;
         this.keyboard.state.multitap_idx = 0;
-        this.resetSymbolOverlay(digit);
       }, MULTITAP_TIMEOUT);
     }
 
     debugLog(3, `inserted number "${digit}" at pos ${cursor_pos}, new cursor pos: ${this.keyboard.state.cursor_pos}`);
     this.keyboard.updateKeyboardState();
+    this.keyboard.updateInputEmptyState();
   }
 
   handleNumberSymbolMultitap(digit) {
@@ -107,29 +112,6 @@ export class KeyboardHandlers {
       keyboard.inputText(char);
     }
 
-    const overlays = this.keyboard.state.ui.symbol_overlays;
-    if (overlays) {
-      let overlay_data = null;
-      for (let i = 0, len = overlays.length; i < len; i++) {
-        if (overlays[i].digit === digit) {
-          overlay_data = overlays[i];
-          break;
-        }
-      }
-
-      if (overlay_data && overlay_data.widget) {
-        try {
-          if (this.keyboard.state.multitap_idx === 0) {
-            overlay_data.widget.setProperty(prop.TEXT, overlay_data.all_text);
-          } else {
-            overlay_data.widget.setProperty(prop.TEXT, char);
-          }
-        } catch (e) {
-          debugLog(1, `error updating overlay: ${e}`);
-        }
-      }
-    }
-
     if (this.keyboard.state.multitap_timer) {
       clearTimeout(this.keyboard.state.multitap_timer);
     }
@@ -139,31 +121,9 @@ export class KeyboardHandlers {
       this.keyboard.state.is_in_multitap_mode = false;
       this.keyboard.state.cur_multitap_key = null;
       this.keyboard.state.multitap_idx = 0;
-      this.resetSymbolOverlay(digit);
     }, MULTITAP_TIMEOUT);
 
     this.keyboard.updateKeyboardState();
-  }
-
-  resetSymbolOverlay(digit) {
-    const overlays = this.keyboard.state.ui.symbol_overlays;
-    if (!overlays) return;
-
-    let overlay_data = null;
-    for (let i = 0, len = overlays.length; i < len; i++) {
-      if (overlays[i].digit === digit) {
-        overlay_data = overlays[i];
-        break;
-      }
-    }
-
-    if (overlay_data && overlay_data.widget && overlay_data.all_text) {
-      try {
-        overlay_data.widget.setProperty(prop.TEXT, overlay_data.all_text);
-      } catch (e) {
-        debugLog(1, `error resetting overlay: ${e}`);
-      }
-    }
   }
 
   handleModeSwitch() {
@@ -183,6 +143,8 @@ export class KeyboardHandlers {
 
       this.keyboard.keyboardRenderer.updateKeyboardVisuals();
       this.keyboard.updateKeyboardState();
+
+      this.vibrate();
     });
   }
 
@@ -200,6 +162,8 @@ export class KeyboardHandlers {
 
     this.keyboard.keyboardRenderer.updateKeyboardVisuals();
     this.keyboard.updateKeyboardState();
+
+    this.vibrate();
   }
 
   handleEmojiPress(emoji) {
@@ -216,6 +180,7 @@ export class KeyboardHandlers {
 
     debugLog(3, `inserted emoji "${emoji}" at pos ${cursor_pos}`);
     this.keyboard.updateKeyboardState();
+    this.keyboard.updateInputEmptyState();
   }
 
   handleShift() {
@@ -223,10 +188,10 @@ export class KeyboardHandlers {
 
     switch (this.keyboard.state.caps_mode) {
       case CAPS_MODES.OFF:
-        this.keyboard.state.caps_mode = CAPS_MODES.FIRST;
+        this.keyboard.state.caps_mode = CAPS_MODES.ON;
         break;
       case CAPS_MODES.FIRST:
-        this.keyboard.state.caps_mode = CAPS_MODES.ON;
+        this.keyboard.state.caps_mode = CAPS_MODES.OFF;
         break;
       case CAPS_MODES.ON:
         this.keyboard.state.caps_mode = CAPS_MODES.OFF;
@@ -239,6 +204,8 @@ export class KeyboardHandlers {
     debugLog(3, `caps mode: ${this.keyboard.state.caps_mode}`);
     this.keyboard.keyboardRenderer.updateKeyboardVisuals();
     this.keyboard.updateKeyboardState();
+
+    this.vibrate();
   }
 
   handleCapsLock() {
@@ -247,23 +214,44 @@ export class KeyboardHandlers {
     debugLog(3, `caps mode: ${this.keyboard.state.caps_mode}`);
     this.keyboard.keyboardRenderer.updateKeyboardVisuals();
     this.keyboard.updateKeyboardState();
+
+    this.vibrate();
   }
 
   handleBackspace() {
     debugLog(3, 'backspace pressed');
     this.keyboard.multitapHandler.commitPendingChar();
 
+    if (this.keyboard.state.multitap_timer) {
+      clearTimeout(this.keyboard.state.multitap_timer);
+      this.keyboard.state.multitap_timer = null;
+    }
+    this.keyboard.state.is_in_multitap_mode = false;
+    this.keyboard.state.cur_multitap_key = null;
+    this.keyboard.state.multitap_idx = 0;
+
     const cur_pos = this.keyboard.state.cursor_pos;
     if (cur_pos === 0) return;
 
-    const before = this.keyboard.state.full_text.substring(0, cur_pos);
-    const after = this.keyboard.state.full_text.substring(cur_pos);
+    const full_text = this.keyboard.state.full_text;
+    const before = full_text.substring(0, cur_pos);
+    const after = full_text.substring(cur_pos);
 
-    const new_before = before.substring(0, before.length - 1);
+    let chars_to_delete = 1;
+    if (cur_pos >= 2) {
+      const char_before = full_text.charCodeAt(cur_pos - 1);
+      if (char_before >= 0xDC00 && char_before <= 0xDFFF) {
+        const char_before_that = full_text.charCodeAt(cur_pos - 2);
+        if (char_before_that >= 0xD800 && char_before_that <= 0xDBFF) {
+          chars_to_delete = 2;
+          debugLog(3, `detected surrogate pair at pos ${cur_pos - 2}, deleting 2 chars`);
+        }
+      }
+    }
+
+    const new_before = before.substring(0, before.length - chars_to_delete);
     this.keyboard.state.full_text = new_before + after;
-    this.keyboard.state.cursor_pos = cur_pos - 1;
-
-    debugLog(3, `deleted 1 char(s) at pos ${cur_pos}, new cursor pos: ${this.keyboard.state.cursor_pos}`);
+    this.keyboard.state.cursor_pos = cur_pos - chars_to_delete;
 
     // rebuild T9 seq from cur word
     if (this.keyboard.state.keyboard_mode === KEYBOARD_MODES.T9) {
@@ -274,6 +262,9 @@ export class KeyboardHandlers {
     }
 
     this.keyboard.updateKeyboardState();
+    this.keyboard.updateInputEmptyState();
+
+    this.vibrate();
   }
 
   rebuildT9Sequence() {
@@ -305,6 +296,8 @@ export class KeyboardHandlers {
       keyboard.clearBuffer();
       debugLog(3, 'cleared T9 sequence (no word at cursor)');
     }
+
+    this.keyboard.updateInputEmptyState();
   }
 
   insertTextAtCursor(text) {
@@ -337,6 +330,9 @@ export class KeyboardHandlers {
     this.keyboard.state.caps_mode = CAPS_MODES.FIRST;
     this.keyboard.keyboardRenderer.updateKeyboardVisuals();
     this.keyboard.updateKeyboardState();
+    this.keyboard.updateInputEmptyState();
+
+    this.vibrate();
   }
 
   handleSpace() {
@@ -366,6 +362,7 @@ export class KeyboardHandlers {
     }
 
     this.keyboard.updateKeyboardState();
+    this.keyboard.updateInputEmptyState();
   }
 
   handleSelect() {
@@ -391,7 +388,7 @@ export class KeyboardHandlers {
     this.keyboard.multitapHandler.commitPendingChar();
     keyboard.clearBuffer();
     this.keyboard.state.cur_sequence = '';
-    keyboard.switchInputType(hmUI.inputType.VOICE);
+    keyboard.switchInputType(inputType.VOICE);
   }
 
   handleGlobeShortPress() {
@@ -425,8 +422,15 @@ export class KeyboardHandlers {
     }
 
     this.syncFullTextToSystem();
-
     this.keyboard.state.cur_sequence = '';
+    keyboard.sendFnKey(keyboard.ENTER);
+  }
+
+  handleCancel() {
+    debugLog(3, 'cancel pressed - closing keyboard');
+
+    // workaround; needs a proper cancel method
+    keyboard.inputText(' ');
     keyboard.sendFnKey(keyboard.ENTER);
   }
 
@@ -447,28 +451,44 @@ export class KeyboardHandlers {
     const word = this.keyboard.state.candidates_arr[index];
     if (!word) return;
 
-    this.keyboard.multitapHandler.commitPendingChar();
-    const cursor_pos = this.keyboard.state.cursor_pos;
-    const sequence_len = this.keyboard.state.cur_sequence.length;
-    const chars_to_remove = Math.min(sequence_len, cursor_pos);
+    const state = this.keyboard.state;
+    const cursor_pos = state.cursor_pos;
+    const full_text = state.full_text;
 
-    const text_before_word = this.keyboard.state.full_text.substring(0, cursor_pos - chars_to_remove);
-    const text_after_cursor = this.keyboard.state.full_text.substring(cursor_pos);
-    this.keyboard.state.full_text = text_before_word + word + ' ' + text_after_cursor;
-    this.keyboard.state.cursor_pos = text_before_word.length + word.length + 1;
-
-    keyboard.clearBuffer();
-
-    if (chars_to_remove > 0) {
-      keyboard.backspace(chars_to_remove);
+    let chars_to_remove = state.cur_sequence.length;
+    if (state.has_pending_char) {
+      chars_to_remove++;
     }
 
-    keyboard.inputText(`${word} `);
+    state.pending_char = '';
+    state.has_pending_char = false;
+    state.is_in_multitap_mode = false;
+    state.multitap_idx = 0;
 
-    this.keyboard.state.scroll_offset = 0;
-    this.keyboard.state.cur_sequence = '';
+    let word_start_pos = cursor_pos;
+    while (word_start_pos > 0 && full_text[word_start_pos - 1] !== ' ') {
+      word_start_pos--;
+    }
+
+    const text_before_word = full_text.substring(0, word_start_pos);
+    const text_after_cursor = full_text.substring(cursor_pos);
+    const actual_chars_to_remove = cursor_pos - word_start_pos;
+
+    state.full_text = text_before_word + word + ' ' + text_after_cursor;
+    state.cursor_pos = text_before_word.length + word.length + 1;
+
+    keyboard.clearBuffer();
+    if (actual_chars_to_remove > 0) {
+      keyboard.backspace(actual_chars_to_remove);
+    }
+    keyboard.inputText(word + ' ');
+
+    state.scroll_offset = 0;
+    state.cur_sequence = '';
     this.keyboard.multitapHandler.updateCapsAfterChar();
     this.keyboard.updateKeyboardState();
+    this.keyboard.updateInputEmptyState();
+
     debugLog(3, `selected "${word}", cleared buffer, state reset`);
   }
 
@@ -541,5 +561,13 @@ export class KeyboardHandlers {
 
       this.keyboard.updateKeyboardState();
     }
+  }
+
+  // keep in mind that actions that trigger a keyboard content state change
+  // like keyboard.inputText('a') produce vibration on their own. 
+  // so it's unnecessary to apply custom vibration to them
+  vibrate() {
+    vibro.setMode(27); // VIBRATOR_SCENE_DURATION
+    vibro.start();
   }
 }

@@ -3,12 +3,12 @@ import { createWidget, widget } from '@zos/ui';
 import { keyboard } from './modules/safe-keyboard';
 import { styles } from 'zosLoader:./[name].[pf].layout.js'
 import { t9_engine } from './engine/t9-engine';
-import { KEYBOARD_MODES, CAPS_MODES, PREDICTION_DEBOUNCE } from './modules/keyboard-config';
+import { KEYBOARD_MODES, CAPS_MODES, PREDICTION_DEBOUNCE, IS_DEBUG } from './modules/keyboard-config';
 import { MultitapHandler } from './modules/multitap-handler';
 import { InputFieldManager } from './modules/input-field-manager';
 import { KeyboardRenderer } from './modules/keyboard-renderer';
 import { KeyboardHandlers } from './modules/keyboard-handlers';
-import { activateDefaults, timeIt } from '../helpers/required';
+import { activateDefaults, debugLog, timeIt } from '../helpers/required';
 
 DataWidget({
   state: {
@@ -17,6 +17,8 @@ DataWidget({
     candidates_arr: [],
     caps_mode: CAPS_MODES.FIRST,
     keyboard_mode: KEYBOARD_MODES.T9,
+
+    is_debug: IS_DEBUG,
 
     cursor_pos: 0, // 0 = start, full_text.len = end
 
@@ -31,6 +33,10 @@ DataWidget({
     is_in_multitap_mode: false,
     has_pending_char: false,
 
+    // submit/cancel
+    is_input_empty: true,
+    confirm_cancel_btn: null,
+
     ui: {
       input_field_widget: null,
       cursor_widget: null,
@@ -42,13 +48,27 @@ DataWidget({
       prediction_container: null,
       emoji_btns: null,
       smiley_btn: null,
+      symbol_overlays: [],
     },
 
     is_scrolling_predictions: false,
     scroll_offset: 0,
   },
 
-  onInit() { activateDefaults(); },
+  onInit(params) {
+    activateDefaults();
+    if (params) {
+      try {
+        const parsed = JSON.parse(params);
+        if (parsed.debug !== undefined) {
+          this.state.is_debug = parsed.debug;
+          debugLog(1, `keyboard started with debug=${this.state.is_debug}`);
+        }
+      } catch (e) {
+        debugLog(4, `failed to parse params: ${e}`);
+      }
+    }
+  },
 
   onResume() {
     // sync content with the internal/system keyboard
@@ -72,6 +92,10 @@ DataWidget({
     if (this.inputFieldManager && this.keyboardRenderer) {
       this.inputFieldManager.updateSingleLineDisplay();
       this.keyboardRenderer.renderScrollablePredictions([]);
+    }
+
+    if (typeof this.updateInputEmptyState === 'function') {
+      this.updateInputEmptyState();
     }
   },
 
@@ -104,6 +128,7 @@ DataWidget({
 
     // update state when everything is created
     this.keyboardRenderer.updateKeyboardVisuals();
+    this.keyboardRenderer.updateConfirmCancelButton();
     this.updateKeyboardState();
   },
 
@@ -118,12 +143,12 @@ DataWidget({
       }
 
       this.state.prediction_timer = setTimeout(() => {
-        this.updatePredictionsAsync();
+        this.updatePredictions();
       }, PREDICTION_DEBOUNCE);
     });
   },
 
-  updatePredictionsAsync() {
+  updatePredictions() {
     if (this.state.keyboard_mode !== KEYBOARD_MODES.T9 || !this.state.cur_sequence) {
       this.state.candidates_arr = [];
       this.keyboardRenderer.renderScrollablePredictions([]);
@@ -139,6 +164,22 @@ DataWidget({
         this.keyboardRenderer.renderScrollablePredictions(predictions);
       }
     });
+  },
+
+  updateInputEmptyState() {
+    const was_empty = this.state.is_input_empty;
+
+    const is_now_empty = (
+      this.state.full_text.length === 0 &&
+      !this.state.has_pending_char &&
+      this.state.cur_sequence.length === 0
+    );
+
+    if (was_empty !== is_now_empty) {
+      this.state.is_input_empty = is_now_empty;
+      this.keyboardRenderer.updateConfirmCancelButton();
+      debugLog(3, `input empty state changed: ${is_now_empty}`);
+    }
   },
 
   getTypedPrefixForSequence() {
