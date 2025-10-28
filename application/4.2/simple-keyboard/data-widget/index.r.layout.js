@@ -63,7 +63,7 @@ export const styles = {
       align_items: "center",
       align_content: "center",
       width: "100%",
-      height: "11vh",
+      height: "12vh",
       column_gap: "2",
     },
   },
@@ -83,7 +83,7 @@ export const styles = {
     press_color: 0xfeb4a8,
     radius: 10,
     layout: {
-      width: "50",
+      width: "100",
       height: "100%",
       font_size: "40",
       min_width: "50",

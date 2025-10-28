@@ -134,7 +134,7 @@ Page({
       [
         widget.TEXT,
         {
-          text: "Enable ZEPP Keyboard",
+          text: "Enable Pinyin Keyboard",
           ...text1_style,
           layout_parent: vc,
           layout: {
@@ -158,7 +158,7 @@ Page({
       [
         widget.TEXT,
         {
-          text: "Please toggle ZEPP Keyboard on in settings",
+          text: "Please toggle Pinyin Keyboard on in settings",
           ...text1_style,
           layout_parent: vc,
           layout: {
@@ -225,7 +225,7 @@ Page({
       [
         widget.TEXT,
         {
-          text: "Enable ZEPP Keyboard",
+          text: "Enable Pinyin Keyboard",
           ...text1_style,
           layout_parent: vc,
           layout: {
@@ -249,7 +249,7 @@ Page({
       [
         widget.TEXT,
         {
-          text: "Touch and hold the Globe key on the keyboard, then select ZEPP keyboard",
+          text: "Touch and hold the Globe key on the keyboard, then select Pinyin keyboard",
           ...text1_style,
           layout_parent: vc,
           layout: {
@@ -324,7 +324,7 @@ Page({
       [
         widget.TEXT,
         {
-          text: "ZEPP Keyboard",
+          text: "Pinyin Keyboard",
           ...text1_style,
           layout_parent: vc,
           layout: {
@@ -406,7 +406,6 @@ Page({
 
   keyboard(cb) {
     createKeyboard({
-      type: inputType.JSKB,
       onComplete: (kb, result) => {
         console.log("complete");
         deleteKeyboard();
