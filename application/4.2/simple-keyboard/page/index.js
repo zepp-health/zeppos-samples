@@ -60,6 +60,15 @@ Page({
     vc: null,
   },
   onInit() {},
+  build() {
+    if (!this.state.isEnabled) {
+      this.build_enable_page();
+    } else if (!this.state.isSelected) {
+      this.build_select_page();
+    } else {
+      this.build_setting_page();
+    }
+  },
   onPause() {
     console.log("puase");
   },
@@ -68,9 +77,9 @@ Page({
     this.state.isEnabled = keyboard.isEnabled();
     this.state.isSelected = keyboard.isSelected();
 
-    this.clearScreen();
+    this.clear_page();
     this.build();
-    this.do_layout();
+    this.refresh_layout();
     this.scroll_to_top();
   },
   scroll_to_top() {
@@ -78,13 +87,13 @@ Page({
       y: 0,
     });
   },
-  do_layout() {
+  refresh_layout() {
     if (this.state.vc && this.state.vc.current) {
       const ele = this.state.vc.current;
       updateLayout(ele);
     }
   },
-  clearScreen() {
+  clear_page() {
     if (this.state.vc && this.state.vc.current) {
       const ele = this.state.vc.current;
       const items = ele.layoutChildren;
@@ -93,17 +102,6 @@ Page({
         deleteWidget(item);
       });
       this.state.vc.current = null;
-    }
-  },
-  build() {
-    if (!this.state.isEnabled) {
-      this.build_enable_page();
-      return;
-    } else if (!this.state.isSelected) {
-      this.build_select_page();
-      return;
-    } else {
-      this.build_setting_page();
     }
   },
   build_enable_page() {
@@ -265,7 +263,7 @@ Page({
           press_color: 0x383838,
           click_func: () => {
             this.keyboard(() => {
-              this.onResume()
+              this.onResume();
             });
           },
           layout_parent: vc,
