@@ -51,13 +51,13 @@ const text1_style = {
   align_v: align.CENTER_V,
   align_h: align.CENTER_H,
   text_style: text_style.CHAR_WRAP,
-  vc: null,
 };
 
 Page({
   state: {
     isEnabled: keyboard.isEnabled(),
     isSelected: keyboard.isSelected(),
+    vc: null,
   },
   onInit() {},
   onPause() {
