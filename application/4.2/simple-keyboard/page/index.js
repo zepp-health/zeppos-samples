@@ -5,7 +5,6 @@ import {
   createKeyboard,
   deleteKeyboard,
   inputType,
-  openInspector,
   align,
   text_style,
   deleteWidget,
@@ -46,8 +45,6 @@ function createElement(id, opts) {
 
   return ele;
 }
-
-const inspector = openInspector();
 
 const text1_style = {
   color: 0xffffff,
@@ -420,14 +417,5 @@ Page({
         cb && cb();
       },
     });
-  },
-
-  debug() {
-    inspector.clear();
-    setTimeout(() => {
-      inspector.draw({
-        virtual_cntr: true,
-      });
-    }, 500);
   },
 });
