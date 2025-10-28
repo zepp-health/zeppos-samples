@@ -140,7 +140,11 @@ DataWidget({
         ...styles.toggleLang,
         text: 'Enter',
         click_func: (e) => {
-          this.enter()
+          if (keyboard.getTextContext()) {
+            this.enter()
+          } else {
+            this.cancel()
+          }
         },
       },
       vc3,
@@ -210,6 +214,10 @@ DataWidget({
 
   delete() {
     keyboard.sendFnKey(keyboard.BACKSPACE)
+  },
+
+  cancel() {
+    keyboard.sendFnKey(keyboard.CANCEL)
   },
 
   deleteAll() {
