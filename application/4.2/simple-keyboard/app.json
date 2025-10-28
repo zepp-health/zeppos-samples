@@ -1,0 +1,65 @@
+{
+  "configVersion": "v3",
+  "app": {
+    "appId": 1093161,
+    "appName": "拼音键盘",
+    "appType": "app",
+    "version": {
+      "code": 1,
+      "name": "1.0.0"
+    },
+    "icon": "icon.png",
+    "vender": "zepp",
+    "description": "empty application"
+  },
+  "permissions": ["device:os.input.method", "data:os.device.info"],
+  "runtime": {
+    "apiVersion": {
+      "compatible": "4.0",
+      "target": "4.0",
+      "minVersion": "4.0"
+    }
+  },
+  "targets": {
+    "default": {
+      "module": {
+        "page": {
+          "pages": ["page/index", "data-widget/index.page"]
+        },
+        "data-widget": {
+          "widgets": [
+            {
+              "name": "拼音",
+              "path": "data-widget/index.page",
+              "icon": "icon.png",
+              "runtime": {
+                "ability": [
+                  {
+                    "name": "zh-CN",
+                    "type": 2,
+                    "subType": []
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "platforms": [
+        {
+          "st": "r",
+          "dw": 480
+        }
+      ]
+    }
+  },
+  "i18n": {
+    "en-US": {
+      "appName": "Pinyin Keyboard"
+    },
+    "zh-CN": {
+      "appName": "拼音键盘"
+    }
+  },
+  "defaultLanguage": "en-US"
+}

@@ -1,0 +1,55 @@
+// 500 most common words in English ~5KB
+// http://sketchengine.eu/english-word-list/
+export const dictionary=[
+'the','and','to','of','a','in','is','that','for','I','you','it','with','on','as','are','be','this',
+'was','have','or','at','not','your','from','we','by','will','can','but','they','an','he','all','has',
+'if','their','one','do','more','my','his','so','there','about','which','when','what','out','up','our',
+'who','also','had','time','some','would','were','like','been','just','her','new','other','them','she',
+'people','these','no','get','how','me','into','than','only','its','most','may','any','many','make',
+'then','well','first','very','over','now','could','after','even','because','us','said','good','way',
+'two','should','work','use','through','see','know','did','much','where','years','need','him','back',
+'such','those','being','day','take','while','here','before','does','great','year','go','help','want',
+'really','think','best','life','each','made','right','world','business','home','own','down','still',
+'used','find','around','going','every','both','last','off','too','same','information','little',
+'another','look','few','long','part','since','things','place','am','between','during','different',
+'must','come','using','however','without','high','why','something','online','system','better','three',
+'never','always','love','say','might','next','company','state','number','again','free','lot','under',
+'family','found','within','give','set','school','important','water','able','keep','got','sure','end',
+'money','service','small','put','experience','having','once','available','health','support','often',
+'including','days','away','old','area','feel','read','show','big','against','thing','order','program',
+'though','city','group','services','site','making','course','point','children','times','team','game',
+'along','let','house','today','body','working','case','man','real','provide','care','public','top',
+'looking','several','start','less','process','become','actually','local','together','person','change',
+'book','enough','getting','week','power','until','market','fact','god','food','students','full',
+'women','community','name','second','data','government','says','others','ever','yet','research',
+'done','left','far','large','called','doing','already','development','social','open','possible',
+'side','play','means','needs','try','came','ca','based','hard','thought','products','national',
+'quality','level','live','design','makes','project','line','night','least','whether','job','car',
+'example','include','following','given','website','past','plan','offer','buy','call','went','simply',
+'hand','music','easy','problem','men','country','took','four','members','form','personal','control',
+'energy','room','head','pay','create','run','kind','credit','almost','believe','quite','mind','law',
+'early','comes','states','usually','companies','web','taking','started','later','although','story',
+'per','future','known','someone','across','rather','young','whole','special','everything','months',
+'anything','training','url','bit','seen','product','american','please','management','cost','either',
+'light','university','face','due','nothing','human','event','history','probably','friends','learn',
+'current','tell','general','price','list','type','building','industry','bad','check','everyone',
+'office','idea','internet','news','million','video','among','air','especially','told','results',
+'post','hours','international','center','understand','above','addition','major','education','white',
+'particular','problems','media','according','upon','page','continue','black','study','issues',
+'inside','technology','five','value','further','access','reason','short','true','simple','natural',
+'amount','search','result','taken','main','heart','space','financial','ago','trying','question',
+'living','likely','interest','various','insurance','common','move','child','yourself','report',
+'certain','share','single','close','instead','bring','works','age','season','hope','coming','areas',
+'ask','medical','low','games','turn','key','party','add','month','seems','view','fun','matter',
+'words','needed',
+
+// manual addition is
+'hello','saw','seeing','ok','bye','thank','thanks','awesome','amazing','horrible','subscribe',
+'began','boss',
+
+// missing numbers as words
+'zero','six','seven','eight','nine','ten',
+
+// tech related
+'keyboard','alarm','timer','app','settings','battery','swipe','tap','zepp','amazfit','OS',
+];
