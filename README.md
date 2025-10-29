@@ -17,7 +17,7 @@ An ZeppOS sample code repository containing sample code for watchface / applicat
 * Simple-Keyboard [4.2](./application/4.2/simple-keyboard)
 * T9-Keyboard [4.2](./application/4.2/t9-keyboard)
 
-## Workout-Extension
+### Workout-Extension
 
 * Empty [3.5](./workout-extensions/3.5/empty)
 * Running-data-assistant [3.5](./workout-extensions/3.5/running-data-assistant)
