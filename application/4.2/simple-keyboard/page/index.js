@@ -221,7 +221,7 @@ Page({
                   ...default_layout,
                   left: "20",
                   top: "5",
-                  width: "auto",
+                  width: "220",
                   height: "auto",
                   font_size: "30",
                   line_clamp: 2,
