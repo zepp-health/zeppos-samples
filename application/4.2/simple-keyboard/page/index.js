@@ -220,10 +220,10 @@ Page({
                 layout: {
                   ...default_layout,
                   left: "20",
-                  top: "5",
                   width: "auto",
-                  height: "auto",
-                  font_size: "30",
+                  max_width: "200",
+                  height: "70",
+                  font_size: "27",
                   line_clamp: 2,
                 },
               },
