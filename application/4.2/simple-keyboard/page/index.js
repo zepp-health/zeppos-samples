@@ -9,12 +9,17 @@ import {
   text_style,
   deleteWidget,
   updateLayout,
+  setStatusBarVisible,
 } from "@zos/ui";
 
 import { showToast } from "@zos/interaction";
 import { scrollTo } from "@zos/page";
-
+import { getDeviceInfo, SCREEN_SHAPE_SQUARE } from "@zos/device";
 import { exit } from "@zos/router";
+import { getPackageInfo } from "@zos/app";
+
+const device_info = getDeviceInfo();
+const appName = getPackageInfo().name;
 
 class Ref {
   constructor(val) {
@@ -27,7 +32,7 @@ function ref(val) {
 }
 
 function createElement(id, opts) {
-  let { ref, layout_parent, parent, ...rest } = opts;
+  let { ref, layout_parent, parent, children, ...rest } = opts;
 
   if (layout_parent instanceof Ref) {
     rest.parent = layout_parent.current;
@@ -43,14 +48,56 @@ function createElement(id, opts) {
     ref.current = ele;
   }
 
+  if (children) {
+    children.forEach(([id, opts]) => {
+      if (ele.getType() === widget.VIRTUAL_CONTAINER) {
+        opts.layout_parent = ele;
+      } else if (
+        [widget.GROUP, widget.VIEW_CONTAINER].includes(ele.getType()) &&
+        ele.isAutoLayout
+      ) {
+        opts.layout_parent = ele;
+      }
+
+      if ([widget.GROUP, widget.VIEW_CONTAINER].includes(ele.getType())) {
+        opts.parent = ele;
+      } else {
+        opts.parent = ele.parent;
+      }
+      createElement(id, opts);
+    });
+  }
+
   return ele;
 }
 
-const text1_style = {
+function removeElement(ele) {
+  if (ele.getType() === widget.VIRTUAL_CONTAINER) {
+    const children = ele.layoutChildren;
+    deleteWidget(ele);
+    children.forEach((item) => {
+      removeElement(item);
+    });
+  } else {
+    deleteWidget(ele);
+  }
+}
+
+function default_theme() {
+  if (device_info.screenShape === SCREEN_SHAPE_SQUARE) {
+    setStatusBarVisible(false);
+  }
+}
+
+const default_text_style = {
   color: 0xffffff,
   align_v: align.CENTER_V,
   align_h: align.CENTER_H,
   text_style: text_style.CHAR_WRAP,
+};
+
+const default_layout = {
+  tags: "sww",
 };
 
 Page({
@@ -59,7 +106,9 @@ Page({
     isSelected: keyboard.isSelected(),
     vc: null,
   },
-  onInit() {},
+  onInit() {
+    default_theme();
+  },
   build() {
     if (!this.state.isEnabled) {
       this.build_enable_page();
@@ -70,7 +119,7 @@ Page({
     }
   },
   onPause() {
-    console.log("puase");
+    console.log("pause");
   },
   onResume() {
     console.log("resume");
@@ -96,11 +145,7 @@ Page({
   clear_page() {
     if (this.state.vc && this.state.vc.current) {
       const ele = this.state.vc.current;
-      const items = ele.layoutChildren;
-      deleteWidget(ele);
-      items.forEach((item) => {
-        deleteWidget(item);
-      });
+      removeElement(ele);
       this.state.vc.current = null;
     }
   },
@@ -113,12 +158,13 @@ Page({
         {
           ref: vc,
           layout: {
+            ...default_layout,
             left: "0",
             top: "0",
             width: "100vw",
             height: "200vh",
             display: "flex",
-            flex_flow: "column wrap",
+            flex_flow: "column",
             row_gap: "25",
             padding_top: "40",
             padding_left: "72",
@@ -129,10 +175,11 @@ Page({
       [
         widget.TEXT,
         {
-          text: "Enable Pinyin Keyboard",
-          ...text1_style,
+          text: `Enable ${appName}`,
+          ...default_text_style,
           layout_parent: vc,
           layout: {
+            ...default_layout,
             width: "100%",
             height: "auto",
             font_size: "40",
@@ -140,23 +187,58 @@ Page({
         },
       ],
       [
-        widget.IMG,
+        widget.VIRTUAL_CONTAINER,
         {
-          src: "image/keyboard_setting.png",
           layout_parent: vc,
           layout: {
-            width: "100%",
+            ...default_layout,
+            width: "336",
             height: "126",
           },
+          children: [
+            [
+              widget.IMG,
+              {
+                src: "image/keyboard_setting.png",
+                auto_scale: true,
+                layout: {
+                  ...default_layout,
+                  top: "0",
+                  left: "0",
+                  width: "100%",
+                  height: "100%",
+                  tags: "ignore-layout",
+                },
+              },
+            ],
+            [
+              widget.TEXT,
+              {
+                ...default_text_style,
+                text: appName,
+                align_h: align.LEFT,
+                layout: {
+                  ...default_layout,
+                  left: "20",
+                  top: "5",
+                  width: "auto",
+                  height: "auto",
+                  font_size: "30",
+                  line_clamp: 2,
+                },
+              },
+            ],
+          ],
         },
       ],
       [
         widget.TEXT,
         {
-          text: "Please toggle Pinyin Keyboard on in settings",
-          ...text1_style,
+          text: `Please toggle ${appName} on in settings`,
+          ...default_text_style,
           layout_parent: vc,
           layout: {
+            ...default_layout,
             width: "100%",
             height: "auto",
             font_size: "36",
@@ -174,6 +256,7 @@ Page({
           },
           layout_parent: vc,
           layout: {
+            ...default_layout,
             width: "100%",
             height: "88",
             font_size: "36",
@@ -186,6 +269,7 @@ Page({
         {
           layout_parent: vc,
           layout: {
+            ...default_layout,
             width: "100%",
             height: "100",
           },
@@ -204,12 +288,13 @@ Page({
         {
           ref: vc,
           layout: {
+            ...default_layout,
             left: "0",
             top: "0",
             width: "100vw",
             height: "200vh",
             display: "flex",
-            flex_flow: "column wrap",
+            flex_flow: "column",
             row_gap: "25",
             padding_top: "40",
             padding_left: "72",
@@ -220,10 +305,11 @@ Page({
       [
         widget.TEXT,
         {
-          text: "Enable Pinyin Keyboard",
-          ...text1_style,
+          text: `Enable ${appName}`,
+          ...default_text_style,
           layout_parent: vc,
           layout: {
+            ...default_layout,
             width: "100%",
             height: "auto",
             font_size: "40",
@@ -234,9 +320,11 @@ Page({
         widget.IMG,
         {
           src: "image/keyboard_enable.png",
+          auto_scale: true,
           layout_parent: vc,
           layout: {
-            width: "100%",
+            ...default_layout,
+            width: "336",
             height: "126",
           },
         },
@@ -244,12 +332,12 @@ Page({
       [
         widget.TEXT,
         {
-          text: "Touch and hold the Globe key on the keyboard, then select Pinyin keyboard",
-          ...text1_style,
+          text: `Touch and hold the Globe key on the keyboard, then select ${appName}`,
+          ...default_text_style,
           layout_parent: vc,
           layout: {
+            ...default_layout,
             width: "100%",
-            min_height: "100",
             height: "auto",
             font_size: "36",
           },
@@ -259,8 +347,8 @@ Page({
         widget.BUTTON,
         {
           text: "Show Keyboard",
-          normal_color: 0x383838,
-          press_color: 0x383838,
+          normal_color: 0x0c86d1,
+          press_color: 0x0c86d1,
           click_func: () => {
             this.keyboard(() => {
               this.onResume();
@@ -268,6 +356,7 @@ Page({
           },
           layout_parent: vc,
           layout: {
+            ...default_layout,
             width: "100%",
             height: "88",
             font_size: "36",
@@ -280,6 +369,7 @@ Page({
         {
           layout_parent: vc,
           layout: {
+            ...default_layout,
             width: "100%",
             height: "100",
           },
@@ -303,12 +393,13 @@ Page({
         {
           ref: vc,
           layout: {
+            ...default_layout,
             left: "0",
             top: "0",
             width: "100vw",
-            height: "300vh",
+            height: "200vh",
             display: "flex",
-            flex_flow: "column wrap",
+            flex_flow: "column",
             row_gap: "10",
             padding_top: "40",
             padding_left: "72",
@@ -319,10 +410,11 @@ Page({
       [
         widget.TEXT,
         {
-          text: "Pinyin Keyboard",
-          ...text1_style,
+          text: appName,
+          ...default_text_style,
           layout_parent: vc,
           layout: {
+            ...default_layout,
             width: "100%",
             height: "auto",
             font_size: "40",
@@ -333,13 +425,14 @@ Page({
         widget.BUTTON,
         {
           text: "Show Keyboard",
-          normal_color: 0x383838,
-          press_color: 0x383838,
+          normal_color: 0x0c86d1,
+          press_color: 0x0c86d1,
           click_func: () => {
             this.keyboard();
           },
           layout_parent: vc,
           layout: {
+            ...default_layout,
             width: "100%",
             height: "88",
             font_size: "36",
@@ -368,6 +461,7 @@ Page({
             },
             layout_parent: vc,
             layout: {
+              ...default_layout,
               width: "100%",
               height: "88",
               font_size: "36",
@@ -380,8 +474,8 @@ Page({
         widget.BUTTON,
         {
           text: "Exit",
-          normal_color: 0x383838,
-          press_color: 0x383838,
+          normal_color: 0x0c86d1,
+          press_color: 0x0c86d1,
           click_func() {
             exit();
           },
@@ -391,6 +485,17 @@ Page({
             height: "88",
             font_size: "36",
             corner_radius: "44",
+          },
+        },
+      ],
+      [
+        widget.FILL_RECT,
+        {
+          layout_parent: vc,
+          layout: {
+            ...default_layout,
+            width: "100%",
+            height: "100",
           },
         },
       ],
