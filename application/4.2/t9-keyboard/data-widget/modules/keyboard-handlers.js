@@ -416,11 +416,6 @@ export class KeyboardHandlers {
   handleSubmit() {
     debugLog(3, 'submit pressed - closing keyboard');
     this.keyboard.multitapHandler.commitPendingChar();
-
-    if (this.keyboard.state.cur_sequence && this.keyboard.state.candidates_arr.length > 0) {
-      this.selectCandidateByIndex(0);
-    }
-
     this.syncFullTextToSystem();
     this.keyboard.state.cur_sequence = '';
     keyboard.sendFnKey(keyboard.ENTER);
@@ -428,10 +423,7 @@ export class KeyboardHandlers {
 
   handleCancel() {
     debugLog(3, 'cancel pressed - closing keyboard');
-
-    // workaround; needs a proper cancel method
-    keyboard.inputText(' ');
-    keyboard.sendFnKey(keyboard.ENTER);
+    keyboard.sendFnKey(keyboard.CANCEL);
   }
 
   syncFullTextToSystem() {

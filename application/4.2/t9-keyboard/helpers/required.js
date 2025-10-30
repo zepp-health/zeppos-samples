@@ -1,7 +1,7 @@
 // helpers/required.js
 
 // #region LOGGER
-const LOG_LEVEL = 3; // set to 4 to see all the noise
+const LOG_LEVEL = 1; // set to 4 to see all the noise
 const LOG_PREFIX = "T9KB > ";
 
 export function debugLog(level, ...params) {
@@ -40,12 +40,8 @@ export const timeIt = (label, func) => {
 
 // hide status bar on square watches
 import { setStatusBarVisible } from '@zos/ui';
-import { setScrollLock } from '@zos/page';
 
 export function activateDefaults() {
-  // disable screen drag
-  setScrollLock({ lock: true });
-
   // hide the status bar
   if (DeviceInfo.screenShape === SCREEN_SHAPE_SQUARE) {
     setStatusBarVisible(false);
