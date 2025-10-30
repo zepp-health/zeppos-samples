@@ -1,7 +1,7 @@
 {
   "configVersion": "v3",
   "app": {
-    "appId": 100001,
+    "appId": 1095465,
     "appName": "T9 Keyboard",
     "appType": "app",
     "version": {
@@ -17,14 +17,14 @@
     "apiVersion": {
       "compatible": "4.0",
       "target": "4.0",
-      "minVersion": "4.0"
+      "minVersion": "4.2"
     }
   },
   "targets": {
     "default": {
       "module": {
         "page": {
-          "pages": ["data-widget/index"]
+          "pages": ["pages/guidelines", "data-widget/index"]
         },
         "data-widget": {
           "widgets": [

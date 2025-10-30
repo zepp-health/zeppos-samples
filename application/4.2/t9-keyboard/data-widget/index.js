@@ -55,20 +55,7 @@ DataWidget({
     scroll_offset: 0,
   },
 
-  onInit(params) {
-    activateDefaults();
-    if (params) {
-      try {
-        const parsed = JSON.parse(params);
-        if (parsed.debug !== undefined) {
-          this.state.is_debug = parsed.debug;
-          debugLog(1, `keyboard started with debug=${this.state.is_debug}`);
-        }
-      } catch (e) {
-        debugLog(4, `failed to parse params: ${e}`);
-      }
-    }
-  },
+  onInit(params) { activateDefaults(); },
 
   onResume() {
     // sync content with the internal/system keyboard
