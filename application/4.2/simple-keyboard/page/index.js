@@ -12,6 +12,8 @@ import {
   setStatusBarVisible,
 } from "@zos/ui";
 
+import { px } from "@zos/utils";
+
 import { showToast } from "@zos/interaction";
 import { scrollTo } from "@zos/page";
 import { getDeviceInfo, SCREEN_SHAPE_SQUARE } from "@zos/device";
@@ -20,6 +22,48 @@ import { getPackageInfo } from "@zos/app";
 
 const device_info = getDeviceInfo();
 const appName = getPackageInfo().name;
+
+const unit = {
+  p(v) {
+    return `${v}%`;
+  },
+  f() {
+    return "100%";
+  },
+  x(v) {
+    return typeof v !== "undefined" ? `${v}` : "0";
+  },
+  z() {
+    return "0";
+  },
+  wrap_content() {
+    return "auto";
+  },
+  vh(v) {
+    return `${v}vw`;
+  },
+  h1() {
+    return "100vh";
+  },
+  vw(v) {
+    return `${v}vw`;
+  },
+  w1() {
+    return "100vw";
+  },
+  il() {
+    return "ignore-layout";
+  },
+  fx() {
+    return "flex";
+  },
+  col() {
+    return "column";
+  },
+  row() {
+    return "row";
+  },
+};
 
 class Ref {
   constructor(val) {
@@ -96,9 +140,7 @@ const default_text_style = {
   text_style: text_style.CHAR_WRAP,
 };
 
-const default_layout = {
-  tags: "sww",
-};
+const default_layout = {};
 
 Page({
   state: {
@@ -159,16 +201,16 @@ Page({
           ref: vc,
           layout: {
             ...default_layout,
-            left: "0",
-            top: "0",
-            width: "100vw",
-            height: "200vh",
-            display: "flex",
-            flex_flow: "column",
-            row_gap: "25",
-            padding_top: "40",
-            padding_left: "72",
-            padding_right: "72",
+            left: unit.z(),
+            top: unit.z(),
+            width: unit.w1(),
+            height: unit.h1(),
+            display: unit.fx(),
+            flex_flow: unit.col(),
+            row_gap: px(25),
+            padding_top: px(40),
+            padding_left: px(72),
+            padding_right: px(72),
           },
         },
       ],
@@ -180,9 +222,9 @@ Page({
           layout_parent: vc,
           layout: {
             ...default_layout,
-            width: "100%",
-            height: "auto",
-            font_size: "40",
+            width: unit.f(),
+            height: unit.wrap_content(),
+            font_size: px(40),
           },
         },
       ],
@@ -192,8 +234,8 @@ Page({
           layout_parent: vc,
           layout: {
             ...default_layout,
-            width: "336",
-            height: "126",
+            width: px(336),
+            height: px(126),
           },
           children: [
             [
@@ -203,11 +245,11 @@ Page({
                 auto_scale: true,
                 layout: {
                   ...default_layout,
-                  top: "0",
-                  left: "0",
-                  width: "100%",
-                  height: "100%",
-                  tags: "ignore-layout",
+                  top: unit.z(),
+                  left: unit.z(),
+                  width: unit.f(),
+                  height: unit.f(),
+                  tags: unit.il(),
                 },
               },
             ],
@@ -219,11 +261,11 @@ Page({
                 align_h: align.LEFT,
                 layout: {
                   ...default_layout,
-                  left: "20",
-                  width: "auto",
-                  max_width: "200",
-                  height: "70",
-                  font_size: "27",
+                  left: px(20),
+                  width: unit.wrap_content(),
+                  max_width: px(200),
+                  height: px(70),
+                  font_size: px(27),
                   line_clamp: 2,
                 },
               },
@@ -239,9 +281,9 @@ Page({
           layout_parent: vc,
           layout: {
             ...default_layout,
-            width: "100%",
-            height: "auto",
-            font_size: "36",
+            width: unit.f(),
+            height: unit.wrap_content(),
+            font_size: px(36),
           },
         },
       ],
@@ -257,10 +299,10 @@ Page({
           layout_parent: vc,
           layout: {
             ...default_layout,
-            width: "100%",
-            height: "88",
-            font_size: "36",
-            corner_radius: "44",
+            width: unit.f(),
+            height: px(88),
+            font_size: px(36),
+            corner_radius: px(44),
           },
         },
       ],
@@ -270,8 +312,8 @@ Page({
           layout_parent: vc,
           layout: {
             ...default_layout,
-            width: "100%",
-            height: "100",
+            width: unit.f(),
+            height: px(100),
           },
         },
       ],
@@ -289,16 +331,16 @@ Page({
           ref: vc,
           layout: {
             ...default_layout,
-            left: "0",
-            top: "0",
-            width: "100vw",
-            height: "200vh",
-            display: "flex",
-            flex_flow: "column",
-            row_gap: "25",
-            padding_top: "40",
-            padding_left: "72",
-            padding_right: "72",
+            left: unit.z(),
+            top: unit.z(),
+            width: unit.w1(),
+            height: unit.h1(),
+            display: unit.fx(),
+            flex_flow: unit.col(),
+            row_gap: px(25),
+            padding_top: px(40),
+            padding_left: px(72),
+            padding_right: px(72),
           },
         },
       ],
@@ -310,9 +352,9 @@ Page({
           layout_parent: vc,
           layout: {
             ...default_layout,
-            width: "100%",
-            height: "auto",
-            font_size: "40",
+            width: unit.f(),
+            height: unit.wrap_content(),
+            font_size: px(40),
           },
         },
       ],
@@ -324,8 +366,8 @@ Page({
           layout_parent: vc,
           layout: {
             ...default_layout,
-            width: "336",
-            height: "126",
+            width: px(336),
+            height: px(126),
           },
         },
       ],
@@ -337,9 +379,9 @@ Page({
           layout_parent: vc,
           layout: {
             ...default_layout,
-            width: "100%",
-            height: "auto",
-            font_size: "36",
+            width: unit.f(),
+            height: unit.wrap_content(),
+            font_size: px(36),
           },
         },
       ],
@@ -357,10 +399,10 @@ Page({
           layout_parent: vc,
           layout: {
             ...default_layout,
-            width: "100%",
-            height: "88",
-            font_size: "36",
-            corner_radius: "44",
+            width: unit.f(),
+            height: px(88),
+            font_size: px(36),
+            corner_radius: px(44),
           },
         },
       ],
@@ -370,8 +412,8 @@ Page({
           layout_parent: vc,
           layout: {
             ...default_layout,
-            width: "100%",
-            height: "100",
+            width: unit.f(),
+            height: px(100),
           },
         },
       ],
@@ -394,16 +436,16 @@ Page({
           ref: vc,
           layout: {
             ...default_layout,
-            left: "0",
-            top: "0",
-            width: "100vw",
-            height: "200vh",
-            display: "flex",
-            flex_flow: "column",
-            row_gap: "10",
-            padding_top: "40",
-            padding_left: "72",
-            padding_right: "72",
+            left: unit.z(),
+            top: unit.z(),
+            width: unit.w1(),
+            height: unit.h1(),
+            display: unit.fx(),
+            flex_flow: unit.col(),
+            row_gap: px(25),
+            padding_top: px(40),
+            padding_left: px(72),
+            padding_right: px(72),
           },
         },
       ],
@@ -415,9 +457,9 @@ Page({
           layout_parent: vc,
           layout: {
             ...default_layout,
-            width: "100%",
-            height: "auto",
-            font_size: "40",
+            width: unit.f(),
+            height: unit.wrap_content(),
+            font_size: px(40),
           },
         },
       ],
@@ -433,10 +475,10 @@ Page({
           layout_parent: vc,
           layout: {
             ...default_layout,
-            width: "100%",
-            height: "88",
-            font_size: "36",
-            corner_radius: "44",
+            width: unit.f(),
+            height: px(88),
+            font_size: px(36),
+            corner_radius: px(44),
           },
         },
       ],
@@ -462,10 +504,10 @@ Page({
             layout_parent: vc,
             layout: {
               ...default_layout,
-              width: "100%",
-              height: "88",
-              font_size: "36",
-              corner_radius: "44",
+              width: unit.f(),
+              height: px(88),
+              font_size: px(36),
+              corner_radius: px(44),
             },
           },
         ];
@@ -481,10 +523,10 @@ Page({
           },
           layout_parent: vc,
           layout: {
-            width: "100%",
-            height: "88",
-            font_size: "36",
-            corner_radius: "44",
+            width: unit.f(),
+            height: px(88),
+            font_size: px(36),
+            corner_radius: px(44),
           },
         },
       ],
@@ -494,8 +536,8 @@ Page({
           layout_parent: vc,
           layout: {
             ...default_layout,
-            width: "100%",
-            height: "100",
+            width: unit.f(),
+            height: px(100),
           },
         },
       ],
