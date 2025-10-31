@@ -47,3 +47,14 @@ export function activateDefaults() {
     setStatusBarVisible(false);
   }
 }
+
+// cache image info
+import { getImageInfo } from '@zos/ui';
+const image_info_cache = {};
+
+export const getImageInfoCached = (src) => {
+  if (!image_info_cache[src]) {
+    image_info_cache[src] = getImageInfo(src);
+  }
+  return image_info_cache[src];
+};

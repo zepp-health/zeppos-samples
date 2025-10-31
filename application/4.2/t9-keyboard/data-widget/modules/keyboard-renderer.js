@@ -1,12 +1,12 @@
 // modules/keyboard-renderer.js
-import { createWidget, widget, prop, event, align, getImageInfo } from '@zos/ui';
+import { createWidget, widget, prop, event, align } from '@zos/ui';
 import { px } from '@zos/utils';
 import {
   KEYBOARD_MODES, CAPS_MODES, LONGPRESS_THRESHOLD, DEBOUNCE_TIME,
   EMOJI_MAP, NUMBER_SYMBOL_MAP, COLORS
 } from './keyboard-config';
 import { keyboard } from './safe-keyboard';
-import { debugLog, DeviceInfo } from '../../helpers/required';
+import { debugLog, DeviceInfo, getImageInfoCached } from '../../helpers/required';
 
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = DeviceInfo;
 const IS_ROUND = DEVICE_WIDTH === DEVICE_HEIGHT;
@@ -341,9 +341,53 @@ export class KeyboardRenderer {
     };
 
     // mode (numbers/T9 toggle)
-    this.keyboard.state.ui.mode_btn = createWidget(widget.IMG, icons.numbers);
+    const mode_config = icons.numbers;
+    const mode_img_info = getImageInfoCached(mode_config.src);
+    const mode_trigger_scale_h = 2.0;
+    const mode_trigger_scale_w = 1.5;
+
+    const mode_trigger_w = Math.round(mode_img_info.width * mode_trigger_scale_w);
+    const mode_trigger_h = Math.round(mode_img_info.height * mode_trigger_scale_h);
+    const mode_trigger_x = mode_config.x - Math.round((mode_trigger_w - mode_img_info.width) / 2);
+    const mode_trigger_y = mode_config.y - Math.round((mode_trigger_h - mode_img_info.height) / 2);
+
+    if (this.keyboard.state.is_debug) {
+      if (!this.keyboard.state.ui.debug_mode_border) {
+        this.keyboard.state.ui.debug_mode_border = createWidget(widget.STROKE_RECT, {
+          x: mode_trigger_x,
+          y: mode_trigger_y,
+          w: mode_trigger_w,
+          h: mode_trigger_h,
+          line_width: 2,
+          color: COLORS.DEBUG_DRAW,
+        });
+      }
+    }
+
+    this.keyboard.state.ui.mode_btn = createWidget(widget.IMG, mode_config);
+
+    const mode_overlay = createWidget(widget.FILL_RECT, {
+      x: mode_trigger_x,
+      y: mode_trigger_y,
+      w: mode_trigger_w,
+      h: mode_trigger_h,
+      alpha: 0
+    });
+
+    this.keyboard.state.ui.mode_trigger_info = {
+      x: mode_trigger_x,
+      y: mode_trigger_y,
+      w: mode_trigger_w,
+      h: mode_trigger_h,
+      img_w: mode_img_info.width,
+      img_h: mode_img_info.height,
+      overlay: mode_overlay,
+      scale_w: mode_trigger_scale_w,
+      scale_h: mode_trigger_scale_h
+    };
+
     this.setupUniversalButtonHandler(
-      this.keyboard.state.ui.mode_btn,
+      mode_overlay,
       'mode',
       () => this.keyboard.keyboardHandlers.handleModeSwitch()
     );
@@ -366,7 +410,7 @@ export class KeyboardRenderer {
 
     // shift
     const shift_config = icons.shift_off;
-    const shift_img_info = getImageInfo(shift_config.src);
+    const shift_img_info = getImageInfoCached(shift_config.src);
     const shift_trigger_scale_h = 1.5;
     const shift_trigger_scale_w = 2.0;
 
@@ -425,9 +469,53 @@ export class KeyboardRenderer {
     );
 
     // smiley/emoji
-    this.keyboard.state.ui.smiley_btn = createWidget(widget.IMG, icons.smiley);
+    const smiley_config = icons.smiley;
+    const smiley_img_info = getImageInfoCached(smiley_config.src);
+    const smiley_trigger_scale_h = 1.5;
+    const smiley_trigger_scale_w = 1.5;
+
+    const smiley_trigger_w = Math.round(smiley_img_info.width * smiley_trigger_scale_w);
+    const smiley_trigger_h = Math.round(smiley_img_info.height * smiley_trigger_scale_h);
+    const smiley_trigger_x = smiley_config.x - Math.round((smiley_trigger_w - smiley_img_info.width) / 2);
+    const smiley_trigger_y = smiley_config.y - Math.round((smiley_trigger_h - smiley_img_info.height) / 2);
+
+    if (this.keyboard.state.is_debug) {
+      if (!this.keyboard.state.ui.debug_smiley_border) {
+        this.keyboard.state.ui.debug_smiley_border = createWidget(widget.STROKE_RECT, {
+          x: smiley_trigger_x,
+          y: smiley_trigger_y,
+          w: smiley_trigger_w,
+          h: smiley_trigger_h,
+          line_width: 2,
+          color: COLORS.DEBUG_DRAW,
+        });
+      }
+    }
+
+    this.keyboard.state.ui.smiley_btn = createWidget(widget.IMG, smiley_config);
+
+    const smiley_overlay = createWidget(widget.FILL_RECT, {
+      x: smiley_trigger_x,
+      y: smiley_trigger_y,
+      w: smiley_trigger_w,
+      h: smiley_trigger_h,
+      alpha: 0
+    });
+
+    this.keyboard.state.ui.smiley_trigger_info = {
+      x: smiley_trigger_x,
+      y: smiley_trigger_y,
+      w: smiley_trigger_w,
+      h: smiley_trigger_h,
+      img_w: smiley_img_info.width,
+      img_h: smiley_img_info.height,
+      overlay: smiley_overlay,
+      scale_w: smiley_trigger_scale_w,
+      scale_h: smiley_trigger_scale_h
+    };
+
     this.setupUniversalButtonHandler(
-      this.keyboard.state.ui.smiley_btn,
+      smiley_overlay,
       'smiley',
       () => this.keyboard.keyboardHandlers.handleEmojiMode()
     );
@@ -966,10 +1054,19 @@ export class KeyboardRenderer {
   updateKeyboardVisuals() {
     if (this.keyboard.state.keyboard_mode === KEYBOARD_MODES.EMOJI) {
       this.renderEmojiGrid();
-      if (this.keyboard.state.ui.smiley_btn) {
+
+      const overlays = this.keyboard.state.ui.symbol_overlays;
+      if (overlays && overlays.length > 0) {
+        for (let i = 0, len = overlays.length; i < len; i++) {
+          overlays[i].widget.setProperty(prop.VISIBLE, false);
+        }
+        debugLog(3, 'hid symbol overlays in emoji mode');
+      }
+
+      if (this.keyboard.state.ui.smiley_btn && this.keyboard.state.ui.smiley_trigger_info) {
         const smiley_cfg = this.styles.icons.smiley;
-        const emoji_info = getImageInfo(this.styles.icons.smiley.src);
-        const t9_info = getImageInfo(this.styles.icons.t9.src);
+        const emoji_info = getImageInfoCached(this.styles.icons.smiley.src);
+        const t9_info = getImageInfoCached(this.styles.icons.t9.src);
         const offset_x = ((emoji_info.width - t9_info.width) >> 1);
         const offset_y = ((emoji_info.height - t9_info.height) >> 1);
         this.keyboard.state.ui.smiley_btn.setProperty(prop.MORE, {
@@ -977,6 +1074,30 @@ export class KeyboardRenderer {
           y: smiley_cfg.y + px(offset_y),
           src: this.styles.icons.t9.src
         });
+
+        if (this.keyboard.state.is_debug && this.keyboard.state.ui.debug_smiley_border) {
+          const trigger_info = this.keyboard.state.ui.smiley_trigger_info;
+          const new_trigger_w = Math.round(t9_info.width * trigger_info.scale_w);
+          const new_trigger_h = Math.round(t9_info.height * trigger_info.scale_h);
+          const new_trigger_x = smiley_cfg.x + px(offset_x) - Math.round((new_trigger_w - t9_info.width) / 2);
+          const new_trigger_y = smiley_cfg.y + px(offset_y) - Math.round((new_trigger_h - t9_info.height) / 2);
+
+          this.keyboard.state.ui.debug_smiley_border.setProperty(prop.MORE, {
+            x: new_trigger_x,
+            y: new_trigger_y,
+            w: new_trigger_w,
+            h: new_trigger_h,
+          });
+
+          if (trigger_info.overlay) {
+            trigger_info.overlay.setProperty(prop.MORE, {
+              x: new_trigger_x,
+              y: new_trigger_y,
+              w: new_trigger_w,
+              h: new_trigger_h,
+            });
+          }
+        }
       }
 
       if (this.keyboard.state.ui.mode_btn) {
@@ -994,13 +1115,38 @@ export class KeyboardRenderer {
 
     this.hideEmojiGrid();
 
-    if (this.keyboard.state.ui.smiley_btn) {
+    if (this.keyboard.state.ui.smiley_btn && this.keyboard.state.ui.smiley_trigger_info) {
       const smiley_cfg = this.styles.icons.smiley;
       this.keyboard.state.ui.smiley_btn.setProperty(prop.MORE, {
         x: smiley_cfg.x,
         y: smiley_cfg.y,
         src: this.styles.icons.smiley.src
       });
+
+      if (this.keyboard.state.is_debug && this.keyboard.state.ui.debug_smiley_border) {
+        const smiley_img_info = getImageInfoCached(smiley_cfg.src);
+        const trigger_info = this.keyboard.state.ui.smiley_trigger_info;
+        const new_trigger_w = Math.round(smiley_img_info.width * trigger_info.scale_w);
+        const new_trigger_h = Math.round(smiley_img_info.height * trigger_info.scale_h);
+        const new_trigger_x = smiley_cfg.x - Math.round((new_trigger_w - smiley_img_info.width) / 2);
+        const new_trigger_y = smiley_cfg.y - Math.round((new_trigger_h - smiley_img_info.height) / 2);
+
+        this.keyboard.state.ui.debug_smiley_border.setProperty(prop.MORE, {
+          x: new_trigger_x,
+          y: new_trigger_y,
+          w: new_trigger_w,
+          h: new_trigger_h,
+        });
+
+        if (trigger_info.overlay) {
+          trigger_info.overlay.setProperty(prop.MORE, {
+            x: new_trigger_x,
+            y: new_trigger_y,
+            w: new_trigger_w,
+            h: new_trigger_h,
+          });
+        }
+      }
     }
 
     const key_btns = this.keyboard.state.ui.key_btns_arr;
@@ -1027,10 +1173,10 @@ export class KeyboardRenderer {
             }
           }
 
-          if (this.keyboard.state.ui.mode_btn) {
+          if (this.keyboard.state.ui.mode_btn && this.keyboard.state.ui.mode_trigger_info) {
             const numbers_cfg = this.styles.icons.numbers;
-            const num_info = getImageInfo(this.styles.icons.numbers.src);
-            const t9_info = getImageInfo(this.styles.icons.t9.src);
+            const num_info = getImageInfoCached(this.styles.icons.numbers.src);
+            const t9_info = getImageInfoCached(this.styles.icons.t9.src);
             const offset_x = ((num_info.width - t9_info.width) >> 1);
             const offset_y = -1;
             this.keyboard.state.ui.mode_btn.setProperty(prop.MORE, {
@@ -1038,6 +1184,30 @@ export class KeyboardRenderer {
               y: numbers_cfg.y + px(offset_y),
               src: this.styles.icons.t9.src
             });
+
+            if (this.keyboard.state.is_debug && this.keyboard.state.ui.debug_mode_border) {
+              const trigger_info = this.keyboard.state.ui.mode_trigger_info;
+              const new_trigger_w = Math.round(t9_info.width * trigger_info.scale_w);
+              const new_trigger_h = Math.round(t9_info.height * trigger_info.scale_h);
+              const new_trigger_x = numbers_cfg.x + px(offset_x) - Math.round((new_trigger_w - t9_info.width) / 2);
+              const new_trigger_y = numbers_cfg.y + px(offset_y) - Math.round((new_trigger_h - t9_info.height) / 2);
+
+              this.keyboard.state.ui.debug_mode_border.setProperty(prop.MORE, {
+                x: new_trigger_x,
+                y: new_trigger_y,
+                w: new_trigger_w,
+                h: new_trigger_h,
+              });
+
+              if (trigger_info.overlay) {
+                trigger_info.overlay.setProperty(prop.MORE, {
+                  x: new_trigger_x,
+                  y: new_trigger_y,
+                  w: new_trigger_w,
+                  h: new_trigger_h,
+                });
+              }
+            }
           }
         } else {
           let letters = key_data.letters || '';
@@ -1064,13 +1234,38 @@ export class KeyboardRenderer {
             }
           }
 
-          if (this.keyboard.state.ui.mode_btn) {
+          if (this.keyboard.state.ui.mode_btn && this.keyboard.state.ui.mode_trigger_info) {
             const numbers_cfg = this.styles.icons.numbers;
             this.keyboard.state.ui.mode_btn.setProperty(prop.MORE, {
               x: numbers_cfg.x,
               y: numbers_cfg.y,
               src: this.styles.icons.numbers.src
             });
+
+            if (this.keyboard.state.is_debug && this.keyboard.state.ui.debug_mode_border) {
+              const num_img_info = getImageInfoCached(numbers_cfg.src);
+              const trigger_info = this.keyboard.state.ui.mode_trigger_info;
+              const new_trigger_w = Math.round(num_img_info.width * trigger_info.scale_w);
+              const new_trigger_h = Math.round(num_img_info.height * trigger_info.scale_h);
+              const new_trigger_x = numbers_cfg.x - Math.round((new_trigger_w - num_img_info.width) / 2);
+              const new_trigger_y = numbers_cfg.y - Math.round((new_trigger_h - num_img_info.height) / 2);
+
+              this.keyboard.state.ui.debug_mode_border.setProperty(prop.MORE, {
+                x: new_trigger_x,
+                y: new_trigger_y,
+                w: new_trigger_w,
+                h: new_trigger_h,
+              });
+
+              if (trigger_info.overlay) {
+                trigger_info.overlay.setProperty(prop.MORE, {
+                  x: new_trigger_x,
+                  y: new_trigger_y,
+                  w: new_trigger_w,
+                  h: new_trigger_h,
+                });
+              }
+            }
           }
         }
       }
@@ -1089,7 +1284,7 @@ export class KeyboardRenderer {
       this.keyboard.state.ui.shift_btn.setProperty(prop.SRC, shift_icon);
 
       if (this.keyboard.state.is_debug && this.keyboard.state.ui.debug_shift_border && this.keyboard.state.ui.shift_trigger_info) {
-        const new_img_info = getImageInfo(shift_icon);
+        const new_img_info = getImageInfoCached(shift_icon);
         const trigger_info = this.keyboard.state.ui.shift_trigger_info;
 
         const new_trigger_w = Math.round(new_img_info.width * trigger_info.scale_w);
