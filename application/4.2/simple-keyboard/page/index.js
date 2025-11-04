@@ -1,7 +1,7 @@
 import {
   keyboard,
   createWidget,
-  widget,
+  widget as idOfWidget,
   createKeyboard,
   deleteKeyboard,
   inputType,
@@ -19,9 +19,31 @@ import { scrollTo } from "@zos/page";
 import { getDeviceInfo, SCREEN_SHAPE_SQUARE } from "@zos/device";
 import { exit } from "@zos/router";
 import { getPackageInfo } from "@zos/app";
+import { launchApp } from "@zos/router";
 
 const device_info = getDeviceInfo();
 const appName = getPackageInfo().name;
+
+function keyboard_isEnabled() {
+  if (keyboard.isEnabled) {
+    return keyboard.isEnabled();
+  }
+  return true;
+}
+
+function keyboard_isSelected() {
+  if (keyboard.isSelected) {
+    return keyboard.isSelected();
+  }
+  return true;
+}
+
+function keyboard_gotoSettings() {
+  if (keyboard.gotoSettings) {
+    return keyboard.gotoSettings();
+  }
+  launchApp({ url: "Settings_keyboardScreen", native: true });
+}
 
 const unit = {
   p(v) {
@@ -75,40 +97,110 @@ function ref(val) {
   return new Ref(val);
 }
 
-function createElement(id, opts) {
-  let { ref, layout_parent, parent, children, ...rest } = opts;
+let protoOf = Object.getPrototypeOf;
+let widget_opts_proto = {};
+let objProto = protoOf(widget_opts_proto);
 
-  if (layout_parent instanceof Ref) {
-    rest.parent = layout_parent.current;
-  } else {
-    rest.parent = layout_parent;
+function create_widget_node(ctx, name, ...args) {
+  const id_name = name.toUpperCase();
+  const id = idOfWidget[id_name];
+
+  if (!id) {
+    throw new Error(`error: widget id ${id_name} is not exist`);
+  }
+
+  let [props, ...children] =
+    protoOf(args[0] ?? 0) === objProto ? args : [{}, ...args];
+
+  props.id = id;
+  props.id_name = id_name;
+  props.children = children;
+
+  if (ctx) {
+    props.parent = ctx.parent;
+    props.layout_parent = ctx.layout_parent;
+  }
+
+  return {
+    __proto__: widget_opts_proto,
+    id,
+    props,
+  };
+}
+
+let handler = (ctx) => ({
+  get: (_, name) => create_widget_node.bind(undefined, ctx, name),
+});
+
+let widgets = new Proxy(
+  (ctx) => new Proxy(create_widget_node, handler(ctx)),
+  handler()
+);
+
+function createElement(id_, opts) {
+  let [
+    id,
+    {
+      id_name = "UNKNOWN",
+      ref,
+      layout_parent,
+      parent,
+      children,
+      ...widget_props
+    },
+  ] = protoOf(id_) === widget_opts_proto ? [id_.id, id_.props] : [id_, opts];
+
+  widget_props.parent =
+    layout_parent instanceof Ref ? layout_parent.current : layout_parent;
+
+  if (widget_props.parent) {
+    widget_props.layout = widget_props.layout ?? {};
   }
 
   parent = parent instanceof Ref ? parent.current : parent ?? { createWidget };
-  const ele = parent.createWidget(id, rest);
+  const ele = parent.createWidget(id, widget_props);
+  if (!ele) {
+    throw new Error(`error: create widget ${id} ${id_name} is undefined`);
+  }
   ele.parent = parent;
 
   if (ref) {
     ref.current = ele;
   }
 
-  if (children) {
-    children.forEach(([id, opts]) => {
-      if (ele.getType() === widget.VIRTUAL_CONTAINER) {
-        opts.layout_parent = ele;
-      } else if (
-        [widget.GROUP, widget.VIEW_CONTAINER].includes(ele.getType()) &&
-        ele.isAutoLayout
-      ) {
-        opts.layout_parent = ele;
+  if (children && children.length > 0) {
+    let children_parent = ele.parent;
+    let children_layout_parent = ele.layout_parent;
+    if (id === idOfWidget.VIRTUAL_CONTAINER) {
+      children_layout_parent = ele;
+    } else if ([idOfWidget.GROUP, idOfWidget.VIEW_CONTAINER].includes(id)) {
+      children_parent = ele;
+      if (ele.isAutoLayout) {
+        children_layout_parent = ele;
+      }
+    } else {
+      throw new Error(
+        `error: child widget parent ${id} ${id_name} is not container type`
+      );
+    }
+
+    children.forEach((opts) => {
+      let child_id;
+      let child_widget_props;
+      if (Array.isArray(opts)) {
+        child_id = opts[0];
+        child_widget_props = opts[1];
+      } else if (protoOf(opts) === widget_opts_proto) {
+        child_id = opts.id;
+        child_widget_props = opts.props;
+      } else {
+        throw new Error(`error: create child widget opts is error`);
       }
 
-      if ([widget.GROUP, widget.VIEW_CONTAINER].includes(ele.getType())) {
-        opts.parent = ele;
-      } else {
-        opts.parent = ele.parent;
-      }
-      createElement(id, opts);
+      child_widget_props.parent = child_widget_props.parent ?? children_parent;
+      child_widget_props.layout_parent =
+        child_widget_props.layout_parent ?? children_layout_parent;
+      createElement(child_id, child_widget_props);
     });
   }
 
@@ -116,7 +208,7 @@ function createElement(id, opts) {
 }
 
 function removeElement(ele) {
-  if (ele.getType() === widget.VIRTUAL_CONTAINER) {
+  if (ele.getType() === idOfWidget.VIRTUAL_CONTAINER) {
     const children = ele.layoutChildren;
     deleteWidget(ele);
     children.forEach((item) => {
@@ -144,8 +236,8 @@ const default_layout = {};
 
 Page({
   state: {
-    isEnabled: keyboard.isEnabled(),
-    isSelected: keyboard.isSelected(),
+    isEnabled: keyboard_isEnabled(),
+    isSelected: keyboard_isSelected(),
     vc: null,
   },
   onInit() {
@@ -165,8 +257,8 @@ Page({
   },
   onResume() {
     console.log("resume");
-    this.state.isEnabled = keyboard.isEnabled();
-    this.state.isSelected = keyboard.isSelected();
+    this.state.isEnabled = keyboard_isEnabled();
+    this.state.isSelected = keyboard_isSelected();
 
     this.clear_page();
     this.build();
@@ -195,8 +287,7 @@ Page({
     const vc = ref(null);
     this.state.vc = vc;
     [
-      [
-        widget.VIRTUAL_CONTAINER,
+      widgets.Virtual_container(
         {
           ref: vc,
           layout: {
@@ -213,90 +304,68 @@ Page({
             padding_right: px(72),
           },
         },
-      ],
-      [
-        widget.TEXT,
-        {
+        widgets.Text({
           text: `Enable ${appName}`,
           ...default_text_style,
-          layout_parent: vc,
           layout: {
             ...default_layout,
             width: unit.f(),
             height: unit.wrap_content(),
             font_size: px(40),
           },
-        },
-      ],
-      [
-        widget.VIRTUAL_CONTAINER,
-        {
-          layout_parent: vc,
-          layout: {
-            ...default_layout,
-            width: px(336),
-            height: px(126),
+        }),
+        widgets.Virtual_container(
+          {
+            layout: {
+              ...default_layout,
+              width: px(336),
+              height: px(126),
+            },
           },
-          children: [
-            [
-              widget.IMG,
-              {
-                src: "image/keyboard_setting.png",
-                auto_scale: true,
-                layout: {
-                  ...default_layout,
-                  top: unit.z(),
-                  left: unit.z(),
-                  width: unit.f(),
-                  height: unit.f(),
-                  tags: unit.il(),
-                },
-              },
-            ],
-            [
-              widget.TEXT,
-              {
-                ...default_text_style,
-                text: appName,
-                align_h: align.LEFT,
-                layout: {
-                  ...default_layout,
-                  left: px(20),
-                  width: unit.wrap_content(),
-                  max_width: px(200),
-                  height: px(70),
-                  font_size: px(27),
-                  line_clamp: 2,
-                },
-              },
-            ],
-          ],
-        },
-      ],
-      [
-        widget.TEXT,
-        {
+          widgets.Img({
+            src: "image/keyboard_setting.png",
+            auto_scale: true,
+            layout: {
+              ...default_layout,
+              top: unit.z(),
+              left: unit.z(),
+              width: unit.f(),
+              height: unit.f(),
+              tags: unit.il(),
+            },
+          }),
+          widgets.Text({
+            ...default_text_style,
+            text: appName,
+            align_h: align.LEFT,
+            layout: {
+              ...default_layout,
+              left: px(20),
+              width: unit.wrap_content(),
+              max_width: px(200),
+              height: px(70),
+              font_size: px(27),
+              line_clamp: 2,
+            },
+          })
+        ),
+        widgets.Text({
           text: `Please toggle ${appName} on in settings`,
           ...default_text_style,
-          layout_parent: vc,
           layout: {
             ...default_layout,
             width: unit.f(),
             height: unit.wrap_content(),
             font_size: px(36),
           },
-        },
-      ],
-      [
-        widget.BUTTON,
-        {
+        }),
+        widgets.Button({
           text: "Go to Settings",
           normal_color: 0x383838,
           press_color: 0x383838,
           click_func() {
-            keyboard.gotoSettings();
+            keyboard_gotoSettings();
           },
-          layout_parent: vc,
           layout: {
             ...default_layout,
             width: unit.f(),
@@ -304,21 +373,17 @@ Page({
             font_size: px(36),
             corner_radius: px(44),
           },
-        },
-      ],
-      [
-        widget.FILL_RECT,
-        {
-          layout_parent: vc,
+        }),
+        widgets.Fill_rect({
           layout: {
             ...default_layout,
             width: unit.f(),
             height: px(100),
           },
-        },
-      ],
-    ].forEach(([id, opts]) => {
-      createElement(id, opts);
+        })
+      ),
+    ].forEach((opt) => {
+      createElement(opt);
     });
   },
   build_select_page() {
@@ -326,7 +391,7 @@ Page({
     this.state.vc = vc;
     [
       [
-        widget.VIRTUAL_CONTAINER,
+        idOfWidget.VIRTUAL_CONTAINER,
         {
           ref: vc,
           layout: {
@@ -345,7 +410,7 @@ Page({
         },
       ],
       [
-        widget.TEXT,
+        idOfWidget.TEXT,
         {
           text: `Enable ${appName}`,
           ...default_text_style,
@@ -359,7 +424,7 @@ Page({
         },
       ],
       [
-        widget.IMG,
+        idOfWidget.IMG,
         {
           src: "image/keyboard_enable.png",
           auto_scale: true,
@@ -372,7 +437,7 @@ Page({
         },
       ],
       [
-        widget.TEXT,
+        idOfWidget.TEXT,
         {
           text: `Touch and hold the Globe key on the keyboard, then select ${appName}`,
           ...default_text_style,
@@ -386,7 +451,7 @@ Page({
         },
       ],
       [
-        widget.BUTTON,
+        idOfWidget.BUTTON,
         {
           text: "Show Keyboard",
           normal_color: 0x0c86d1,
@@ -407,7 +472,7 @@ Page({
         },
       ],
       [
-        widget.FILL_RECT,
+        idOfWidget.FILL_RECT,
         {
           layout_parent: vc,
           layout: {
@@ -431,7 +496,7 @@ Page({
 
     [
       [
-        widget.VIRTUAL_CONTAINER,
+        idOfWidget.VIRTUAL_CONTAINER,
         {
           ref: vc,
           layout: {
@@ -450,7 +515,7 @@ Page({
         },
       ],
       [
-        widget.TEXT,
+        idOfWidget.TEXT,
         {
           text: appName,
           ...default_text_style,
@@ -464,13 +529,32 @@ Page({
         },
       ],
       [
-        widget.BUTTON,
+        idOfWidget.BUTTON,
         {
           text: "Show Keyboard",
           normal_color: 0x0c86d1,
           press_color: 0x0c86d1,
           click_func: () => {
             this.keyboard();
+          },
+          layout_parent: vc,
+          layout: {
+            ...default_layout,
+            width: unit.f(),
+            height: px(88),
+            font_size: px(36),
+            corner_radius: px(44),
+          },
+        },
+      ],
+      [
+        idOfWidget.BUTTON,
+        {
+          text: "Go To Settings",
+          normal_color: 0x0c86d1,
+          press_color: 0x0c86d1,
+          click_func: () => {
+            keyboard_gotoSettings();
           },
           layout_parent: vc,
           layout: {
@@ -491,7 +575,7 @@ Page({
         "About",
       ].map((i) => {
         return [
-          widget.BUTTON,
+          idOfWidget.BUTTON,
           {
             text: i,
             normal_color: 0x383838,
@@ -513,7 +597,7 @@ Page({
         ];
       }),
       [
-        widget.BUTTON,
+        idOfWidget.BUTTON,
         {
           text: "Exit",
           normal_color: 0x0c86d1,
@@ -531,7 +615,7 @@ Page({
         },
       ],
       [
-        widget.FILL_RECT,
+        idOfWidget.FILL_RECT,
         {
           layout_parent: vc,
           layout: {
