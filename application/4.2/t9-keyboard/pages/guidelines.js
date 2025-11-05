@@ -4,14 +4,13 @@
  */
 import {
   keyboard, createWidget, widget, createKeyboard, deleteKeyboard,
-  align, text_style, deleteWidget, updateLayout, getTextLayout
+  align, text_style, deleteWidget, updateLayout,
 } from "@zos/ui";
 
 import { showToast } from "@zos/interaction";
 import { scrollTo } from "@zos/page";
 import { exit } from "@zos/router";
 import { getPackageInfo } from '@zos/app';
-import { px } from '@zos/utils';
 import { setStatusBarVisible } from '@zos/ui';
 import { getDeviceInfo, SCREEN_SHAPE_SQUARE } from '@zos/device';
 
@@ -41,7 +40,7 @@ function ref(val) {
 }
 
 function createElement(id, opts) {
-  let { ref, layout_parent, parent, ...rest } = opts;
+  let { ref, layout_parent, parent, children, ...rest } = opts;
 
   if (layout_parent instanceof Ref) {
     rest.parent = layout_parent.current;
@@ -57,7 +56,44 @@ function createElement(id, opts) {
     ref.current = ele;
   }
 
+  if (children) {
+    children.forEach(([id, opts]) => {
+      if (ele.getType() === widget.VIRTUAL_CONTAINER) {
+        opts.layout_parent = ele;
+      } else if (
+        [widget.GROUP, widget.VIEW_CONTAINER].includes(ele.getType()) &&
+        ele.isAutoLayout
+      ) {
+        opts.layout_parent = ele;
+      }
+
+      if ([widget.GROUP, widget.VIEW_CONTAINER].includes(ele.getType())) {
+        opts.parent = ele;
+      } else {
+        opts.parent = ele.parent;
+      }
+      createElement(id, opts);
+    });
+  }
+
   return ele;
+}
+
+function removeElement(ele) {
+  if (ele.getType() === widget.VIRTUAL_CONTAINER) {
+    const children = ele.layoutChildren;
+    deleteWidget(ele);
+    children.forEach((item) => {
+      removeElement(item);
+    });
+  } else {
+    deleteWidget(ele);
+  }
+}
+
+// viewport (px) -> vw/vh converter
+function vp(px, unit='vw', reference_width=480) {
+  return ((px / reference_width) * 100) + unit;
 }
 
 Page({
@@ -69,7 +105,7 @@ Page({
   },
 
   // #region life cycles
-  onInit() { },
+  onInit() { this.hideStatusBar(); },
 
   build() {
     if (!this.state.is_enabled) {
@@ -106,9 +142,7 @@ Page({
   clearPage() {
     if (this.state.vc && this.state.vc.current) {
       const ele = this.state.vc.current;
-      const items = ele.layoutChildren;
-      deleteWidget(ele);
-      items.forEach((item) => deleteWidget(item));
+      removeElement(ele);
       this.state.vc.current = null;
     }
   },
@@ -131,16 +165,14 @@ Page({
         {
           ref: vc,
           layout: {
-            left: "0",
-            top: "0",
             width: "100vw",
             height: "200vh",
             display: "flex",
             flex_flow: "column wrap",
-            row_gap: "5.2vw",
-            padding_top: "8.3vw",
-            padding_left: "15vw",
-            padding_right: "15vw",
+            row_gap: vp(25),
+            padding_top: vp(40),
+            padding_left: vp(72),
+            padding_right: vp(72),
           },
         },
       ],
@@ -153,20 +185,47 @@ Page({
           layout: {
             width: "100%",
             height: "auto",
-            font_size: "8.3vw",
+            font_size: vp(40),
           },
         },
       ],
       [
-        widget.IMG,
+        widget.VIRTUAL_CONTAINER,
         {
-          src: "guidelines/keyboard_setting.png",
           layout_parent: vc,
-          auto_scale: true,
           layout: {
             width: "100%",
-            height: "26.25vw", // 126px/480 = 0.2625 = 26.25vw
+            height: vp(126), // 126px/480 = 0.2625 = 26.25vw
           },
+          children: [
+            [
+              widget.IMG,
+              {
+                src: "guidelines/keyboard_setting.png",
+                auto_scale: true,
+                layout: {
+                  width: "100%",
+                  height: "100%",
+                },
+              },
+            ],
+            [
+              widget.TEXT,
+              {
+                ...default_text_style,
+                text: KEYBOARD_NAME,
+                align_h: align.LEFT,
+                layout: {
+                  width: "auto",
+                  left: vp(20),
+                  max_width: vp(200),
+                  height: vp(70),
+                  font_size: vp(30), // 480 * 0.0625 = 30px (24px @390)
+                  line_clamp: 2,
+                },
+              },
+            ],
+          ],
         },
       ],
       [
@@ -178,7 +237,7 @@ Page({
           layout: {
             width: "100%",
             height: "auto",
-            font_size: "7.5vw",
+            font_size: vp(36),
           },
         },
       ],
@@ -194,9 +253,9 @@ Page({
           layout_parent: vc,
           layout: {
             width: "100%",
-            height: "18.3vw",
-            font_size: "7.5vw",
-            corner_radius: "9.2vw",
+            height: vp(88),
+            font_size: vp(36),
+            corner_radius: vp(44),
           },
         },
       ],
@@ -206,44 +265,13 @@ Page({
           layout_parent: vc,
           layout: {
             width: "100%",
-            height: "20.8vw",
+            height: vp(100),
           },
         },
       ],
     ].forEach(([id, opts]) => {
       createElement(id, opts);
     });
-
-    const { width } = DeviceInfo;
-    const pad_h = Math.round(width * 0.15);     // 15vw (72/480px)
-    const pad_top = Math.round(width * 0.083);  // 8.3vw (40/480px)
-    const row_gap = Math.round(width * 0.052);  // 5.2vw (25/480px)
-    const overlay_text_offset = Math.round(width * 0.048);
-    const title_font_size = Math.round(width * 0.083); // 40px font @480 = 8.3vw (40/480px)
-    const available_width = width - (pad_h * 2);
-
-    const title_layout = getTextLayout(this.state.title_text, {
-      text_size: title_font_size,
-      text_width: 0,
-      wrapped: 0,
-    });
-
-    const num_lines = Math.ceil(title_layout.width / available_width);
-    const title_height = num_lines * title_layout.height;
-    const img_top_y = pad_top + title_height + row_gap;
-    const overlay_y = img_top_y + overlay_text_offset;
-
-    const overlay_text = createWidget(widget.TEXT, {
-      x: px(Math.round(width * 0.2)),
-      y: px(Math.round(overlay_y)),
-      w: px(Math.round(width * 0.42)),
-      h: px(Math.round(width * 0.083)),
-      text: KEYBOARD_NAME,
-      color: COLORS.WHITE,
-      text_size: Math.round(width * 0.0625),
-      text_style: text_style.ELLIPSIS,
-    });
-    overlay_text.setLayoutParent(vc.current);
   },
   // #endregion
 
@@ -257,16 +285,14 @@ Page({
         {
           ref: vc,
           layout: {
-            left: "0",
-            top: "0",
             width: "100vw",
             height: "200vh",
             display: "flex",
             flex_flow: "column wrap",
-            row_gap: "5.2vw",
-            padding_top: "8.3vw",
-            padding_left: "15vw",
-            padding_right: "15vw",
+            row_gap: vp(25),
+            padding_top: vp(40),
+            padding_left: vp(72),
+            padding_right: vp(72),
           },
         },
       ],
@@ -279,7 +305,7 @@ Page({
           layout: {
             width: "100%",
             height: "auto",
-            font_size: "8.3vw",
+            font_size: vp(40),
           },
         },
       ],
@@ -291,7 +317,7 @@ Page({
           layout_parent: vc,
           layout: {
             width: "100%",
-            height: "26.25vw",
+            height: vp(126),
           },
         },
       ],
@@ -303,9 +329,8 @@ Page({
           layout_parent: vc,
           layout: {
             width: "100%",
-            min_height: "20.8vw",
             height: "auto",
-            font_size: "7.5vw",
+            font_size: vp(36),
           },
         },
       ],
@@ -323,9 +348,9 @@ Page({
           layout_parent: vc,
           layout: {
             width: "100%",
-            height: "18.3vw",
-            font_size: "7.5vw",
-            corner_radius: "9.2vw",
+            height: vp(88),
+            font_size: vp(36),
+            corner_radius: vp(44),
           },
         },
       ],
@@ -335,7 +360,7 @@ Page({
           layout_parent: vc,
           layout: {
             width: "100%",
-            height: "20.8vw",
+            height: vp(100),
           },
         },
       ],
@@ -360,16 +385,14 @@ Page({
         {
           ref: vc,
           layout: {
-            left: "0",
-            top: "0",
             width: "100vw",
             height: "300vh",
             display: "flex",
             flex_flow: "column wrap",
-            row_gap: "2.1vw",
-            padding_top: "8.3vw",
-            padding_left: "15vw",
-            padding_right: "15vw",
+            row_gap: vp(10),
+            padding_top: vp(40),
+            padding_left: vp(72),
+            padding_right: vp(72),
           },
         },
       ],
@@ -382,7 +405,7 @@ Page({
           layout: {
             width: "100%",
             height: "auto",
-            font_size: "8.3vw",
+            font_size: vp(40),
           },
         },
       ],
@@ -398,9 +421,9 @@ Page({
           layout_parent: vc,
           layout: {
             width: "100%",
-            height: "18.3vw",
-            font_size: "7.5vw",
-            corner_radius: "9.2vw",
+            height: vp(88),
+            font_size: vp(36),
+            corner_radius: vp(44),
           },
         },
       ],
@@ -418,9 +441,9 @@ Page({
             layout_parent: vc,
             layout: {
               width: "100%",
-              height: "18.3vw",
-              font_size: "7.5vw",
-              corner_radius: "9.2vw",
+              height: vp(88),
+              font_size: vp(36),
+              corner_radius: vp(44),
             },
           },
         ];
@@ -429,17 +452,17 @@ Page({
         widget.BUTTON,
         {
           text: "Exit",
-          normal_color: COLORS.GRAY,
-          press_color: COLORS.GRAY,
+          normal_color: COLORS.BLUE,
+          press_color: COLORS.BLUE,
           click_func() {
             exit();
           },
           layout_parent: vc,
           layout: {
             width: "100%",
-            height: "18.3vw",
-            font_size: "7.5vw",
-            corner_radius: "9.2vw",
+            height: vp(88),
+            font_size: vp(36),
+            corner_radius: vp(44),
           },
         },
       ],

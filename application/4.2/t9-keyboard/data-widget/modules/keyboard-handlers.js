@@ -139,6 +139,9 @@ export class KeyboardHandlers {
       } else if (this.keyboard.state.keyboard_mode === KEYBOARD_MODES.NUMBERS) {
         this.keyboard.state.keyboard_mode = KEYBOARD_MODES.T9;
         debugLog(3, 'switched to t9 mode');
+      } else if (this.keyboard.state.keyboard_mode === KEYBOARD_MODES.EMOJI) {
+        this.keyboard.state.keyboard_mode = KEYBOARD_MODES.NUMBERS;
+        debugLog(3, 'switched from emoji to numbers mode');
       }
 
       this.keyboard.keyboardRenderer.updateKeyboardVisuals();
