@@ -170,7 +170,7 @@ function createElement(id_, opts) {
 
   if (children && children.length > 0) {
     let children_parent = ele.parent;
-    let children_layout_parent = ele.layout_parent;
+    let children_layout_parent = ele.layoutParent;
     if (id === idOfWidget.VIRTUAL_CONTAINER) {
       children_layout_parent = ele;
     } else if ([idOfWidget.GROUP, idOfWidget.VIEW_CONTAINER].includes(id)) {
