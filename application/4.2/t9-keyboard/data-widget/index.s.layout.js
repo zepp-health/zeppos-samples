@@ -64,6 +64,7 @@ export const styles = {
     press_src: null,
     text_color: COLOR_WHITE,
     text_size: px(24),
+    olay_text_size: px(16), // gray overlay
   },
 
   prediction_bar: {

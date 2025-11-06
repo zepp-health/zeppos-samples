@@ -53,7 +53,7 @@ export class KeyboardRenderer {
           w: btn_w,
           h: px(20),
           color: 0x888888,
-          text_size: px(16),
+          text_size: px(this.styles.t9_key_btn.olay_text_size),
           text: digit,
           align_h: align.CENTER_H,
           align_v: align.CENTER_V,
@@ -585,7 +585,7 @@ export class KeyboardRenderer {
           w: btn_w,
           h: px(20),
           color: 0x888888,
-          text_size: px(16),
+          text_size: px(this.styles.t9_key_btn.olay_text_size),
           text: symbol_text,
           align_h: align.CENTER_H,
           align_v: align.CENTER_V,
@@ -1211,6 +1211,9 @@ export class KeyboardRenderer {
           }
         } else {
           let letters = key_data.letters || '';
+
+          // hide 0 & * of the main grid
+          key_data.letter_text.setProperty(prop.TEXT, '');
 
           if (letters) {
             const caps = this.keyboard.state.caps_mode;

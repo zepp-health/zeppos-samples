@@ -3,7 +3,7 @@
  *        Ensure that you carry over the resources from the assets/{*}/guidelines folder(s). 
  */
 import {
-  keyboard, createWidget, widget, createKeyboard, deleteKeyboard,
+  createWidget, widget, createKeyboard, deleteKeyboard,
   align, text_style, deleteWidget, updateLayout,
 } from "@zos/ui";
 
@@ -13,6 +13,8 @@ import { exit } from "@zos/router";
 import { getPackageInfo } from '@zos/app';
 import { setStatusBarVisible } from '@zos/ui';
 import { getDeviceInfo, SCREEN_SHAPE_SQUARE } from '@zos/device';
+
+import { keyboard } from "../data-widget/modules/safe-keyboard";
 
 const DeviceInfo = getDeviceInfo();
 const KEYBOARD_NAME = getPackageInfo().name;
@@ -92,7 +94,7 @@ function removeElement(ele) {
 }
 
 // viewport (px) -> vw/vh converter
-function vp(px, unit='vw', reference_width=480) {
+function vp(px, unit = 'vw', reference_width = 480) {
   return ((px / reference_width) * 100) + unit;
 }
 
@@ -338,8 +340,8 @@ Page({
         widget.BUTTON,
         {
           text: "Show Keyboard",
-          normal_color: COLORS.BLUE,
-          press_color: COLORS.BLUE,
+          normal_color: COLORS.GRAY,
+          press_color: COLORS.GRAY,
           click_func: () => {
             this.keyboard(() => {
               this.onResume();
@@ -409,12 +411,23 @@ Page({
           },
         },
       ],
+      // spacer
+      [
+        widget.FILL_RECT,
+        {
+          layout_parent: vc,
+          layout: {
+            width: "100%",
+            height: vp(60),
+          },
+        },
+      ],
       [
         widget.BUTTON,
         {
           text: "Show Keyboard",
-          normal_color: COLORS.BLUE,
-          press_color: COLORS.BLUE,
+          normal_color: COLORS.GRAY,
+          press_color: COLORS.GRAY,
           click_func: () => {
             this.keyboard();
           },
@@ -427,33 +440,12 @@ Page({
           },
         },
       ],
-      // TODO: manually populate other fields when necessary
-      ...["Languages", "Layout", "Themes", "Sound & vibration", "Privacy", "About"].map((i) => {
-        return [
-          widget.BUTTON,
-          {
-            text: i,
-            normal_color: COLORS.GRAY,
-            press_color: COLORS.GRAY,
-            click_func() {
-              showToast({ content: i });
-            },
-            layout_parent: vc,
-            layout: {
-              width: "100%",
-              height: vp(88),
-              font_size: vp(36),
-              corner_radius: vp(44),
-            },
-          },
-        ];
-      }),
       [
         widget.BUTTON,
         {
           text: "Exit",
-          normal_color: COLORS.BLUE,
-          press_color: COLORS.BLUE,
+          normal_color: COLORS.GRAY,
+          press_color: COLORS.GRAY,
           click_func() {
             exit();
           },

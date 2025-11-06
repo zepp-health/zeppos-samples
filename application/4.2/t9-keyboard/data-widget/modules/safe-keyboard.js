@@ -26,9 +26,9 @@ function warnUnsup(method_name) {
 }
 
 function hasMethod(method_name) {
-  return keyboard_supported && 
-         keyboard_api && 
-         typeof keyboard_api[method_name] === 'function';
+  return keyboard_supported &&
+    keyboard_api &&
+    typeof keyboard_api[method_name] === 'function';
 }
 
 const fallback_state = {
@@ -120,7 +120,7 @@ export const keyboard = {
       }
     }
     warnUnsup('sendFnKey');
-    switch(key_type) {
+    switch (key_type) {
       case keyboard.BACKSPACE:
         keyboard.backspace();
         break;
@@ -183,6 +183,25 @@ export const keyboard = {
     warnUnsup('switchInputType');
   },
 
+  gotoSettings() {
+    if (hasMethod('gotoSettings')) {
+      try {
+        return keyboard_api.gotoSettings();
+      } catch (e) {
+        debugLog(1, `gotoSettings error: ${e}`);
+      }
+    }
+    warnUnsup('gotoSettings');
+    try {
+      const r = __$$R$$__('@zos/router');
+      if (r && r.launchApp) {
+        r.launchApp({ url: 'Settings_keyboardScreen', params: { native: true } });
+      }
+    } catch (e) {
+      debugLog(1, `gotoSettings fallback failed: ${e}`);
+    }
+  },
+
   checkVoiceInputAvailable() {
     if (hasMethod('checkVoiceInputAvailable')) {
       try {
@@ -195,18 +214,42 @@ export const keyboard = {
     return false;
   },
 
-  BACKSPACE: keyboard_supported && keyboard_api && keyboard_api.BACKSPACE !== undefined 
-    ? keyboard_api.BACKSPACE : 1,
-  ENTER: keyboard_supported && keyboard_api && keyboard_api.ENTER !== undefined 
-    ? keyboard_api.ENTER : 2,
-  SWITCH: keyboard_supported && keyboard_api && keyboard_api.SWITCH !== undefined 
-    ? keyboard_api.SWITCH : 3,
-  SELECT: keyboard_supported && keyboard_api && keyboard_api.SELECT !== undefined 
-    ? keyboard_api.SELECT : 4,
+  isEnabled() {
+    if (hasMethod('isEnabled')) {
+      try {
+        return keyboard_api.isEnabled();
+      } catch (e) {
+        debugLog(1, `isEnabled error: ${e}`);
+      }
+    }
+    warnUnsup('isEnabled');
+    return true;
+  },
+
+  isSelected() {
+    if (hasMethod('isSelected')) {
+      try {
+        return keyboard_api.isSelected();
+      } catch (e) {
+        debugLog(1, `isSelected error: ${e}`);
+      }
+    }
+    warnUnsup('isSelected');
+    return true;
+  },
 
   isSupported() {
     return keyboard_supported;
   },
+
+  BACKSPACE: keyboard_supported && keyboard_api && keyboard_api.BACKSPACE !== undefined
+    ? keyboard_api.BACKSPACE : 1,
+  ENTER: keyboard_supported && keyboard_api && keyboard_api.ENTER !== undefined
+    ? keyboard_api.ENTER : 2,
+  SWITCH: keyboard_supported && keyboard_api && keyboard_api.SWITCH !== undefined
+    ? keyboard_api.SWITCH : 3,
+  SELECT: keyboard_supported && keyboard_api && keyboard_api.SELECT !== undefined
+    ? keyboard_api.SELECT : 4,
 
   hasMethod(method_name) {
     return hasMethod(method_name);
