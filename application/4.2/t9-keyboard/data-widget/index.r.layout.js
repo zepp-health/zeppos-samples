@@ -34,7 +34,9 @@ export const styles = {
   
   t9_key_btn: {
     normal_src: null, press_src: null,
-    text_color: COLOR_WHITE, text_size: px(28),
+    text_color: COLOR_WHITE, 
+    text_size: px(28),
+    olay_text_size: px(20),
   },
 
   prediction_bar: {
