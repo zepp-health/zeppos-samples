@@ -250,6 +250,8 @@ export const keyboard = {
     ? keyboard_api.SWITCH : 3,
   SELECT: keyboard_supported && keyboard_api && keyboard_api.SELECT !== undefined
     ? keyboard_api.SELECT : 4,
+  CANCEL: keyboard_supported && keyboard_api && keyboard_api.CANCEL !== undefined
+    ? keyboard_api.CANCEL : 5,
 
   hasMethod(method_name) {
     return hasMethod(method_name);
