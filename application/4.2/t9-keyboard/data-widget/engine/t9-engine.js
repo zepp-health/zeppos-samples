@@ -26,14 +26,34 @@ class T9Engine {
     this.is_processing = false;
     this.cur_seq = null;
     this.cancel_flag = false;
-    this.buildSeqMap();
+    this.is_ready = false;
+    this.ready_callbs_arr = [];
+  }
+
+  init() {
+    if (this.is_ready) return Promise.resolve();
+    if (this.init_promise) return this.init_promise;
+
+    this.init_promise = new Promise((resolve) => {
+      setTimeout(() => {
+        this.buildSeqMap();
+        this.is_ready = true;
+
+        while (this.ready_callbs_arr.length > 0) {
+          this.ready_callbs_arr.shift()();
+        }
+
+        resolve();
+      }, 0);
+    });
+    return this.init_promise;
   }
 
   buildSeqMap() {
     debugLog(3, 'building t9 seq map...');
     const dict = this.dictionary;
     const dict_len = dict.length;
-    
+
     // build seq_map
     for (let i = 0; i < dict_len; i++) {
       const word = dict[i];
@@ -86,8 +106,8 @@ class T9Engine {
       const char = word[i];
       const char_code = char.charCodeAt(0);
       // lowercase conversion (A-Z to a-z)
-      const lower_char = (char_code >= 65 && char_code <= 90) 
-        ? String.fromCharCode(char_code + 32) 
+      const lower_char = (char_code >= 65 && char_code <= 90)
+        ? String.fromCharCode(char_code + 32)
         : char;
       const digit = L2D_MAP[lower_char];
       if (digit) result += digit;
@@ -96,6 +116,13 @@ class T9Engine {
   }
 
   getSuggestions(seq, typed_prefix, max_results, callback) {
+    if (!this.is_ready) {
+      this.ready_callbs_arr.push(() => {
+        this.getSuggestions(seq, typed_prefix, max_results, callback);
+      });
+      return;
+    }
+
     if (this.cur_seq !== seq) {
       this.pending_arr = [];
       this.cur_seq = seq;
@@ -149,7 +176,7 @@ class T9Engine {
 
     const start_time = Date.now();
     const cache_key = `${seq}_${max_results}`;
-    
+
     if (this.seq_cache.has(cache_key)) {
       debugLog(3, `t9 cache hit for "${seq}"`);
       const cached = this.seq_cache.get(cache_key);
@@ -159,7 +186,7 @@ class T9Engine {
 
     const suggestions_arr = [];
     const exact_matches = this.seq_map.get(seq);
-    
+
     if (exact_matches) {
       const exact_len = exact_matches.length;
       for (let i = 0; i < exact_len && suggestions_arr.length < max_results; i++) {
@@ -196,7 +223,7 @@ class T9Engine {
             const words_len = words_arr.length;
             for (let j = 0; j < words_len && suggestions_arr.length < max_results; j++) {
               const word = words_arr[j];
-              
+
               let already_exists = false;
               const sugg_len = suggestions_arr.length;
               for (let k = 0; k < sugg_len; k++) {
@@ -240,19 +267,19 @@ class T9Engine {
 
   applyCapitalization(suggestions_arr, typed_prefix) {
     if (!typed_prefix) return suggestions_arr;
-    
+
     const prefix_len = typed_prefix.length;
     if (prefix_len === 0) return suggestions_arr;
 
     const first_char = typed_prefix[0];
     const first_code = first_char.charCodeAt(0);
     const is_upper = first_code >= 65 && first_code <= 90;
-    
+
     if (!is_upper) return suggestions_arr;
 
     const result_arr = [];
     const sugg_len = suggestions_arr.length;
-    
+
     for (let i = 0; i < sugg_len; i++) {
       const word = suggestions_arr[i];
       const word_len = word.length;
@@ -260,15 +287,15 @@ class T9Engine {
         const first_char = word[0];
         const first_code = first_char.charCodeAt(0);
         // uppercase first char
-        const upper_first = (first_code >= 97 && first_code <= 122) 
-          ? String.fromCharCode(first_code - 32) 
+        const upper_first = (first_code >= 97 && first_code <= 122)
+          ? String.fromCharCode(first_code - 32)
           : first_char;
         result_arr.push(upper_first + word.substring(1));
       } else {
         result_arr.push(word);
       }
     }
-    
+
     return result_arr;
   }
 

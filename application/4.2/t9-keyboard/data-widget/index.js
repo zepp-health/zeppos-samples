@@ -9,6 +9,7 @@ import { InputFieldManager } from './modules/input-field-manager';
 import { KeyboardRenderer } from './modules/keyboard-renderer';
 import { KeyboardHandlers } from './modules/keyboard-handlers';
 import { activateDefaults, debugLog, timeIt } from '../helpers/required';
+import { Preloader } from './modules/preloader';
 
 DataWidget({
   state: {
@@ -55,13 +56,22 @@ DataWidget({
       prediction_container: null,
       emoji_btns: null,
       symbol_overlays: [],
+
+      preloader_widget: null,
+      loading_widget: null,
+      loading_timer: null,
     },
 
     is_scrolling_predictions: false,
     scroll_offset: 0,
   },
 
-  onInit(params) { activateDefaults(); },
+  onInit(params) {
+    activateDefaults();
+
+    this.preloader = new Preloader();
+    this.preloader.show();
+  },
 
   onResume() {
     // sync content with the internal/system keyboard
@@ -93,36 +103,53 @@ DataWidget({
   },
 
   build() {
-    // init managers
-    this.multitapHandler = new MultitapHandler(this);
-    this.inputFieldManager = new InputFieldManager(this, styles);
-    this.keyboardRenderer = new KeyboardRenderer(this, styles);
-    this.keyboardHandlers = new KeyboardHandlers(this);
+    // delay keyboard construction by N ms
+    // making sure the preloader does its job
+    this.delayedBuild(50);
+  },
 
-    // calc cursor pos
-    this.state.cursor_pos = this.state.full_text.length;
+  delayedBuild(ms) {
+    setTimeout(() => {
+      const build_start = Date.now();
+      // init managers
+      this.multitapHandler = new MultitapHandler(this);
+      this.inputFieldManager = new InputFieldManager(this, styles);
+      this.keyboardRenderer = new KeyboardRenderer(this, styles);
+      this.keyboardHandlers = new KeyboardHandlers(this);
 
-    // Layer 1: BG
-    createWidget(widget.FILL_RECT, styles.bg_fill_rect);
+      // calc cursor pos
+      this.state.cursor_pos = this.state.full_text.length;
 
-    // Layer 2: Separator Lines
-    const s = styles.new_separator;
-    createWidget(widget.STROKE_RECT, s.top_sep);
-    createWidget(widget.STROKE_RECT, s.bot_sep);
+      // Layer 1: BG
+      createWidget(widget.FILL_RECT, styles.bg_fill_rect);
 
-    this.state.ui.candidate_widgets_arr = [];
+      // Layer 2: Separator Lines
+      const s = styles.new_separator;
+      createWidget(widget.STROKE_RECT, s.top_sep);
+      createWidget(widget.STROKE_RECT, s.bot_sep);
 
-    // Layer 3: Input Field
-    this.inputFieldManager.createSingleLineInputField();
+      this.state.ui.candidate_widgets_arr = [];
 
-    // Layer 4: Widgets
-    this.keyboardRenderer.renderT9Grid();
-    this.keyboardRenderer.renderIconButtons();
+      // Layer 3: Input Field
+      this.inputFieldManager.createSingleLineInputField();
 
-    // update state when everything is created
-    this.keyboardRenderer.updateKeyboardVisuals();
-    this.keyboardRenderer.updateConfirmCancelButton();
-    this.updateKeyboardState();
+      // Layer 4: Widgets
+      this.keyboardRenderer.renderT9Grid();
+      this.keyboardRenderer.renderIconButtons();
+
+      // update state when everything is created
+      this.keyboardRenderer.updateKeyboardVisuals();
+      this.keyboardRenderer.updateConfirmCancelButton();
+      this.updateKeyboardState();
+
+      t9_engine.init().then(() => {
+        debugLog(3, 't9 engine ready');
+      });
+
+      debugLog(3, `Time to draw keyboard: ${Date.now() - build_start}ms`); // 330ms
+
+      this.preloader.hide();
+    }, ms);
   },
 
   updateKeyboardState() {
@@ -240,6 +267,10 @@ DataWidget({
 
     if (this.keyboardRenderer && this.keyboardRenderer.scroll_reset_timer) {
       clearTimeout(this.keyboardRenderer.scroll_reset_timer);
+    }
+
+    if (this.preloader) {
+      this.preloader.destroy();
     }
   },
 });
