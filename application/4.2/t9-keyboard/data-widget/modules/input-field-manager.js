@@ -1,10 +1,12 @@
 // modules/input-field-manager.js
-import { createWidget, widget, prop, getTextLayout, event, text_style } from '@zos/ui';
+import { createWidget, widget, prop, event, text_style } from '@zos/ui';
 import { px } from '@zos/utils';
 import { debugLog, DeviceInfo, timeIt } from '../../helpers/required';
+import { getScaledWidths } from './font-atlas.js';
 
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = DeviceInfo;
 const IS_ROUND = DEVICE_WIDTH === DEVICE_HEIGHT;
+const ELLIPSIS_CHAR = '…';
 
 export class InputFieldManager {
   constructor(keyboard, styles) {
@@ -25,6 +27,44 @@ export class InputFieldManager {
     const safe_margin = px(4);
 
     this.max_width = backspace_x - input_x - safe_margin;
+
+    // char width cache
+    const widths = getScaledWidths(styles.input_field.text_size);
+    this.char_width_cache = widths.CHAR_WIDTH_MAP;
+    this.space_width = widths.SPACE_WIDTH;
+    this.emoji_width = widths.EMOJI_WIDTH;
+    this.ellipsis_width = widths.ELLIPSIS_WIDTH;
+    this.avg_char_width = widths.AVG_CHAR_WIDTH;
+  }
+
+  calcTextWidth(text) {
+    let width = 0;
+    const len = text.length;
+    let i = 0;
+
+    while (i < len) {
+      const code = text.charCodeAt(i);
+      // 0xD800-0xDBFF = start of emoji
+      if (code >= 0xD800 && code <= 0xDBFF && i + 1 < len) {
+        const next_code = text.charCodeAt(i + 1);
+        // 0xDC00-0xDFFF = end of emoji
+        if (next_code >= 0xDC00 && next_code <= 0xDFFF) {
+          width += this.emoji_width;
+          i += 2;
+          continue;
+        }
+      }
+      width += this.getCharWidth(text[i]);
+      i++;
+    }
+    return width;
+  }
+
+  getCharWidth(c) {
+    if (c === ' ') return this.space_width;
+    if (c === ELLIPSIS_CHAR) return this.ellipsis_width;
+    const cached = this.char_width_cache[c];
+    return cached !== undefined ? cached : this.avg_char_width;
   }
 
   createSingleLineInputField() {
@@ -176,84 +216,90 @@ export class InputFieldManager {
 
     if (this.keyboard.state.has_pending_char && this.keyboard.state.pending_char) {
       const pending_disp = this.keyboard.multitapHandler.applyCapitalization(this.keyboard.state.pending_char);
-      full_disp_text = full_disp_text.substring(0, cur_pos) + pending_disp + full_disp_text.substring(cur_pos);
+      full_disp_text = full_text.substring(0, cur_pos) + pending_disp + full_text.substring(cur_pos);
     }
 
     const max_width = this.max_width - 20;
+    const estimated_width = this.calcTextWidth(full_disp_text);
 
-    const full_layout = getTextLayout(full_disp_text, {
-      text_size: this.styles.input_field.text_size,
-      text_width: 0,
-      wrapped: 0
-    });
-
-    if (full_layout.width <= max_width) {
+    if (estimated_width <= max_width) {
       let full_cursor_pos = cur_pos;
       if (this.keyboard.state.has_pending_char && this.keyboard.state.pending_char) {
         full_cursor_pos = cur_pos + 1;
       }
 
-      const display_cursor_pos = Math.max(0, Math.min(full_cursor_pos, full_disp_text.length));
+      const display_cursor_pos = full_cursor_pos < 0 ? 0 :
+        full_cursor_pos > full_disp_text.length ? full_disp_text.length :
+          full_cursor_pos;
+
       const text_before_cursor = full_disp_text.substring(0, display_cursor_pos);
+      const cursor_x = this.calcTextWidth(text_before_cursor);
 
-      const cursor_layout = getTextLayout(text_before_cursor, {
-        text_size: this.styles.input_field.text_size,
-        text_width: 0,
-        wrapped: 0
-      });
+      const result = {
+        text: full_disp_text,
+        truncated_chars: 0,
+        cursor_x: cursor_x < 0 ? 0 : cursor_x
+      };
 
-      const result = { text: full_disp_text, truncated_chars: 0, cursor_x: Math.max(0, cursor_layout.width) };
       this.last_cache_key = cache_key;
       this.cached_display_info = result;
       return result;
     }
 
+    const text_len = full_disp_text.length;
     let best_start_pos = 0;
-    for (let start_pos = 1; start_pos < full_disp_text.length; start_pos++) {
+
+    for (let start_pos = 1; start_pos < text_len; start_pos++) {
       if (this.isSurrogatePairBoundary(full_disp_text, start_pos)) {
         continue;
       }
 
-      const truncated = full_disp_text.substring(start_pos);
-      const test_text = '…' + truncated;
+      const remaining_text = full_disp_text.substring(start_pos);
+      const test_width = this.ellipsis_width + this.calcTextWidth(remaining_text);
 
-      const test_layout = getTextLayout(test_text, {
-        text_size: this.styles.input_field.text_size,
-        text_width: 0,
-        wrapped: 0
-      });
-
-      if (test_layout.width <= max_width) {
+      if (test_width <= max_width) {
         best_start_pos = start_pos;
-        const display_text = '…' + truncated;
-
-        let full_cursor_pos = cur_pos;
-        if (this.keyboard.state.has_pending_char && this.keyboard.state.pending_char) {
-          full_cursor_pos = cur_pos + 1;
-        }
-
-        let display_cursor_pos = full_cursor_pos - best_start_pos;
-        if (best_start_pos > 0) {
-          display_cursor_pos += 1;
-        }
-
-        display_cursor_pos = Math.max(0, Math.min(display_cursor_pos, display_text.length));
-        const text_before_cursor = display_text.substring(0, display_cursor_pos);
-
-        const cursor_layout = getTextLayout(text_before_cursor, {
-          text_size: this.styles.input_field.text_size,
-          text_width: 0,
-          wrapped: 0
-        });
-
-        const result = { text: display_text, truncated_chars: best_start_pos, cursor_x: Math.max(0, cursor_layout.width) };
-        this.last_cache_key = cache_key;
-        this.cached_display_info = result;
-        return result;
+        break;
       }
     }
 
-    const result = { text: '…', truncated_chars: full_disp_text.length, cursor_x: 0 };
+    if (best_start_pos === 0) {
+      const result = {
+        text: ELLIPSIS_CHAR,
+        truncated_chars: text_len,
+        cursor_x: 0
+      };
+      this.last_cache_key = cache_key;
+      this.cached_display_info = result;
+      return result;
+    }
+
+    const truncated = full_disp_text.substring(best_start_pos);
+    const display_text = ELLIPSIS_CHAR + truncated;
+
+    let full_cursor_pos = cur_pos;
+    if (this.keyboard.state.has_pending_char && this.keyboard.state.pending_char) {
+      full_cursor_pos = cur_pos + 1;
+    }
+
+    let display_cursor_pos = full_cursor_pos - best_start_pos;
+    if (best_start_pos > 0) {
+      display_cursor_pos += 1;
+    }
+
+    display_cursor_pos = display_cursor_pos < 0 ? 0 :
+      display_cursor_pos > display_text.length ? display_text.length :
+        display_cursor_pos;
+
+    const text_before_cursor = display_text.substring(0, display_cursor_pos);
+    const cursor_x = this.calcTextWidth(text_before_cursor);
+
+    const result = {
+      text: display_text,
+      truncated_chars: best_start_pos,
+      cursor_x: cursor_x < 0 ? 0 : cursor_x
+    };
+
     this.last_cache_key = cache_key;
     this.cached_display_info = result;
     return result;
@@ -275,13 +321,7 @@ export class InputFieldManager {
     display_cursor_pos = Math.max(0, Math.min(display_cursor_pos, display_info.text.length));
     const text_before_cursor = display_info.text.substring(0, display_cursor_pos);
 
-    const layout = getTextLayout(text_before_cursor, {
-      text_size: this.styles.input_field.text_size,
-      text_width: 0,
-      wrapped: 0
-    });
-
-    return Math.max(0, layout.width);
+    return Math.max(0, this.calcTextWidth(text_before_cursor));
   }
 
   updateCursorPosition() {
@@ -295,13 +335,9 @@ export class InputFieldManager {
       cursor_text += pending_display;
     }
 
-    const cursor_layout = getTextLayout(cursor_text, {
-      text_size: this.styles.input_field.text_size,
-      text_width: 0,
-      wrapped: 0
-    });
+    const cursor_width = this.calcTextWidth(cursor_text);
+    const cursor_x = this.styles.input_field.x + cursor_width - display_info.offset;
 
-    const cursor_x = this.styles.input_field.x + cursor_layout.width - display_info.offset;
     this.keyboard.state.ui.cursor_widget.setProperty(prop.X,
       Math.max(this.styles.input_field.x,
         Math.min(cursor_x, this.styles.input_field.x + this.max_width - px(2))

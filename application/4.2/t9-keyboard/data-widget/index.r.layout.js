@@ -8,6 +8,8 @@ const COLOR_BG = 0x2a2a2c;
 const COLOR_WHITE = 0xffffff;
 const COLOR_SEP = 0x555555;
 
+const INPUT_TEXT_SIZE = px(28);
+
 export const styles = {
   bg_fill_rect: {
     x: 0, y: 0, w: DEVICE_WIDTH, h: DEVICE_HEIGHT, color: COLOR_BG,
@@ -24,7 +26,7 @@ export const styles = {
 
   input_field: {
     x: px(70), y: px(70), w: px(350), h: px(40),
-    color: COLOR_WHITE, text_size: px(28), align_h: 'left', align_v: 'center',
+    color: COLOR_WHITE, text_size: INPUT_TEXT_SIZE, align_h: 'left', align_v: 'center',
   },
 
   t9_grid: {

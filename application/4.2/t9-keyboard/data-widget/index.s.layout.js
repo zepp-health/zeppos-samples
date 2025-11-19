@@ -8,6 +8,8 @@ const COLOR_BG = 0x2a2a2c;
 const COLOR_WHITE = 0xffffff;
 const COLOR_SEP = 0x555555;
 
+const INPUT_TEXT_SIZE = px(28);
+
 export const styles = {
   bg_fill_rect: {
     x: 0,
@@ -45,7 +47,7 @@ export const styles = {
     w: px(300),
     h: px(50),
     color: COLOR_WHITE,
-    text_size: px(28),
+    text_size: INPUT_TEXT_SIZE,
     align_h: 'left',
     align_v: 'center',
   },
