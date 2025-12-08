@@ -243,6 +243,15 @@ export class KeyboardHandlers {
     let chars_to_delete = 1;
     if (cur_pos >= 2) {
       const char_before = full_text.charCodeAt(cur_pos - 1);
+      const char_before_that = full_text.charCodeAt(cur_pos - 2);
+
+      // heart emoji 0x2764 + 0xFE0F
+      if (char_before_that === 0x2764 && char_before === 0xFE0F) {
+        chars_to_delete = 2;
+        debugLog(3, `detected heart emoji at pos ${cur_pos - 2}, deleting 2 chars`);
+      }
+
+      // sur
       if (char_before >= 0xDC00 && char_before <= 0xDFFF) {
         const char_before_that = full_text.charCodeAt(cur_pos - 2);
         if (char_before_that >= 0xD800 && char_before_that <= 0xDBFF) {

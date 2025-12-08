@@ -5,8 +5,8 @@
     "appName": "T9 Keyboard",
     "appType": "app",
     "version": {
-      "code": 110,
-      "name": "1.2.0"
+      "code": 121,
+      "name": "1.2.1"
     },
     "icon": "icon.png",
     "vender": "zepp",

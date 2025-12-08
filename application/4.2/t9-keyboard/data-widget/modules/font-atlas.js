@@ -1,6 +1,14 @@
 // modules/font-atlas.js
 // a much better solution to frequent getTextLayout() calls
 
+import { DeviceInfo } from "../../helpers/required";
+const { width, height } = DeviceInfo; // getDeviceInfo()
+
+// 480 emoji width = 28px, while bip 6 & active 2 = 32px; 32/28 = 1.143
+// NOTE: heart emoji "❤️" is 50px wide @ 390x450 & 466x466
+// so its actual ratio should be 1.786, but only for the TEXT widget width size compute
+const emoji_ratio = (width === 480 && height === 480) ? 1.0 : 1.143;
+
 // base measurement @text_size: px(28)
 const BASE_FONT_SIZE = 28;
 
@@ -37,7 +45,7 @@ function getScaledWidths(font_size) {
   return {
     CHAR_WIDTH_MAP: scaled_map,
     SPACE_WIDTH: (BASE_SPACE_WIDTH * scale) | 0,
-    EMOJI_WIDTH: font_size,
+    EMOJI_WIDTH: (font_size * emoji_ratio) | 0,
     ELLIPSIS_WIDTH: (BASE_ELLIPSIS_WIDTH * scale) | 0,
     AVG_CHAR_WIDTH: BASE_AVG_CHAR_WIDTH * scale
   };
