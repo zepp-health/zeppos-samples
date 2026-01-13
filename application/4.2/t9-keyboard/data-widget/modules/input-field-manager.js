@@ -37,26 +37,45 @@ export class InputFieldManager {
     this.avg_char_width = widths.AVG_CHAR_WIDTH;
   }
 
+  isMultiCharSeq(text, pos) {
+    if (pos >= text.length) return 0;
+
+    const code = text.charCodeAt(pos);
+
+    // special case for the wider heart emoji (50px vs 32px)
+    if (code === 0x2764 && pos + 1 < text.length && text.charCodeAt(pos + 1) === 0xFE0F) {
+      return 2;
+    }
+
+    // 0xD800-0xDBFF = start of emoji
+    if (code >= 0xD800 && code <= 0xDBFF && pos + 1 < text.length) {
+      const next_code = text.charCodeAt(pos + 1);
+      // 0xDC00-0xDFFF = end of emoji
+      if (next_code >= 0xDC00 && next_code <= 0xDFFF) {
+        return 2;
+      }
+    }
+
+    return 1; // single char
+  }
+
   calcTextWidth(text) {
     let width = 0;
     const len = text.length;
     let i = 0;
 
     while (i < len) {
-      const code = text.charCodeAt(i);
-      // 0xD800-0xDBFF = start of emoji
-      if (code >= 0xD800 && code <= 0xDBFF && i + 1 < len) {
-        const next_code = text.charCodeAt(i + 1);
-        // 0xDC00-0xDFFF = end of emoji
-        if (next_code >= 0xDC00 && next_code <= 0xDFFF) {
-          width += this.emoji_width;
-          i += 2;
-          continue;
-        }
+      const char_len = this.isMultiCharSeq(text, i);
+
+      if (char_len === 2) {
+        width += this.emoji_width;
+        i += 2;
+      } else {
+        width += this.getCharWidth(text[i]);
+        i++;
       }
-      width += this.getCharWidth(text[i]);
-      i++;
     }
+
     return width;
   }
 
@@ -70,7 +89,7 @@ export class InputFieldManager {
   createSingleLineInputField() {
     this.keyboard.state.ui.input_field_widget = createWidget(widget.TEXT, {
       ...this.styles.input_field,
-      w: this.max_width,
+      w: this.max_width * 2, // *2 = heart emoji (50px vs 32px rendered) input field autoscroll bugfix
       text_style: text_style.NONE,
       text: ''
     });
@@ -172,10 +191,20 @@ export class InputFieldManager {
     const text_len = full_text.length;
     if (text_len === 0) return 0;
 
+    const valid_positions = [0];
+    let i = 0;
+    while (i < text_len) {
+      const char_len = this.isMultiCharSeq(full_text, i);
+      i += char_len;
+      valid_positions.push(i);
+    }
+
     let best_pos = 0;
     let best_dist = relative_click_x > 0 ? relative_click_x : -relative_click_x;
 
-    for (let pos = 1; pos <= text_len; pos++) {
+    const pos_count = valid_positions.length;
+    for (let j = 0; j < pos_count; j++) {
+      const pos = valid_positions[j];
       const cursor_x = this.getCursorXPosition(pos);
       const diff = relative_click_x - cursor_x;
       const dist = diff > 0 ? diff : -diff;
@@ -198,7 +227,15 @@ export class InputFieldManager {
     const is_high = (prev_code & 0xFC00) === 0xD800;
     const is_low = (cur_code & 0xDC00) === 0xDC00;
 
-    return is_high && is_low;
+    if (is_high && is_low) return true;
+
+    // heart emoji boundary
+    if (prev_code === 0x2764 && cur_code === 0xFE0F) return true;
+
+    // variation selector
+    if (cur_code === 0xFE0F || cur_code === 0xFE0E) return true;
+
+    return false;
   }
 
   getCurrentDisplayInfo() {
